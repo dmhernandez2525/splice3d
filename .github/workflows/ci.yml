@@ -1,0 +1,94 @@
+name: Splice3D CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-postprocessor:
+    name: Test Post-Processor
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        cd postprocessor
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
+    
+    - name: Run tests with coverage
+      run: |
+        cd postprocessor
+        python -m pytest tests/ -v --cov=. --cov-report=xml
+    
+    - name: Test CLI
+      run: |
+        cd postprocessor
+        python splice3d_postprocessor.py ../samples/test_multicolor.gcode -v
+    
+    - name: Validate sample recipe
+      run: |
+        cd postprocessor
+        python recipe_validator.py ../samples/test_multicolor_splice_recipe.json
+
+  test-firmware-build:
+    name: Build Firmware
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install PlatformIO
+      run: |
+        python -m pip install --upgrade pip
+        pip install platformio
+    
+    - name: Build firmware
+      run: |
+        cd firmware
+        pio run
+
+  lint:
+    name: Lint Python
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install linters
+      run: |
+        pip install flake8 black isort
+    
+    - name: Check with flake8
+      run: |
+        flake8 postprocessor/ cli/ --max-line-length=100 --ignore=E501,W503
+      continue-on-error: true
+    
+    - name: Check formatting with black
+      run: |
+        black --check postprocessor/ cli/
+      continue-on-error: true
