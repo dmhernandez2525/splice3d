@@ -11,13 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial project structure and documentation
 - G-code parser with T command and M600 support
 - Recipe generator with segment merging
+- Recipe validator for pre-flight checks
 - G-code modifier for single-extruder output
 - Firmware architecture for BTT SKR Mini E3 v2
 - 13-state splice cycle state machine
 - Error handler with recovery actions
-- CLI tools: `splice3d_cli.py`, `simulator.py`, `analyze_gcode.py`
+- TMC2209 UART configuration (StealthChop, current control)
+- LCD display support for stock Ender 3 screen
+- CLI tools: `splice3d_cli.py`, `simulator.py`, `analyze_gcode.py`, `gui.py`
 - Filament profile database for common materials
 - Comprehensive documentation suite
+- Setup and test scripts
 
 ### Documentation
 - WIRING.md: SKR Mini E3 v2 wiring diagram
@@ -25,11 +29,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - MECHANICAL.md: Build guide
 - SPLICE_CORE.md: Weld mechanism design
 - CALIBRATION.md: Tuning procedures
+- TROUBLESHOOTING.md: Common issues and solutions
 - ORCASLICER_SETUP.md: Multi-extruder profile setup
 - STARRY_NIGHT_ANALYSIS.md: Benchmark analysis
-- TROUBLESHOOTING.md: Common issues and solutions
 - ROADMAP.md: 6-phase development plan
 - VISION.md: Full project vision
+- INTEGRATION_OPTIONS.md: Slicer plugin vs web analysis
+- PROJECT_ORGANIZATION.md: Directory structure reference
+- CHANGELOG.md: Version history (Keep a Changelog format)
+- CONTRIBUTING.md: Contribution guidelines
+- LICENSE: MIT
 
 ---
 
