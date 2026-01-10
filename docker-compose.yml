@@ -1,0 +1,30 @@
+# Docker Compose for Splice3D
+# Useful for development and testing
+
+version: '3.8'
+
+services:
+  postprocessor:
+    build: .
+    volumes:
+      - ./samples:/data/samples
+      - ./output:/data/output
+    command: >
+      python postprocessor/splice3d_postprocessor.py 
+      /data/samples/test_multicolor.gcode 
+      --output-dir /data/output
+      -v
+
+  simulator:
+    build: .
+    volumes:
+      - ./samples:/data/samples
+    command: >
+      python cli/simulator.py 
+      /data/samples/test_multicolor_splice_recipe.json 
+      --speed 100
+
+  test:
+    build: .
+    command: >
+      python -m pytest postprocessor/tests/ -v

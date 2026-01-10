@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "splice3d"
+version = "0.1.0"
+description = "Multi-color filament pre-splicer for FDM 3D printing"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Splice3D Contributors"}
+]
+keywords = ["3d-printing", "filament", "splicer", "multi-color", "gcode"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Manufacturing",
+    "Topic :: Printing",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "pyserial>=3.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "flake8>=6.0",
+    "isort>=5.12",
+]
+
+[project.scripts]
+splice3d = "postprocessor.splice3d_postprocessor:main"
+splice3d-analyze = "cli.analyze_gcode:main"
+splice3d-simulate = "cli.simulator:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/splice3d"
+Documentation = "https://github.com/yourusername/splice3d#readme"
+Repository = "https://github.com/yourusername/splice3d.git"
+Issues = "https://github.com/yourusername/splice3d/issues"
+
+[tool.setuptools.packages.find]
+include = ["postprocessor*", "cli*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["postprocessor/tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
