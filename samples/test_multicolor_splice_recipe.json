@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "total_length_mm": 35.5,
+  "segment_count": 2,
+  "color_count": 2,
+  "segments": [
+    {
+      "color": 0,
+      "length_mm": 17.0
+    },
+    {
+      "color": 1,
+      "length_mm": 18.5
+    }
+  ],
+  "colors": {
+    "0": "white",
+    "1": "black"
+  },
+  "metadata": {
+    "source_file": "../samples/test_multicolor.gcode",
+    "transition_length_mm": 0.0,
+    "original_segments": 3,
+    "merged_segments": 1
+  }
+}
