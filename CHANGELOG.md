@@ -36,9 +36,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - VISION.md: Full project vision
 - INTEGRATION_OPTIONS.md: Slicer plugin vs web analysis
 - PROJECT_ORGANIZATION.md: Directory structure reference
+- FAQ.md: Frequently asked questions
+- MATERIAL_COMPATIBILITY.md: Filament splice compatibility matrix
+- SAFETY_CHECKLIST.md: Pre-power-on verification
+- PRINTABLE_PARTS.md: STL parts specification
+- VIDEO_TUTORIAL_OUTLINE.md: Build video script
+- ENCODER_WHEEL.md: Position tracking hardware
+- ESP32_WIFI.md: Wireless control module
 - CHANGELOG.md: Version history (Keep a Changelog format)
 - CONTRIBUTING.md: Contribution guidelines
 - LICENSE: MIT
+
+### DevOps
+- GitHub Actions CI workflow (Python 3.9-3.12, firmware build)
+- Dockerfile and docker-compose.yml
+- PyPI packaging (setup.py, pyproject.toml)
+- .gitignore for Python/PlatformIO
 
 ---
 

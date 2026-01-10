@@ -1,0 +1,66 @@
+; Sample G-code: Gradient pattern
+; Tests gradual color transitions with many short segments
+
+; === START ===
+G28
+M104 S200
+M109 S200
+G92 E0
+
+; Layer 1 - Gradient from white (T0) to black (T1)
+;LAYER:0
+G1 Z0.2 F3000
+
+T0  ; White
+G1 X10 Y10 E5.0 F1200
+G1 X20 Y10 E10.0
+
+T1  ; Black
+G1 X25 Y10 E12.5
+
+T0  ; White
+G1 X30 Y10 E15.0
+G1 X40 Y10 E20.0
+
+T1  ; Black
+G1 X45 Y10 E22.5
+G1 X50 Y10 E25.0
+
+T0  ; White
+G1 X55 Y10 E27.5
+
+T1  ; Black
+G1 X60 Y10 E30.0
+G1 X70 Y10 E35.0
+G1 X80 Y10 E40.0
+
+; Layer 2
+;LAYER:1
+G1 Z0.4 F3000
+
+T0
+G1 X80 Y20 E45.0
+G1 X70 Y20 E50.0
+
+T1
+G1 X60 Y20 E55.0
+
+T0
+G1 X50 Y20 E60.0
+
+T1
+G1 X40 Y20 E65.0
+
+T0
+G1 X30 Y20 E70.0
+
+T1
+G1 X20 Y20 E75.0
+G1 X10 Y20 E80.0
+
+; === END ===
+G1 E79.0 F3000
+G1 Z10 F3000
+G1 X0 Y100 F6000
+M104 S0
+M84

@@ -1,0 +1,49 @@
+; Sample G-code: Long segments
+; Tests handling of very long single-color sections
+
+; === START ===
+G28
+M104 S200
+M109 S200
+G92 E0
+
+; Very long first segment (simulates large single-color region)
+T0
+G1 Z0.2 F3000
+G1 X10 Y10 F6000
+
+; Extrude 500mm of filament
+G1 X100 Y10 E50.0 F1200
+G1 X100 Y100 E100.0
+G1 X10 Y100 E150.0
+G1 X10 Y10 E200.0
+G1 X90 Y20 E250.0
+G1 X90 Y90 E300.0
+G1 X20 Y90 E350.0
+G1 X20 Y20 E400.0
+G1 X80 Y30 E450.0
+G1 X80 Y80 E500.0
+
+; Short color B section
+T1
+G1 X50 Y50 E510.0
+G1 X60 Y60 E520.0
+
+; Another long segment
+T0
+G1 X70 Y70 E570.0
+G1 X30 Y70 E620.0
+G1 X30 Y30 E670.0
+G1 X70 Y30 E720.0
+G1 X70 Y60 E770.0
+G1 X40 Y60 E820.0
+G1 X40 Y40 E870.0
+G1 X60 Y40 E920.0
+G1 X60 Y55 E970.0
+G1 X45 Y55 E1000.0
+
+; === END ===
+G1 E999.0 F3000
+G1 Z10 F3000
+M104 S0
+M84
