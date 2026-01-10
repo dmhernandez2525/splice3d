@@ -1,52 +1,94 @@
 # Splice3D
 
-Pre-splice multi-color filament for any FDM printer using G-code analysis and automated welding.
+> Pre-splice multi-color filament for any FDM printer.
 
-## Overview
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Splice3D creates a single spool of pre-joined filament segments where color transitions are calculated to match exact extrusion points in a 3D print. This enables multi-color printing on any single-extruder printer without real-time tool changes.
+## What is Splice3D?
 
-## Components
+Splice3D creates a single spool of pre-joined filament segments where color transitions are calculated to match exact extrusion points in a 3D print. This enables **multi-color printing on any single-extruder printer** without real-time tool changes.
 
-| Directory | Description |
-|-----------|-------------|
-| `postprocessor/` | Python G-code parser and recipe generator |
-| `cli/` | USB communication tools |
-| `firmware/` | Ender 3 board firmware |
-| `docs/` | Build and calibration guides |
-| `hardware/` | CAD files (future) |
-| `samples/` | Test G-code files |
+**Target benchmark**: [Starry Night Vase](https://makerworld.com/en/models/2129520-starry-night-vase) (4000+ color changes)
+
+## How It Works
+
+```
+[OrcaSlicer] → [Post-Processor] → [Splice3D Machine] → [Pre-spliced Spool] → [Any Printer]
+```
+
+1. Slice model with virtual multi-extruder in OrcaSlicer
+2. Post-processor extracts segment lengths from G-code
+3. Splice3D machine welds filament segments together
+4. Print with the pre-spliced spool on any single-extruder printer
+
+## Hardware
+
+- **Controller**: BTT SKR Mini E3 v2.0 (STM32F103)
+- **Motors**: 3x NEMA17 (from Ender 3)
+- **Heater**: Hotend assembly (weld chamber)
+- **Cutter**: SG90 servo + blade
+
+**Estimated build cost**: $170-250 (using donor Ender 3 parts)
 
 ## Quick Start
 
-### 1. Install Post-Processor
+### Install Post-Processor
 
 ```bash
 cd postprocessor
 pip install -r requirements.txt
 ```
 
-### 2. Process G-code
+### Process Multi-Color G-code
 
 ```bash
-python splice3d_postprocessor.py input_multicolor.gcode
-# Outputs: splice_recipe.json + modified_print.gcode
+python3 splice3d_postprocessor.py input.gcode --colors white black
+# Outputs: input_splice_recipe.json + input_modified.gcode
 ```
 
-### 3. Send Recipe to Machine
+### Simulate Splice Cycle
 
 ```bash
-cd ../cli
-python splice3d_cli.py --port /dev/ttyUSB0 --recipe ../splice_recipe.json
+cd cli
+python3 simulator.py ../samples/test_multicolor_splice_recipe.json
 ```
 
-### 4. Print
+### Send to Machine (when built)
 
-Load the pre-spliced spool and print `modified_print.gcode`.
+```bash
+python3 splice3d_cli.py --port /dev/ttyACM0 --recipe recipe.json --start
+```
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [WIRING.md](docs/WIRING.md) | SKR Mini E3 v2 connection guide |
+| [BOM.md](docs/BOM.md) | Bill of materials with prices |
+| [MECHANICAL.md](docs/MECHANICAL.md) | Build guide |
+| [SPLICE_CORE.md](docs/SPLICE_CORE.md) | Weld mechanism design |
+| [CALIBRATION.md](docs/CALIBRATION.md) | Tuning steps/mm and weld quality |
+| [ORCASLICER_SETUP.md](docs/ORCASLICER_SETUP.md) | Multi-extruder profile setup |
+| [ROADMAP.md](docs/ROADMAP.md) | Future development phases |
+| [VISION.md](docs/VISION.md) | Full vision: dimples, crimps, print farm |
+
+## Project Structure
+
+```
+splice3d/
+├── postprocessor/     # Python G-code tools
+├── firmware/          # C++ for SKR Mini E3
+├── cli/               # USB communication + simulator
+├── docs/              # Documentation
+└── samples/           # Test files
+```
 
 ## Status
 
-🚧 **Under Development** - Currently building V1 prototype.
+✅ Post-processor complete (10+ tests passing)  
+✅ Firmware architecture complete  
+✅ Documentation complete  
+🔧 Hardware build pending  
 
 ## License
 

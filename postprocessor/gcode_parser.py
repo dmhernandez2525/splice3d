@@ -43,6 +43,7 @@ class GCodeParser:
     
     # Regex patterns for G-code parsing
     TOOL_CHANGE_PATTERN = re.compile(r'^T(\d+)', re.IGNORECASE)
+    M600_PATTERN = re.compile(r'^M600', re.IGNORECASE)  # Color change command
     EXTRUSION_PATTERN = re.compile(r'E([-+]?\d*\.?\d+)', re.IGNORECASE)
     LAYER_PATTERN = re.compile(r';LAYER:(\d+)|;LAYER_CHANGE', re.IGNORECASE)
     MOVE_PATTERN = re.compile(r'^G[01]\s', re.IGNORECASE)
@@ -139,6 +140,22 @@ class GCodeParser:
                 # Start new segment
                 self.current_tool = new_tool
                 self.seen_tools.add(new_tool)
+                self.segment_start_e = self.current_e
+                self.segment_start_line = line_num
+                self.segment_start_layer = self.current_layer
+                continue
+            
+            # Check for M600 color change (alternate to tool change)
+            if self.M600_PATTERN.match(line):
+                # Record current segment
+                if self.current_e > self.segment_start_e:
+                    segment = self._create_segment(line_num - 1)
+                    if segment.length_mm > 0:
+                        result.segments.append(segment)
+                
+                # Toggle to next color (assumes 2-color for M600)
+                self.current_tool = (self.current_tool + 1) % 2
+                self.seen_tools.add(self.current_tool)
                 self.segment_start_e = self.current_e
                 self.segment_start_line = line_num
                 self.segment_start_layer = self.current_layer
