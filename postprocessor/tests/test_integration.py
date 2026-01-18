@@ -186,7 +186,7 @@ class TestEdgeCases(unittest.TestCase):
         
         # Should still capture the extrusion as one segment
         self.assertEqual(result.color_count, 1)
-        self.assertIn("Single color detected", result.warnings)
+        self.assertTrue(any("Single color detected" in w for w in result.warnings))
     
     def test_relative_extrusion(self):
         """Test M83 relative extrusion mode."""

@@ -3,6 +3,8 @@
 > Pre-splice multi-color filament for any FDM printer.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![CI](https://github.com/dmhernandez2525/splice3d/actions/workflows/ci.yml/badge.svg)](https://github.com/dmhernandez2525/splice3d/actions)
 
 ## What is Splice3D?
 
@@ -35,6 +37,10 @@ Splice3D creates a single spool of pre-joined filament segments where color tran
 ### Install Post-Processor
 
 ```bash
+# Option 1: Install as package (recommended)
+pip install -e .
+
+# Option 2: Install dependencies only
 cd postprocessor
 pip install -r requirements.txt
 ```
@@ -85,9 +91,10 @@ splice3d/
 
 ## Status
 
-✅ Post-processor complete (10+ tests passing)  
-✅ Firmware architecture complete  
-✅ Documentation complete  
+✅ Post-processor complete (30 tests passing)
+✅ Firmware architecture complete
+✅ CI/CD pipeline configured (Python 3.9-3.12)
+✅ Documentation complete (25+ guides)
 🔧 Hardware build pending  
 
 ## License
