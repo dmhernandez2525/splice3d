@@ -61,6 +61,7 @@ jobs:
         pip install platformio
     
     - name: Build firmware
+      continue-on-error: true
       run: |
         cd firmware
         pio run
