@@ -55,3 +55,7 @@ output/
 
 # Logs
 *.log
+
+# Website
+website/node_modules/
+website/dist/
