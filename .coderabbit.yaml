@@ -1,0 +1,55 @@
+# CodeRabbit Configuration
+# Documentation: https://docs.coderabbit.ai/guides/configure-coderabbit
+
+language: "en-US"
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+
+  path_filters:
+    - "!**/*.lock"
+    - "!**/node_modules/**"
+    - "!**/__pycache__/**"
+    - "!**/*.pyc"
+    - "!**/dist/**"
+    - "!**/coverage/**"
+    - "!**/*.egg-info/**"
+    - "!**/.pio/**"
+
+  path_instructions:
+    - path: "postprocessor/**/*.py"
+      instructions: |
+        Focus on Python best practices:
+        - Type hints usage
+        - Error handling patterns
+        - G-code parsing correctness
+        - File I/O safety
+
+    - path: "firmware/**/*.cpp"
+      instructions: |
+        Review embedded code for:
+        - Memory safety
+        - Hardware interaction patterns
+        - Real-time constraints
+
+    - path: "**/*test*.py"
+      instructions: |
+        Ensure tests are:
+        - Testing behavior, not implementation
+        - Using proper assertions
+        - Covering edge cases
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+      - develop
+
+chat:
+  auto_reply: true

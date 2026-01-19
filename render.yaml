@@ -1,0 +1,47 @@
+# Splice3D - Render Infrastructure Configuration
+# ==============================================
+# This is primarily a CLI tool, but this config enables:
+# 1. Running the GUI/web interface (if implemented)
+# 2. API endpoint for G-code processing
+#
+# NOTE: The core splice3d functionality is meant to run locally
+# connected to the splicing hardware. This deployment is for
+# the post-processor and recipe generation only.
+#
+# Cost: $0/month (free tier)
+
+services:
+  # =============================================
+  # API Server - G-code Post-Processor
+  # =============================================
+  - type: web
+    name: splice3d-api
+    runtime: python
+    plan: free
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -e .
+    startCommand: python -m cli.api_server
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: PORT
+        value: "8000"
+      # API configuration
+      - key: MAX_UPLOAD_SIZE_MB
+        value: "50"
+      - key: CORS_ORIGINS
+        value: "*"
+      # Optional: API authentication
+      - key: API_KEY
+        generateValue: true
+
+# NOTE: This deployment requires creating an api_server.py in the cli/ folder.
+# The API would expose endpoints like:
+# - POST /process - Upload G-code, receive recipe JSON
+# - POST /validate - Validate a recipe file
+# - GET /health - Health check
+#
+# For local hardware control, use the CLI tools directly on the machine
+# connected to the splice3d hardware.
