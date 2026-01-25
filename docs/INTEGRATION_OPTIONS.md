@@ -138,11 +138,51 @@ Monorepo: TurboRepo for organization
 
 ---
 
+## Option 5: Home Assistant Integration ✅
+
+**Status:** Implemented
+
+**How it works:**
+1. MQTT bridge service connects Splice3D to Home Assistant
+2. Custom component provides sensors, buttons, and automations
+3. Control and monitor from HA dashboard, voice assistants, or mobile app
+
+**Features:**
+- Real-time status (state, progress, temperature)
+- Remote control buttons (start, pause, abort)
+- Error notifications via HA notify services
+- Alexa/Google integration for voice commands
+- Daily statistics tracking
+
+**Setup:**
+```bash
+# Install and run the MQTT bridge
+pip install -e .
+splice3d-mqtt-bridge --port /dev/ttyUSB0 --mqtt-host localhost
+```
+
+**MQTT Topics:**
+| Topic | Description |
+|-------|-------------|
+| `home/splice3d/status/state` | Current state |
+| `home/splice3d/status/progress/percent` | Progress 0-100 |
+| `home/splice3d/command/start` | Start command |
+| `home/splice3d/command/abort` | Abort command |
+
+**Home Assistant Entities:**
+- `sensor.splice3d_state` - Machine state
+- `sensor.splice3d_progress` - Progress percentage
+- `button.splice3d_start` - Start button
+- `binary_sensor.splice3d_error` - Error status
+
+---
+
 ## Implementation Priority
 
 1. **Now:** Post-processor script ✅
-2. **V1.1:** OrcaSlicer post-processing integration
-3. **V2:** OctoPrint/Moonraker plugin
-4. **V2.5:** Python GUI for standalone use
-5. **V3+:** Slicer C++ plugin (if demand)
-6. **V4+:** Web dashboard (if print farm)
+2. **Now:** Home Assistant MQTT integration ✅
+3. **V1.1:** OrcaSlicer post-processing integration
+4. **V2:** OctoPrint/Moonraker plugin
+5. **V2.5:** Python GUI for standalone use
+6. **V3+:** Slicer C++ plugin (if demand)
+7. **V4+:** Web dashboard (if print farm)
