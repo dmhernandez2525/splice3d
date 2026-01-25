@@ -26,6 +26,7 @@ classifiers = [
 ]
 dependencies = [
     "pyserial>=3.5",
+    "paho-mqtt>=2.0",
 ]
 
 [project.optional-dependencies]
@@ -41,6 +42,7 @@ dev = [
 splice3d = "postprocessor.splice3d_postprocessor:main"
 splice3d-analyze = "cli.analyze_gcode:main"
 splice3d-simulate = "cli.simulator:main"
+splice3d-mqtt-bridge = "services.mqtt_bridge:main"
 
 [project.urls]
 Homepage = "https://github.com/yourusername/splice3d"
@@ -49,7 +51,7 @@ Repository = "https://github.com/yourusername/splice3d.git"
 Issues = "https://github.com/yourusername/splice3d/issues"
 
 [tool.setuptools.packages.find]
-include = ["postprocessor*", "cli*"]
+include = ["postprocessor*", "cli*", "services*"]
 
 [tool.black]
 line-length = 100

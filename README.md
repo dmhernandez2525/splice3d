@@ -95,7 +95,25 @@ splice3d/
 ✅ Firmware architecture complete
 ✅ CI/CD pipeline configured (Python 3.9-3.12)
 ✅ Documentation complete (25+ guides)
-🔧 Hardware build pending  
+✅ Home Assistant MQTT bridge service
+🔧 Hardware build pending
+
+## Home Assistant Integration
+
+Splice3D includes an MQTT bridge service for Home Assistant integration:
+
+```bash
+# Start the MQTT bridge
+splice3d-mqtt-bridge --port /dev/ttyUSB0 --mqtt-host localhost
+```
+
+**Features:**
+- Real-time status monitoring (state, progress, temperature)
+- Remote control via Home Assistant buttons
+- Error notifications and alerts
+- Daily splice statistics tracking
+
+See [docs/INTEGRATION_OPTIONS.md](docs/INTEGRATION_OPTIONS.md) for full details.  
 
 ## License
 

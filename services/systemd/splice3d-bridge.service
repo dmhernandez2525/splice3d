@@ -1,0 +1,52 @@
+[Unit]
+Description=Splice3D MQTT Bridge for Home Assistant
+Documentation=https://github.com/dmhernandez2525/splice3d
+After=network.target mosquitto.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=splice3d
+Group=dialout
+
+# Environment configuration
+EnvironmentFile=-/etc/splice3d/mqtt_bridge.env
+
+# Serial port - override in environment file
+Environment=SPLICE3D_SERIAL_PORT=/dev/ttyUSB0
+Environment=SPLICE3D_SERIAL_BAUD=115200
+
+# MQTT configuration - override in environment file
+Environment=MQTT_HOST=localhost
+Environment=MQTT_PORT=1883
+Environment=MQTT_USERNAME=splice3d
+
+# Stats file location
+Environment=SPLICE3D_STATS_FILE=/var/lib/splice3d/stats.json
+
+# Working directory
+WorkingDirectory=/opt/splice3d
+
+# Execute the bridge
+ExecStart=/opt/splice3d/venv/bin/python -m services.mqtt_bridge
+
+# Restart configuration
+Restart=on-failure
+RestartSec=10
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/splice3d
+PrivateTmp=true
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=splice3d-bridge
+
+[Install]
+WantedBy=multi-user.target
