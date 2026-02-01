@@ -14,7 +14,7 @@ services:
   # =============================================
   - type: web
     name: splice3d-site
-    env: static
+    runtime: static
     buildCommand: cd website && npm install && npm run build
     staticPublishPath: ./website/dist
     envVars:
