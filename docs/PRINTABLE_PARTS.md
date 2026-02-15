@@ -4,11 +4,14 @@
 
 ## Overview
 
-These parts will need to be designed and printed. This document serves as the specification for future CAD work.
+This document tracks printable parts and links to the active CAD package.
 
 ## Status
 
-**Not yet designed** - STL files will be added as CAD work is completed.
+**Phase 1.1 complete for core stations**
+- CAD source now exists in `hardware/f1_1/cad/`
+- Layout constraints and tolerances are defined in `hardware/f1_1/spec/mechanical_layout.json`
+- Validation tests exist in `postprocessor/tests/test_mechanical_validation.py`
 
 ---
 
@@ -141,22 +144,31 @@ Requirements:
 
 ---
 
-## Future: CAD Files
-
-When designed, files will be added:
+## CAD Files
 
 ```
 splice3d/
-└── cad/
-    ├── README.md
-    ├── frame/
-    │   └── *.stl
-    ├── splice_chamber/
-    │   └── *.stl
-    ├── cutter/
-    │   └── *.stl
-    └── electronics/
-        └── *.stl
+└── hardware/
+    └── f1_1/
+        ├── cad/
+        │   ├── README.md
+        │   ├── cutting_station.scad
+        │   ├── splice_chamber_station.scad
+        │   ├── cooling_station.scad
+        │   ├── encoder_station.scad
+        │   ├── filament_guides_jigs.scad
+        │   ├── modular_mounts.scad
+        │   ├── assembly_compact.scad
+        │   └── assembly_exploded.scad
+        ├── spec/
+        │   └── mechanical_layout.json
+        └── stl/
+```
+
+To export STL files locally:
+
+```bash
+python3 scripts/hardware/export_f1_1_stl.py
 ```
 
 ## Contributing CAD

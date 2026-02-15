@@ -2,6 +2,12 @@
 
 > Parts needed to build the Splice3D filament splicer.
 
+Phase F1.3 structured BOM package:
+
+1. `docs/F1.3_BOM.md`
+2. `hardware/f1_3/spec/bom_catalog.json`
+3. `scripts/hardware/validate_f1_3.py`
+
 ## Core Electronics (From Ender 3)
 
 These parts come from your donor Ender 3:

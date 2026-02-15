@@ -6,6 +6,12 @@
 
 The BTT SKR Mini E3 v2.0 is a 32-bit drop-in replacement for Ender 3 boards.
 
+Phase F1.2 electronics package:
+
+1. `docs/F1.2_ELECTRONICS_DESIGN.md`
+2. `hardware/f1_2/spec/electronics_design.json`
+3. `scripts/hardware/validate_f1_2.py`
+
 **Key Features:**
 - MCU: STM32F103RCT6 (72MHz, 256KB flash, 48KB RAM)
 - Drivers: 4x TMC2209 (silent, UART configurable)
