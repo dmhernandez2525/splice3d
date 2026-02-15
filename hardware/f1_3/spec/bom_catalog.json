@@ -1,0 +1,276 @@
+{
+  "feature": "F1.3-bill-of-materials",
+  "version": "1.0.0",
+  "currency": "USD",
+  "cost_tiers": {
+    "budget_total": 170.0,
+    "standard_total": 202.0,
+    "premium_total": 249.0
+  },
+  "components": [
+    {
+      "id": "controller_skr_mini_e3_v2",
+      "subsystem": "electrical",
+      "name": "BTT SKR Mini E3 v2.0",
+      "quantity": 1,
+      "critical": true,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 34.0, "standard": 38.0, "premium": 42.0},
+      "specs": {"mcu": "STM32F103RCT6", "voltage": "12V to 24V", "drivers": "TMC2209 UART"},
+      "suppliers": [
+        {"vendor": "BIQU", "url": "https://www.biqu.equipment/"},
+        {"vendor": "Mouser", "url": "https://www.mouser.com/"}
+      ],
+      "substitutes": ["MKS Robin Nano V3 with external TMC2209 modules"]
+    },
+    {
+      "id": "tmc2209_driver_modules",
+      "subsystem": "electrical",
+      "name": "TMC2209 Driver Modules",
+      "quantity": 3,
+      "critical": true,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 6.0, "standard": 7.0, "premium": 8.0},
+      "specs": {"uart": true, "current_rms_a": 1.2, "microstep_max": "1/256"},
+      "suppliers": [
+        {"vendor": "Watterott", "url": "https://learn.watterott.com/silentstepstick/pinconfig/tmc2209/"},
+        {"vendor": "DigiKey", "url": "https://www.digikey.com/"}
+      ],
+      "substitutes": ["TMC2226 for non-critical axes"]
+    },
+    {
+      "id": "nema17_motors",
+      "subsystem": "mechanical",
+      "name": "NEMA17 Stepper Motors",
+      "quantity": 3,
+      "critical": true,
+      "donor_ender3": true,
+      "cost_unit": {"budget": 0.0, "standard": 0.0, "premium": 0.0},
+      "specs": {"step_angle": "1.8deg", "holding_torque_ncm": 40, "rated_current_a": 1.0},
+      "suppliers": [
+        {"vendor": "StepperOnline", "url": "https://www.omc-stepperonline.com/"},
+        {"vendor": "Pololu", "url": "https://www.pololu.com/"}
+      ],
+      "substitutes": ["LDO 42STH series"]
+    },
+    {
+      "id": "servo_sg90",
+      "subsystem": "mechanical",
+      "name": "SG90 Cutter Servo",
+      "quantity": 1,
+      "critical": false,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 4.0, "standard": 4.0, "premium": 5.0},
+      "specs": {"voltage": "4.8V to 6V", "torque_kg_cm": 1.8, "speed_s_60deg": 0.12},
+      "suppliers": [
+        {"vendor": "TowerPro", "url": "https://www.towerpro.com.tw/"},
+        {"vendor": "Adafruit", "url": "https://www.adafruit.com/"}
+      ],
+      "substitutes": ["MG90S metal gear servo"]
+    },
+    {
+      "id": "hotend_splice_core",
+      "subsystem": "thermal",
+      "name": "Hotend Assembly",
+      "quantity": 1,
+      "critical": true,
+      "donor_ender3": true,
+      "cost_unit": {"budget": 0.0, "standard": 0.0, "premium": 0.0},
+      "specs": {"nozzle_thread": "M6", "heater_block_material": "aluminum", "temperature_c_max": 260},
+      "suppliers": [
+        {"vendor": "Creality", "url": "https://store.creality.com/"},
+        {"vendor": "E3D", "url": "https://e3d-online.com/"}
+      ],
+      "substitutes": ["Volcano-compatible hotend block"]
+    },
+    {
+      "id": "heater_and_thermistor",
+      "subsystem": "thermal",
+      "name": "40W Heater Cartridge + NTC Thermistor",
+      "quantity": 1,
+      "critical": true,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 6.0, "standard": 8.0, "premium": 11.0},
+      "specs": {"heater_voltage": "24V", "heater_power_w": 40, "thermistor_type": "100K 3950"},
+      "suppliers": [
+        {"vendor": "Slice Engineering", "url": "https://www.sliceengineering.com/"},
+        {"vendor": "Mouser", "url": "https://www.mouser.com/"}
+      ],
+      "substitutes": ["Phaetus cartridge and thermistor kit"]
+    },
+    {
+      "id": "rotary_encoder",
+      "subsystem": "sensing",
+      "name": "Quadrature Encoder with Wheel",
+      "quantity": 1,
+      "critical": true,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 9.0, "standard": 11.0, "premium": 16.0},
+      "specs": {"resolution_ppr": 600, "output": "A/B quadrature", "shaft_diameter_mm": 6},
+      "suppliers": [
+        {"vendor": "US Digital", "url": "https://www.usdigital.com/"},
+        {"vendor": "CUI Devices", "url": "https://www.cuidevices.com/"}
+      ],
+      "substitutes": ["Omron E6B2 series"]
+    },
+    {
+      "id": "power_supply",
+      "subsystem": "electrical",
+      "name": "12V or 24V Power Supply",
+      "quantity": 1,
+      "critical": true,
+      "donor_ender3": true,
+      "cost_unit": {"budget": 0.0, "standard": 0.0, "premium": 0.0},
+      "specs": {"power_w": 350, "input": "100V to 240V AC", "output": "12V or 24V DC"},
+      "suppliers": [
+        {"vendor": "Mean Well", "url": "https://www.meanwell.com/"},
+        {"vendor": "LRS distributors", "url": "https://www.digikey.com/"}
+      ],
+      "substitutes": ["Any certified 24V 10A supply"]
+    },
+    {
+      "id": "extruder_drive_kits",
+      "subsystem": "mechanical",
+      "name": "Dual Extruder Drive Kits",
+      "quantity": 2,
+      "critical": true,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 10.0, "standard": 12.0, "premium": 25.0},
+      "specs": {"filament_diameter_mm": 1.75, "drive_type": "dual gear", "mount_pattern": "NEMA17"},
+      "suppliers": [
+        {"vendor": "Bondtech", "url": "https://www.bondtech.se/"},
+        {"vendor": "Trianglelab", "url": "https://www.aliexpress.com/"}
+      ],
+      "substitutes": ["BMG clone kits"]
+    },
+    {
+      "id": "ptfe_and_fittings",
+      "subsystem": "mechanical",
+      "name": "PTFE Tubes and PC4-M6 Fittings",
+      "quantity": 1,
+      "critical": true,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 11.0, "standard": 14.0, "premium": 16.0},
+      "specs": {"tube_id_mm": 2.0, "tube_od_mm": 4.0, "fittings": "PC4-M6"},
+      "suppliers": [
+        {"vendor": "Capricorn", "url": "https://www.captubes.com/"},
+        {"vendor": "Filastruder", "url": "https://www.filastruder.com/"}
+      ],
+      "substitutes": ["Generic PTFE with verified ID tolerance"]
+    },
+    {
+      "id": "frame_and_fasteners",
+      "subsystem": "mechanical",
+      "name": "2020 Extrusion and Fastener Set",
+      "quantity": 1,
+      "critical": false,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 22.0, "standard": 26.0, "premium": 27.0},
+      "specs": {"extrusion_profile": "2020", "fastener_thread": "M3 and M5", "frame_length_mm": 1000},
+      "suppliers": [
+        {"vendor": "OpenBuilds", "url": "https://openbuildspartstore.com/"},
+        {"vendor": "Misumi", "url": "https://us.misumi-ec.com/"}
+      ],
+      "substitutes": ["Printed composite frame with threaded inserts"]
+    },
+    {
+      "id": "wiring_and_connectors",
+      "subsystem": "electrical",
+      "name": "Wire and Connector Kit",
+      "quantity": 1,
+      "critical": true,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 17.0, "standard": 20.0, "premium": 20.0},
+      "specs": {"wire_awg": "18/22/24", "connector_family": "JST-XH", "insulation": "silicone and PVC"},
+      "suppliers": [
+        {"vendor": "Mouser", "url": "https://www.mouser.com/"},
+        {"vendor": "DigiKey", "url": "https://www.digikey.com/"}
+      ],
+      "substitutes": ["Dupont kit for temporary prototyping"]
+    },
+    {
+      "id": "spool_hardware",
+      "subsystem": "mechanical",
+      "name": "608 Bearings and 8mm Rod",
+      "quantity": 1,
+      "critical": false,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 9.0, "standard": 12.0, "premium": 13.0},
+      "specs": {"bearing_type": "608ZZ", "rod_diameter_mm": 8, "rod_length_mm": 300},
+      "suppliers": [
+        {"vendor": "McMaster", "url": "https://www.mcmaster.com/"},
+        {"vendor": "VXB", "url": "https://www.vxb.com/"}
+      ],
+      "substitutes": ["Skate bearings and precision shaft stock"]
+    },
+    {
+      "id": "printed_parts_material",
+      "subsystem": "printed_parts",
+      "name": "Print Material for CAD Parts",
+      "quantity": 1,
+      "critical": false,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 12.0, "standard": 15.0, "premium": 16.0},
+      "specs": {"materials": "PETG and ABS", "estimated_mass_g": 900, "layer_height_mm": 0.2},
+      "suppliers": [
+        {"vendor": "Prusament", "url": "https://www.prusa3d.com/"},
+        {"vendor": "Polymaker", "url": "https://us.polymaker.com/"}
+      ],
+      "substitutes": ["Any low-shrink PETG plus heat-safe ABS"]
+    },
+    {
+      "id": "safety_components",
+      "subsystem": "safety",
+      "name": "Thermal Fuse and E-Stop",
+      "quantity": 1,
+      "critical": true,
+      "donor_ender3": false,
+      "cost_unit": {"budget": 8.0, "standard": 9.0, "premium": 9.0},
+      "specs": {"fuse_temp_c": 128, "e_stop_rating_a": 10, "mount_style": "panel"},
+      "suppliers": [
+        {"vendor": "AutomationDirect", "url": "https://www.automationdirect.com/"},
+        {"vendor": "Mouser", "url": "https://www.mouser.com/"}
+      ],
+      "substitutes": ["UL listed mushroom switch and thermal cutoff pair"]
+    }
+  ],
+  "assembly_steps": [
+    {"step": "Frame and base rail assembly", "difficulty": 2},
+    {"step": "Install SKR board and power distribution", "difficulty": 3},
+    {"step": "Wire TMC2209 drivers and motors", "difficulty": 3},
+    {"step": "Assemble cutter servo and blade guide", "difficulty": 4},
+    {"step": "Build hotend splice chamber", "difficulty": 4},
+    {"step": "Install cooling duct and fan", "difficulty": 2},
+    {"step": "Install encoder and preload idler", "difficulty": 3},
+    {"step": "Route PTFE path and guides", "difficulty": 3},
+    {"step": "Safety wiring and emergency stop", "difficulty": 3},
+    {"step": "Power-on and calibration", "difficulty": 4}
+  ],
+  "donor_ender3_parts": [
+    "BTT SKR Mini E3 v2.0 board",
+    "3x NEMA17 motors",
+    "Hotend assembly",
+    "24V power supply",
+    "LCD module",
+    "Endstop switches"
+  ],
+  "tool_requirements": [
+    "Soldering iron with fine tip",
+    "JST crimp tool",
+    "Wire stripper and side cutters",
+    "Hex key set",
+    "Torque screwdriver",
+    "Digital multimeter",
+    "Calipers"
+  ],
+  "shipping_estimate": {
+    "weight_kg": 4.8,
+    "dimensions_cm": [42.0, 32.0, 22.0],
+    "notes": "Estimate for complete kit with printed and electrical parts"
+  },
+  "regional_sourcing_guides": {
+    "US": ["Amazon", "Mouser", "DigiKey", "Filastruder"],
+    "EU": ["Mouser EU", "E3D", "ReprapWorld"],
+    "ASIA": ["AliExpress", "LCSC", "BIQU"]
+  }
+}
