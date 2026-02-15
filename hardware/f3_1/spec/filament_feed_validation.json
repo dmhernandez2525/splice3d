@@ -1,0 +1,28 @@
+{
+  "feature": "F3.1-filament-feeding",
+  "acceptance_limits": {
+    "feed_rate_variance_pct": 5,
+    "jam_detection_distance_mm": 50,
+    "fast_speed_mm_s": 20,
+    "slow_speed_mm_s": 5,
+    "retract_speed_mm_s": 15,
+    "jam_threshold_mm_s": 0.5,
+    "jam_detection_window_ms": 500
+  },
+  "feed_modes": ["IDLE", "FEED_A", "FEED_B", "RETRACT_A", "RETRACT_B", "DRY_RUN", "LOADING"],
+  "safety_features": [
+    "filament_runout_detection",
+    "jam_detection",
+    "cold_extrusion_prevention",
+    "encoder_based_tension_monitoring",
+    "emergency_abort"
+  ],
+  "statistics_tracked": [
+    "totalFedMmA",
+    "totalFedMmB",
+    "averageFeedRate",
+    "jamCount",
+    "slipEvents",
+    "runoutEvents"
+  ]
+}
