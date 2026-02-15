@@ -230,26 +230,6 @@ void SerialHandler::handleStatus() {
     Serial.println();
 }
 
-void SerialHandler::handleTemp(const char* args) {
-    if (args && strlen(args) > 0) {
-        // Set temperature
-        float temp = atof(args);
-        if (temp >= 0 && temp <= MAX_TEMP) {
-            setTargetTemperature(temp);
-            Serial.print(F("OK TEMP_SET "));
-            Serial.println(temp);
-        } else {
-            Serial.println(F("ERROR Invalid temperature"));
-        }
-    } else {
-        // Query temperature
-        Serial.print(F("TEMP "));
-        Serial.print(getCurrentTemperature());
-        Serial.print(F("/"));
-        Serial.println(getTargetTemperature());
-    }
-}
-
 void SerialHandler::handleHelp() {
     Serial.println(F("Splice3D Commands:"));
     Serial.println(F("  RECIPE <json>  - Load splice recipe"));
@@ -258,7 +238,7 @@ void SerialHandler::handleHelp() {
     Serial.println(F("  RESUME         - Resume from pause"));
     Serial.println(F("  ABORT          - Emergency stop"));
     Serial.println(F("  STATUS         - Query state"));
-    Serial.println(F("  TEMP [value]   - Get/set temperature"));
+    Serial.println(F("  TEMP [val|MATERIAL|PID|AUTOTUNE|FAN|HEATER]"));
     Serial.println(F("  ENCODER ...    - Encoder status/calibration"));
     Serial.println(F("  HELP           - Show this help"));
 }
