@@ -1,0 +1,38 @@
+{
+  "feature": "F2.4-cutting-system",
+  "acceptance_limits": {
+    "servo_travel_ms": 300,
+    "manual_override_response_ms": 500,
+    "maintenance_interval_cuts": 500,
+    "max_force_threshold": 200,
+    "pre_cut_retract_mm": 1.5,
+    "verify_advance_mm": 0.5,
+    "servo_open_angle": 0,
+    "servo_closed_angle": 90
+  },
+  "supported_materials": ["PLA", "PETG", "ABS"],
+  "cut_phases": ["IDLE", "RETRACTING", "CLOSING", "HOLDING", "OPENING", "VERIFYING", "DONE"],
+  "cut_results": ["SUCCESS", "INCOMPLETE", "BLADE_WORN", "TIMEOUT", "ABORTED"],
+  "eeprom_persistence": {
+    "address": 64,
+    "fields": ["totalCuts", "successfulCuts", "failedCuts", "lastMaintenanceCut"],
+    "checksum": true
+  },
+  "serial_commands": [
+    "CUTTER",
+    "CUTTER CUT",
+    "CUTTER ANGLES <open> <closed>",
+    "CUTTER TRAVEL <ms>",
+    "CUTTER MAINT_ACK",
+    "CUTTER MAINT_INTERVAL <count>",
+    "CUTTER SAVE",
+    "CUTTER RESET"
+  ],
+  "safety_features": [
+    "pre_cut_retraction",
+    "cut_verification_advance",
+    "blade_wear_detection",
+    "maintenance_alerts",
+    "force_monitoring"
+  ]
+}

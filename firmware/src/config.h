@@ -160,6 +160,15 @@
 
 // Cutter travel for stepper-based cutter configuration
 #define CUTTER_STEPPER_TRAVEL_STEPS 200
+// Cutter system (F2.4)
+#define CUTTER_SERVO_OPEN_ANGLE    0
+#define CUTTER_SERVO_CLOSED_ANGLE  90
+#define CUTTER_SERVO_TRAVEL_MS     300UL
+#define CUTTER_PRE_CUT_RETRACT_MM  1.5f
+#define CUTTER_VERIFY_ADVANCE_MM   0.5f
+#define CUTTER_MAINTENANCE_INTERVAL 500
+#define CUTTER_EEPROM_ADDRESS      64
+#define CUTTER_MAX_FORCE_THRESHOLD 200
 
 // ============================================================
 // SAFETY
