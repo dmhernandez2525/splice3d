@@ -18,6 +18,7 @@
 #include "splice_execution.h"
 #include "position_tracking.h"
 #include "error_recovery.h"
+#include "telemetry_stream.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -42,6 +43,7 @@ void setup() {
     setupSpliceExecution();
     setupPositionTracking();
     setupErrorRecovery();
+    setupTelemetryStream();
 
     // Initialize state machine
     stateMachine.init();
@@ -82,4 +84,7 @@ void loop() {
 
     // Update error recovery engine
     updateErrorRecovery();
+
+    // Update telemetry stream
+    updateTelemetryStream();
 }

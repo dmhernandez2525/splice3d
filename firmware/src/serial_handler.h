@@ -15,6 +15,7 @@
  *   ENCODER <args>    - Encoder status, calibration, and tuning
  *   CUTTER <args>     - Cutter status, manual cut, and configuration
  *   RECOVER <args>    - Error recovery commands
+ *   STREAM <args>     - Telemetry streaming control
  */
 
 #ifndef SERIAL_HANDLER_H
@@ -51,6 +52,7 @@ private:
     void handleEncoder(const char* args);
     void handleCutter(const char* args);
     void handleRecover(const char* args);
+    void handleStream(const char* args);
     void handleHelp();
 };
 
