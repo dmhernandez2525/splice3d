@@ -1,0 +1,24 @@
+{
+  "feature": "F4.2-quality-metrics",
+  "max_materials": 4,
+  "quality_history_size": 32,
+  "per_material_fields": [
+    "attempts", "successes", "avgQuality",
+    "avgSpliceTimeMs", "minQuality", "maxQuality"
+  ],
+  "trend_fields": ["scores", "count", "movingAvg", "trend"],
+  "snapshot_fields": [
+    "totalSplices", "totalSuccesses", "totalFailures",
+    "overallSuccessRate", "overallAvgQuality",
+    "sessionBestQuality", "sessionWorstQuality",
+    "perMaterial", "trend"
+  ],
+  "features": [
+    "per_material_tracking",
+    "quality_trend_analysis",
+    "success_rate_calculation",
+    "session_best_worst",
+    "running_averages",
+    "ring_buffer_history"
+  ]
+}
