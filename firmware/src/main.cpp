@@ -22,6 +22,7 @@
 #include "quality_metrics.h"
 #include "job_queue.h"
 #include "batch_processor.h"
+#include "material_database.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -50,6 +51,7 @@ void setup() {
     setupQualityMetrics();
     setupJobQueue();
     setupBatchProcessor();
+    setupMaterialDatabase();
 
     // Initialize state machine
     stateMachine.init();
@@ -102,4 +104,7 @@ void loop() {
 
     // Update batch processor
     updateBatchProcessor();
+
+    // Update material database
+    updateMaterialDatabase();
 }
