@@ -1,0 +1,26 @@
+{
+  "feature": "F6.1-segment-batching",
+  "max_batch_segments": 32,
+  "strategies": ["NONE", "GROUP_BY_MATERIAL", "MINIMIZE_CHANGES", "MINIMIZE_HEATING"],
+  "segment_fields": [
+    "segmentId", "material", "lengthMm", "originalOrder",
+    "batchedOrder", "processed", "active"
+  ],
+  "stats_fields": [
+    "totalSegments", "reorderedSegments", "materialChanges",
+    "materialChangesSaved", "heatingCyclesSaved", "reorderRatio"
+  ],
+  "material_types": ["PLA", "PETG", "ABS", "TPU"],
+  "reorder_ratio_range": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "features": [
+    "segment_queue",
+    "material_grouping",
+    "change_minimization",
+    "heating_cycle_optimization",
+    "reorder_statistics",
+    "serial_serialization"
+  ]
+}
