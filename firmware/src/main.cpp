@@ -25,6 +25,7 @@
 #include "material_database.h"
 #include "cross_material.h"
 #include "custom_profile.h"
+#include "profile_validator.h"
 #include "segment_batching.h"
 
 // Global state machine instance
@@ -57,6 +58,7 @@ void setup() {
     setupMaterialDatabase();
     setupCrossMaterial();
     setupCustomProfile();
+    setupProfileValidator();
     setupSegmentBatching();
 
     // Initialize state machine
@@ -119,6 +121,9 @@ void loop() {
 
     // Update custom profile editor
     updateCustomProfile();
+
+    // Update profile validator
+    updateProfileValidator();
 
     // Update segment batching
     updateSegmentBatching();

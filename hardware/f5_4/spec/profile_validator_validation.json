@@ -1,0 +1,33 @@
+{
+  "feature": "F5.4-profile-validation",
+  "max_validation_errors": 8,
+  "severity_levels": ["INFO", "WARNING", "ERROR", "CRITICAL"],
+  "validation_codes": [
+    "OK", "TEMP_TOO_LOW", "TEMP_TOO_HIGH",
+    "HOLD_TIME_TOO_SHORT", "HOLD_TIME_TOO_LONG",
+    "COMPRESSION_OUT_OF_RANGE",
+    "COOL_TIME_TOO_SHORT", "COOL_TIME_TOO_LONG",
+    "PULL_FORCE_TOO_LOW", "PULL_FORCE_TOO_HIGH",
+    "NAME_EMPTY", "BRAND_EMPTY"
+  ],
+  "safety_limits": {
+    "temperature": {"min": 150, "max": 280},
+    "hold_time_ms": {"min": 500, "max": 15000},
+    "compression_mm": {"min": 0.5, "max": 5.0},
+    "cool_time_ms": {"min": 1000, "max": 30000},
+    "pull_force_n": {"min": 1.0, "max": 20.0}
+  },
+  "test_phases": [
+    "IDLE", "HEATING", "HOLDING", "COMPRESSING",
+    "COOLING", "PULL_TEST", "COMPLETE", "FAILED"
+  ],
+  "features": [
+    "profile_validation_against_limits",
+    "severity_based_error_reporting",
+    "configurable_safety_limits",
+    "test_sequence_execution",
+    "test_sequence_abort",
+    "validation_before_test",
+    "serial_result_serialization"
+  ]
+}
