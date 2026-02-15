@@ -21,6 +21,7 @@
 #include "telemetry_stream.h"
 #include "quality_metrics.h"
 #include "job_queue.h"
+#include "batch_processor.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -48,6 +49,7 @@ void setup() {
     setupTelemetryStream();
     setupQualityMetrics();
     setupJobQueue();
+    setupBatchProcessor();
 
     // Initialize state machine
     stateMachine.init();
@@ -97,4 +99,7 @@ void loop() {
 
     // Update job queue
     updateJobQueue();
+
+    // Update batch processor
+    updateBatchProcessor();
 }
