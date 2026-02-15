@@ -198,6 +198,15 @@
 #define POSITION_MAX_DRIFT_EVENTS    16
 
 // ============================================================
+// ERROR RECOVERY (F3.4)
+// ============================================================
+#define RECOVERY_MAX_RETRIES       3
+#define RECOVERY_COOLDOWN_TIMEOUT_MS 60000UL
+#define RECOVERY_COOLDOWN_TARGET_C 60.0f
+#define RECOVERY_ASSESSMENT_DELAY_MS 500UL
+#define RECOVERY_RETRY_DELAY_MS    1000UL
+
+// ============================================================
 // FILAMENT PROPERTIES
 // ============================================================
 #define FILAMENT_DIAMETER      1.75    // mm

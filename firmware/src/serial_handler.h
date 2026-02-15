@@ -14,6 +14,7 @@
  *   TEMP <value>      - Set target temperature
  *   ENCODER <args>    - Encoder status, calibration, and tuning
  *   CUTTER <args>     - Cutter status, manual cut, and configuration
+ *   RECOVER <args>    - Error recovery commands
  */
 
 #ifndef SERIAL_HANDLER_H
@@ -49,6 +50,7 @@ private:
     void handleTemp(const char* args);
     void handleEncoder(const char* args);
     void handleCutter(const char* args);
+    void handleRecover(const char* args);
     void handleHelp();
 };
 
