@@ -1,0 +1,84 @@
+{
+  "feature": "F1.4-printed-parts",
+  "version": "1.0.0",
+  "printer_bed_limit_mm": [220.0, 220.0],
+  "spool_holder_requirements": {
+    "supported_outer_diameter_mm": 200.0,
+    "supported_hub_diameter_mm": 55.0,
+    "supported_spool_mass_kg": 1.0
+  },
+  "parts": [
+    {
+      "id": "enclosure_bottom",
+      "source_scad": "hardware/f1_4/cad/enclosure_bottom.scad",
+      "output_stl": "hardware/f1_4/stl/enclosure_bottom.stl",
+      "profile_readme": "hardware/f1_4/print_profiles/enclosure_bottom_README.md",
+      "bounding_box_mm": [218.0, 218.0, 42.0],
+      "support_required_critical_areas": false,
+      "snap_fit": {"enabled": true, "retention_force_n": 24.0, "minimum_force_n": 12.0}
+    },
+    {
+      "id": "enclosure_top",
+      "source_scad": "hardware/f1_4/cad/enclosure_top.scad",
+      "output_stl": "hardware/f1_4/stl/enclosure_top.stl",
+      "profile_readme": "hardware/f1_4/print_profiles/enclosure_top_README.md",
+      "bounding_box_mm": [218.0, 218.0, 38.0],
+      "support_required_critical_areas": false,
+      "snap_fit": {"enabled": true, "retention_force_n": 20.0, "minimum_force_n": 12.0}
+    },
+    {
+      "id": "mounting_brackets",
+      "source_scad": "hardware/f1_4/cad/mounting_brackets.scad",
+      "output_stl": "hardware/f1_4/stl/mounting_brackets.stl",
+      "profile_readme": "hardware/f1_4/print_profiles/mounting_brackets_README.md",
+      "bounding_box_mm": [180.0, 120.0, 45.0],
+      "support_required_critical_areas": false,
+      "snap_fit": {"enabled": false, "retention_force_n": 0.0, "minimum_force_n": 0.0}
+    },
+    {
+      "id": "filament_guides",
+      "source_scad": "hardware/f1_4/cad/filament_guides.scad",
+      "output_stl": "hardware/f1_4/stl/filament_guides.stl",
+      "profile_readme": "hardware/f1_4/print_profiles/filament_guides_README.md",
+      "bounding_box_mm": [150.0, 100.0, 24.0],
+      "support_required_critical_areas": false,
+      "snap_fit": {"enabled": false, "retention_force_n": 0.0, "minimum_force_n": 0.0}
+    },
+    {
+      "id": "tool_accessory_mounts",
+      "source_scad": "hardware/f1_4/cad/tool_accessory_mounts.scad",
+      "output_stl": "hardware/f1_4/stl/tool_accessory_mounts.stl",
+      "profile_readme": "hardware/f1_4/print_profiles/tool_accessory_mounts_README.md",
+      "bounding_box_mm": [170.0, 90.0, 25.0],
+      "support_required_critical_areas": false,
+      "snap_fit": {"enabled": true, "retention_force_n": 14.0, "minimum_force_n": 10.0}
+    },
+    {
+      "id": "vent_ducts",
+      "source_scad": "hardware/f1_4/cad/vent_ducts.scad",
+      "output_stl": "hardware/f1_4/stl/vent_ducts.stl",
+      "profile_readme": "hardware/f1_4/print_profiles/vent_ducts_README.md",
+      "bounding_box_mm": [180.0, 120.0, 35.0],
+      "support_required_critical_areas": false,
+      "snap_fit": {"enabled": false, "retention_force_n": 0.0, "minimum_force_n": 0.0}
+    },
+    {
+      "id": "spool_holder",
+      "source_scad": "hardware/f1_4/cad/spool_holder.scad",
+      "output_stl": "hardware/f1_4/stl/spool_holder.stl",
+      "profile_readme": "hardware/f1_4/print_profiles/spool_holder_README.md",
+      "bounding_box_mm": [210.0, 120.0, 90.0],
+      "support_required_critical_areas": false,
+      "snap_fit": {"enabled": false, "retention_force_n": 0.0, "minimum_force_n": 0.0}
+    },
+    {
+      "id": "cable_management",
+      "source_scad": "hardware/f1_4/cad/cable_management.scad",
+      "output_stl": "hardware/f1_4/stl/cable_management.stl",
+      "profile_readme": "hardware/f1_4/print_profiles/cable_management_README.md",
+      "bounding_box_mm": [200.0, 80.0, 20.0],
+      "support_required_critical_areas": false,
+      "snap_fit": {"enabled": true, "retention_force_n": 12.0, "minimum_force_n": 8.0}
+    }
+  ]
+}

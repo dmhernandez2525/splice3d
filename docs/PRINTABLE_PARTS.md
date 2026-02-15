@@ -13,6 +13,11 @@ This document tracks printable parts and links to the active CAD package.
 - Layout constraints and tolerances are defined in `hardware/f1_1/spec/mechanical_layout.json`
 - Validation tests exist in `postprocessor/tests/test_mechanical_validation.py`
 
+**Phase 1.4 complete for printable package**
+- Full printed parts CAD set in `hardware/f1_4/cad/`
+- Per-part print settings in `hardware/f1_4/print_profiles/`
+- Printable-parts validation in `scripts/hardware/validate_f1_4.py`
+
 ---
 
 ## Required Parts
