@@ -1,0 +1,22 @@
+{
+  "feature": "F4.3-job-queue",
+  "max_queued_jobs": 8,
+  "job_statuses": ["PENDING", "RUNNING", "PAUSED", "COMPLETE", "FAILED", "CANCELLED"],
+  "job_fields": [
+    "jobId", "segmentCount", "currentSegment",
+    "materialIndex", "priority", "status",
+    "startTimeMs", "elapsedMs", "progressPercent"
+  ],
+  "queue_stats_fields": [
+    "totalQueued", "totalCompleted", "totalFailed",
+    "totalCancelled", "avgJobTimeMs"
+  ],
+  "features": [
+    "priority_ordering",
+    "pause_resume",
+    "auto_advance",
+    "job_cancellation",
+    "progress_tracking",
+    "queue_statistics"
+  ]
+}

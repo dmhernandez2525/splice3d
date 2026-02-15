@@ -20,6 +20,7 @@
 #include "error_recovery.h"
 #include "telemetry_stream.h"
 #include "quality_metrics.h"
+#include "job_queue.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -46,6 +47,7 @@ void setup() {
     setupErrorRecovery();
     setupTelemetryStream();
     setupQualityMetrics();
+    setupJobQueue();
 
     // Initialize state machine
     stateMachine.init();
@@ -92,4 +94,7 @@ void loop() {
 
     // Update quality metrics
     updateQualityMetrics();
+
+    // Update job queue
+    updateJobQueue();
 }
