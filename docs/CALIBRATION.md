@@ -26,6 +26,23 @@ Tuning your Splice3D machine for accurate filament lengths and reliable welds.
 
 **Note:** Winder steps/mm varies with spool fill level. Start with empty spool for calibration.
 
+## 1.1 Encoder Calibration (F2.2)
+
+Use the encoder calibration flow to lock ticks-per-mm against a known filament length.
+
+1. Feed a precisely measured filament section (for example `1000mm`) through the encoder path
+2. Start calibration:
+   - `ENCODER CAL_START 1000`
+3. Run the measured feed move
+4. Complete calibration:
+   - `ENCODER CAL_COMPLETE`
+5. Verify status:
+   - `ENCODER STATUS`
+6. Optionally persist explicitly:
+   - `ENCODER SAVE`
+
+The firmware stores calibration in EEPROM and reloads it at boot.
+
 ## 2. Temperature Calibration
 
 ### PID Tuning

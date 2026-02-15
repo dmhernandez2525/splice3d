@@ -12,6 +12,7 @@
 #include "serial_handler.h"
 #include "stepper_control.h"
 #include "temperature.h"
+#include "encoder_system.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -30,6 +31,7 @@ void setup() {
     // Initialize subsystems
     setupSteppers();
     setupTemperature();
+    setupEncoderSystem();
     
     // Initialize state machine
     stateMachine.init();
@@ -52,4 +54,7 @@ void loop() {
     
     // Update stepper positions (non-blocking)
     runSteppers();
+
+    // Update encoder subsystem
+    updateEncoderSystem();
 }

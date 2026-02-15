@@ -6,6 +6,8 @@
 #include "config.h"
 #include "state_machine.h"
 #include "temperature.h"
+#include "encoder_system.h"
+#include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -92,6 +94,9 @@ void SerialHandler::processLine(const char* line) {
     }
     else if (strcmp(cmd, "TEMP") == 0) {
         handleTemp(args);
+    }
+    else if (strcmp(cmd, "ENCODER") == 0) {
+        handleEncoder(args);
     }
     else if (strcmp(cmd, "HELP") == 0 || strcmp(cmd, "?") == 0) {
         handleHelp();
@@ -215,6 +220,12 @@ void SerialHandler::handleStatus() {
     Serial.print(getCurrentTemperature());
     Serial.print(F("/"));
     Serial.print(getTargetTemperature());
+
+    const EncoderTelemetry telemetry = getEncoderTelemetry();
+    Serial.print(F(" ENC_MM "));
+    Serial.print(telemetry.positionMm, 2);
+    Serial.print(F(" ENC_SLIP "));
+    Serial.print(telemetry.slipDetected ? 1 : 0);
     
     Serial.println();
 }
@@ -248,5 +259,6 @@ void SerialHandler::handleHelp() {
     Serial.println(F("  ABORT          - Emergency stop"));
     Serial.println(F("  STATUS         - Query state"));
     Serial.println(F("  TEMP [value]   - Get/set temperature"));
+    Serial.println(F("  ENCODER ...    - Encoder status/calibration"));
     Serial.println(F("  HELP           - Show this help"));
 }

@@ -12,6 +12,16 @@ Research on the Mosaic Palette reveals these key parameters:
 4. **Cooling Factor** - Duration of rapid cooling
 5. **Scroll Wheel** - Measures filament length accurately
 
+## Encoder Tracking (F2.2)
+
+Splice3D now uses interrupt-driven quadrature decoding for filament position feedback:
+
+1. Captures encoder transitions on both channels using hardware interrupts
+2. Converts ticks to millimeters using a persisted calibration value
+3. Monitors velocity and signal quality to detect noisy or degraded encoder behavior
+4. Compares encoder position to commanded motor position for slip detection
+5. Applies bounded closed-loop correction moves when slip grows beyond thresholds
+
 ## Splice3D Implementation
 
 ### Splice Core Components
