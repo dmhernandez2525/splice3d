@@ -28,6 +28,7 @@
 #include "profile_validator.h"
 #include "segment_batching.h"
 #include "thermal_optimizer.h"
+#include "waste_tracker.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -62,6 +63,7 @@ void setup() {
     setupProfileValidator();
     setupSegmentBatching();
     setupThermalOptimizer();
+    setupWasteTracker();
 
     // Initialize state machine
     stateMachine.init();
@@ -132,4 +134,7 @@ void loop() {
 
     // Update thermal optimizer
     updateThermalOptimizer();
+
+    // Update waste tracker
+    updateWasteTracker();
 }

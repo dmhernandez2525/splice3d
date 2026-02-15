@@ -1,0 +1,28 @@
+{
+  "feature": "F6.3-waste-reduction",
+  "max_waste_records": 32,
+  "waste_categories": ["PURGE", "TRANSITION", "FAILED_SPLICE", "TIP_SHAPING"],
+  "record_fields": [
+    "spliceId", "material", "category", "wasteMm",
+    "wasteGrams", "timestampMs", "active"
+  ],
+  "analytics_fields": [
+    "totalWasteMm", "totalWasteGrams", "avgWastePerSpliceMm",
+    "purgeWasteMm", "transitionWasteMm", "failedWasteMm",
+    "tipShapingWasteMm", "totalRecords", "failedSplices",
+    "wasteReductionPct"
+  ],
+  "recommendation_fields": [
+    "worstCategory", "worstCategoryMm", "potentialSavingMm",
+    "hasRecommendation"
+  ],
+  "default_baseline_mm": 25.0,
+  "features": [
+    "per_splice_waste_tracking",
+    "category_breakdown",
+    "material_breakdown",
+    "waste_analytics",
+    "reduction_recommendations",
+    "serial_serialization"
+  ]
+}
