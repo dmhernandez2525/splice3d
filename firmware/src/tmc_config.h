@@ -64,6 +64,19 @@ void configureTMCDriver(TMC2209Stepper& driver, uint16_t current_mA, bool stealt
 void setMotorCurrent(char axis, uint16_t current_mA);
 
 /**
+ * Set motor microstepping for a specific axis.
+ * @param axis 'X', 'Y', 'Z', or 'E'
+ * @param microsteps 8, 16, or 32 recommended
+ */
+void setMotorMicrosteps(char axis, uint16_t microsteps);
+
+/**
+ * Set motor microstepping on all axes.
+ * @param microsteps 8, 16, or 32 recommended
+ */
+void setAllMotorMicrosteps(uint16_t microsteps);
+
+/**
  * Enable/disable StealthChop for a specific axis.
  * @param axis 'X', 'Y', 'Z', or 'E'
  * @param enable true for StealthChop (silent), false for SpreadCycle (more torque)

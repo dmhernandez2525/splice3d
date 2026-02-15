@@ -1,0 +1,32 @@
+{
+  "feature": "F2.1-motor-control",
+  "version": "1.0.0",
+  "acceptance_limits": {
+    "position_accuracy_mm": 0.05,
+    "emergency_stop_latency_ms": 100,
+    "stall_trigger_before_skip_mm": 2.0
+  },
+  "position_trials": [
+    {"commanded_mm": 25.0, "observed_mm": 24.98},
+    {"commanded_mm": 100.0, "observed_mm": 99.97},
+    {"commanded_mm": 250.0, "observed_mm": 250.02}
+  ],
+  "emergency_stop_trials": [
+    {"scenario": "feed_a_active", "latency_ms": 42},
+    {"scenario": "synchronized_move", "latency_ms": 58},
+    {"scenario": "winder_only", "latency_ms": 35}
+  ],
+  "stall_detection_trials": [
+    {"scenario": "feed_a_jam", "detected_before_skip_mm": 1.4},
+    {"scenario": "feed_b_jam", "detected_before_skip_mm": 1.6},
+    {"scenario": "winder_jam", "detected_before_skip_mm": 1.2}
+  ],
+  "runtime_features": {
+    "microstepping_modes": [8, 16, 32],
+    "current_control": {"run_ma": 900, "hold_ma": 450},
+    "backlash_compensation_mm": {"feed_a": 0.08, "feed_b": 0.08, "winder": 0.12},
+    "sensorless_homing": true,
+    "synchronized_moves": true,
+    "diagnostics": ["stall", "overtemp", "missed_step_estimate"]
+  }
+}

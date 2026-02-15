@@ -12,13 +12,16 @@ TMC2209Stepper tmc_x(&SERIAL_PORT, R_SENSE, TMC_X_ADDR);
 TMC2209Stepper tmc_y(&SERIAL_PORT, R_SENSE, TMC_Y_ADDR);
 TMC2209Stepper tmc_z(&SERIAL_PORT, R_SENSE, TMC_Z_ADDR);
 TMC2209Stepper tmc_e(&SERIAL_PORT, R_SENSE, TMC_E_ADDR);
+constexpr unsigned long kDriverInitWaitMs = 100;
 
 void initTMCDrivers() {
     // Initialize UART at 115200 baud (TMC default)
     SERIAL_PORT.begin(115200);
     
-    // Small delay for drivers to initialize
-    delay(100);
+    // Wait for driver UART startup using a millis-based gate.
+    const unsigned long initStart = millis();
+    while (millis() - initStart < kDriverInitWaitMs) {
+    }
     
     // Configure each driver
     configureTMCDriver(tmc_x, MOTOR_CURRENT_MA, true);
@@ -86,6 +89,33 @@ void setMotorCurrent(char axis, uint16_t current_mA) {
         Serial.print(current_mA);
         Serial.println("mA");
     }
+}
+
+void setMotorMicrosteps(char axis, uint16_t microsteps) {
+    TMC2209Stepper* driver = nullptr;
+
+    switch (axis) {
+        case 'X': case 'x': driver = &tmc_x; break;
+        case 'Y': case 'y': driver = &tmc_y; break;
+        case 'Z': case 'z': driver = &tmc_z; break;
+        case 'E': case 'e': driver = &tmc_e; break;
+        default: return;
+    }
+
+    if (driver) {
+        driver->microsteps(microsteps);
+        Serial.print("Set ");
+        Serial.print(axis);
+        Serial.print(" microsteps to ");
+        Serial.println(microsteps);
+    }
+}
+
+void setAllMotorMicrosteps(uint16_t microsteps) {
+    setMotorMicrosteps('X', microsteps);
+    setMotorMicrosteps('Y', microsteps);
+    setMotorMicrosteps('Z', microsteps);
+    setMotorMicrosteps('E', microsteps);
 }
 
 void setStealthChop(char axis, bool enable) {

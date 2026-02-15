@@ -136,8 +136,12 @@
 #define WELD_TEMP_ABS          250     // °C
 #define WELD_HOLD_TIME_MS      3000    // Hold at temp (ms)
 #define WELD_COMPRESSION_MM    2.0     // Push distance during weld
+#define WELD_POSITION_ADVANCE_MM 2.0   // Positioning distance before weld
 #define COOLING_TIME_MS        5000    // Cooling fan time (ms)
 #define COOLING_TEMP_TARGET    50      // °C to reach before continuing
+
+// Cutter travel for stepper-based cutter configuration
+#define CUTTER_STEPPER_TRAVEL_STEPS 200
 
 // ============================================================
 // SAFETY
