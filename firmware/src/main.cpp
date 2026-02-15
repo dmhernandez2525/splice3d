@@ -29,6 +29,7 @@
 #include "segment_batching.h"
 #include "thermal_optimizer.h"
 #include "waste_tracker.h"
+#include "speed_optimizer.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -64,6 +65,7 @@ void setup() {
     setupSegmentBatching();
     setupThermalOptimizer();
     setupWasteTracker();
+    setupSpeedOptimizer();
 
     // Initialize state machine
     stateMachine.init();
@@ -137,4 +139,7 @@ void loop() {
 
     // Update waste tracker
     updateWasteTracker();
+
+    // Update speed optimizer
+    updateSpeedOptimizer();
 }

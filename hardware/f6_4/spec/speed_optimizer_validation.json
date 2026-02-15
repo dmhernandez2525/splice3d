@@ -1,0 +1,29 @@
+{
+  "feature": "F6.4-speed-optimization",
+  "max_parallel_ops": 8,
+  "max_cycle_records": 16,
+  "op_types": ["HEATING", "FEEDING", "CUTTING", "SPLICING", "COOLING", "POSITIONING"],
+  "op_states": ["PENDING", "RUNNING", "COMPLETED", "CANCELLED"],
+  "overlap_pairs": [
+    {"a": "HEATING", "b": "FEEDING"},
+    {"a": "COOLING", "b": "POSITIONING"},
+    {"a": "HEATING", "b": "POSITIONING"}
+  ],
+  "cycle_fields": [
+    "heatingMs", "feedingMs", "cuttingMs", "splicingMs",
+    "coolingMs", "positioningMs", "totalMs", "overlapSavedMs",
+    "cycleId", "complete"
+  ],
+  "stats_fields": [
+    "totalCycles", "avgCycleMs", "bestCycleMs", "worstCycleMs",
+    "totalOverlapSavedMs", "parallelOpsCount", "overlapRatio"
+  ],
+  "features": [
+    "parallel_operation_scheduling",
+    "overlap_detection",
+    "cycle_time_breakdown",
+    "cycle_history",
+    "aggregate_statistics",
+    "serial_serialization"
+  ]
+}
