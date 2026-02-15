@@ -6,6 +6,22 @@
 
 The Splice3D machine repurposes an Ender 3 or CR-10's electronics and motors to create a filament splicing station. This guide documents the mechanical design concepts.
 
+## F1.1 CAD Package
+
+Phase 1.1 mechanical design assets are now available:
+
+1. CAD source: `hardware/f1_1/cad/`
+2. Mechanical layout and fit manifest: `hardware/f1_1/spec/mechanical_layout.json`
+3. Design summary: `docs/F1.1_MECHANICAL_DESIGN.md`
+4. Tolerance analysis: `docs/F1.1_TOLERANCE_ANALYSIS.md`
+
+Validation commands:
+
+```bash
+python3 scripts/hardware/validate_f1_1.py
+python3 -m pytest postprocessor/tests/test_mechanical_validation.py -v
+```
+
 ## Components Needed
 
 ### From Donor Printer
