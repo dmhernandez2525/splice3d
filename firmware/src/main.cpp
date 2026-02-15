@@ -23,6 +23,7 @@
 #include "job_queue.h"
 #include "batch_processor.h"
 #include "material_database.h"
+#include "cross_material.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -52,6 +53,7 @@ void setup() {
     setupJobQueue();
     setupBatchProcessor();
     setupMaterialDatabase();
+    setupCrossMaterial();
 
     // Initialize state machine
     stateMachine.init();
@@ -107,4 +109,7 @@ void loop() {
 
     // Update material database
     updateMaterialDatabase();
+
+    // Update cross-material compatibility
+    updateCrossMaterial();
 }
