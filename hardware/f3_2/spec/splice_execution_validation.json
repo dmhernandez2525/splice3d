@@ -1,0 +1,27 @@
+{
+  "feature": "F3.2-splice-execution",
+  "acceptance_limits": {
+    "pla_bond_strength_n": 20,
+    "petg_bond_strength_n": 18,
+    "abs_bond_strength_n": 15,
+    "max_splice_time_ms": 30000,
+    "quality_check_threshold": 0.5
+  },
+  "splice_phases": [
+    "IDLE", "RETRACT_A", "ADVANCE_B", "HEATING",
+    "COMPRESSING", "HOLDING", "COOLING", "VERIFYING",
+    "COMPLETE", "FAILED"
+  ],
+  "material_profiles": {
+    "PLA": {"temperature_c": 210, "compression_mm": 2.0, "hold_time_ms": 2000, "cool_time_ms": 5000},
+    "PETG": {"temperature_c": 235, "compression_mm": 2.5, "hold_time_ms": 3000, "cool_time_ms": 6000},
+    "ABS": {"temperature_c": 250, "compression_mm": 3.0, "hold_time_ms": 4000, "cool_time_ms": 8000}
+  },
+  "quality_features": [
+    "pull_test_verification",
+    "encoder_slip_quality_scoring",
+    "temperature_deviation_tracking",
+    "timing_estimation",
+    "abort_sequence"
+  ]
+}
