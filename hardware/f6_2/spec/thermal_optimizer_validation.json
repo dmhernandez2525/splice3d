@@ -1,0 +1,24 @@
+{
+  "feature": "F6.2-thermal-optimization",
+  "max_preheat_queue": 8,
+  "heat_reuse_threshold_c": 15,
+  "preheat_lead_time_ms": 5000,
+  "thermal_states": ["IDLE", "PREHEATING", "AT_TEMP", "COOLING", "REUSING_HEAT"],
+  "preheat_fields": [
+    "material", "targetTempC", "scheduledTimeMs",
+    "started", "completed", "active"
+  ],
+  "stats_fields": [
+    "totalPreheats", "successfulPreheats", "heatReuses",
+    "totalSavedMs", "totalSavedDegrees", "thermalCyclesAvoided",
+    "avgPreheatAccuracyC"
+  ],
+  "features": [
+    "preheat_scheduling",
+    "heat_reuse_detection",
+    "thermal_cycle_minimization",
+    "preheat_accuracy_tracking",
+    "thermal_state_machine",
+    "serial_serialization"
+  ]
+}
