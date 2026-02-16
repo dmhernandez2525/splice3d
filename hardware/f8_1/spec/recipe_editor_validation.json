@@ -1,0 +1,44 @@
+{
+  "feature": "F8.1-recipe-editor",
+  "max_segments": 128,
+  "max_recipes": 16,
+  "segment_fields": [
+    "index",
+    "materialIndex",
+    "lengthMm",
+    "colorHex",
+    "toolNumber",
+    "spliceTemp",
+    "holdTimeMs"
+  ],
+  "recipe_fields": [
+    "name",
+    "segmentCount",
+    "totalLengthMm",
+    "estimatedTimeMin",
+    "validated",
+    "createdAt"
+  ],
+  "edit_operations": [
+    "add_segment",
+    "remove_segment",
+    "reorder_segment",
+    "modify_segment",
+    "duplicate_segment"
+  ],
+  "stats_fields": [
+    "totalRecipes",
+    "activeRecipe",
+    "totalSegments",
+    "lastEditTimestamp",
+    "validationErrors"
+  ],
+  "features": [
+    "recipe_creation",
+    "segment_management",
+    "material_assignment",
+    "recipe_validation",
+    "recipe_serialization",
+    "serial_serialization"
+  ]
+}
