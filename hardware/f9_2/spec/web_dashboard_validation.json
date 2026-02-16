@@ -1,0 +1,49 @@
+{
+  "feature": "F9.2-web-dashboard",
+  "max_connections": 4,
+  "max_api_routes": 16,
+  "http_methods": [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE"
+  ],
+  "api_routes": [
+    "/status",
+    "/recipe",
+    "/queue",
+    "/telemetry",
+    "/config",
+    "/materials"
+  ],
+  "websocket_events": [
+    "status_update",
+    "temperature_change",
+    "splice_progress",
+    "error_event",
+    "job_complete"
+  ],
+  "page_fields": [
+    "path",
+    "title",
+    "contentType",
+    "cacheable",
+    "authRequired"
+  ],
+  "stats_fields": [
+    "totalRequests",
+    "activeConnections",
+    "websocketClients",
+    "uptimeMs",
+    "bytesServed",
+    "errorCount"
+  ],
+  "features": [
+    "http_server",
+    "rest_api",
+    "websocket_streaming",
+    "static_page_serving",
+    "connection_management",
+    "serial_serialization"
+  ]
+}

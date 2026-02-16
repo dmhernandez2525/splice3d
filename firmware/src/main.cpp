@@ -39,6 +39,7 @@
 #include "device_connection.h"
 #include "queue_manager.h"
 #include "wifi_manager.h"
+#include "web_dashboard.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -84,6 +85,7 @@ void setup() {
     setupDeviceConnection();
     setupQueueManager();
     setupWifiManager();
+    setupWebDashboard();
 
     // Initialize state machine
     stateMachine.init();
@@ -187,4 +189,7 @@ void loop() {
 
     // Update wifi manager
     updateWifiManager();
+
+    // Update web dashboard
+    updateWebDashboard();
 }
