@@ -50,5 +50,29 @@ class TestQueueManagerValidation(unittest.TestCase):
         self.assertGreater(len(errors), 0)
 
 
+    def test_missing_queue_states_item_detected(self) -> None:
+        bad_spec = {"queue_states": []}
+        errors = validate_queue_states(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_operations_item_detected(self) -> None:
+        bad_spec = {"operations": []}
+        errors = validate_operations(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_stats_fields_item_detected(self) -> None:
+        bad_spec = {"stats_fields": []}
+        errors = validate_stats_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_features_item_detected(self) -> None:
+        bad_spec = {"features": []}
+        errors = validate_features(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_empty_spec_fails(self) -> None:
+        report = generate_report({})
+        self.assertFalse(report["passed"])
+
 if __name__ == "__main__":
     unittest.main()

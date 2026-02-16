@@ -9,6 +9,16 @@
 
 #include <Arduino.h>
 
+constexpr uint8_t kMaxQueueSize = 32;
+constexpr uint8_t kPriorityLevels = 4;
+enum class QueueManagerState : uint8_t {
+    EMPTY = 0,
+    RUNNING = 1,
+    PAUSED = 2,
+    COMPLETED = 3,
+    ERROR = 4,
+};
+
 struct QueueManagerStats {
     uint32_t totalQueued;
     uint32_t totalCompleted;
