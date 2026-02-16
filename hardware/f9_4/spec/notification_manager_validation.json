@@ -1,0 +1,52 @@
+{
+  "feature": "F9.4-notification-manager",
+  "max_notifications": 32,
+  "max_channels": 4,
+  "priority_levels": [
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "CRITICAL"
+  ],
+  "event_types": [
+    "SPLICE_COMPLETE",
+    "SPLICE_FAILED",
+    "TEMPERATURE_WARNING",
+    "JOB_COMPLETE",
+    "QUEUE_EMPTY",
+    "ERROR"
+  ],
+  "channel_fields": [
+    "channelId",
+    "name",
+    "enabled",
+    "endpoint",
+    "priority",
+    "filterMask"
+  ],
+  "notification_fields": [
+    "notificationId",
+    "eventType",
+    "priority",
+    "message",
+    "timestamp",
+    "delivered",
+    "acknowledged"
+  ],
+  "stats_fields": [
+    "totalSent",
+    "totalDelivered",
+    "totalFailed",
+    "pendingCount",
+    "channelCount",
+    "lastSentMs"
+  ],
+  "features": [
+    "notification_creation",
+    "channel_management",
+    "priority_filtering",
+    "event_filtering",
+    "delivery_queue",
+    "serial_serialization"
+  ]
+}
