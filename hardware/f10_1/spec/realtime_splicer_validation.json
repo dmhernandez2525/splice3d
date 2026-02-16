@@ -1,0 +1,52 @@
+{
+  "feature": "F10.1-realtime-splicer",
+  "buffer_size": 8,
+  "max_timing_windows": 16,
+  "sync_states": [
+    "IDLE",
+    "SYNCING",
+    "AHEAD",
+    "BEHIND",
+    "CRITICAL",
+    "PAUSED",
+    "ERROR"
+  ],
+  "buffer_fields": [
+    "segmentIndex",
+    "materialIndex",
+    "lengthMm",
+    "readyAt",
+    "spliceAt",
+    "consumed"
+  ],
+  "timing_fields": [
+    "windowStart",
+    "windowEnd",
+    "targetLayer",
+    "toleranceMs",
+    "met"
+  ],
+  "printer_fields": [
+    "positionMm",
+    "currentLayer",
+    "printSpeed",
+    "extruderTemp",
+    "filamentRemaining"
+  ],
+  "stats_fields": [
+    "totalSyncs",
+    "missedWindows",
+    "bufferUnderruns",
+    "avgLeadTimeMs",
+    "maxLeadTimeMs",
+    "syncAccuracy"
+  ],
+  "features": [
+    "printer_sync",
+    "buffer_management",
+    "timing_windows",
+    "position_tracking",
+    "underrun_detection",
+    "serial_serialization"
+  ]
+}

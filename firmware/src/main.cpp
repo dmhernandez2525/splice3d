@@ -42,6 +42,7 @@
 #include "web_dashboard.h"
 #include "ota_updater.h"
 #include "notification_manager.h"
+#include "realtime_splicer.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -90,6 +91,7 @@ void setup() {
     setupWebDashboard();
     setupOtaUpdater();
     setupNotificationManager();
+    setupRealtimeSplicer();
 
     // Initialize state machine
     stateMachine.init();
@@ -202,4 +204,7 @@ void loop() {
 
     // Update notification manager
     updateNotificationManager();
+
+    // Update realtime splicer
+    updateRealtimeSplicer();
 }
