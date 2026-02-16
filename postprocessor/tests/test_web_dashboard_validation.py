@@ -55,5 +55,34 @@ class TestWebDashboardValidation(unittest.TestCase):
         self.assertGreater(len(errors), 0)
 
 
+    def test_missing_api_routes_item_detected(self) -> None:
+        bad_spec = {"api_routes": []}
+        errors = validate_api_routes(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_websocket_events_item_detected(self) -> None:
+        bad_spec = {"websocket_events": []}
+        errors = validate_websocket_events(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_page_fields_item_detected(self) -> None:
+        bad_spec = {"page_fields": []}
+        errors = validate_page_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_stats_fields_item_detected(self) -> None:
+        bad_spec = {"stats_fields": []}
+        errors = validate_stats_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_features_item_detected(self) -> None:
+        bad_spec = {"features": []}
+        errors = validate_features(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_empty_spec_fails(self) -> None:
+        report = generate_report({})
+        self.assertFalse(report["passed"])
+
 if __name__ == "__main__":
     unittest.main()
