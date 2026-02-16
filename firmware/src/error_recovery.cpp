@@ -56,8 +56,11 @@ void finishAttempt(bool success) {
     }
     st.active = false;
     enterPhase(success ? RecoveryPhase::RESOLVED : RecoveryPhase::UNRECOVERABLE);
-    const char* label = success ? "RECOVERY_OK" : "RECOVERY_FAIL";
-    Serial.print(F(label));
+    if (success) {
+        Serial.print(F("RECOVERY_OK"));
+    } else {
+        Serial.print(F("RECOVERY_FAIL"));
+    }
     Serial.print(F(" code="));
     Serial.print(static_cast<uint8_t>(st.current.errorCode));
     Serial.print(F(" retries="));
