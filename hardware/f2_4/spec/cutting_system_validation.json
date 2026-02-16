@@ -1,5 +1,6 @@
 {
   "feature": "F2.4-cutting-system",
+  "version": "1.0.0",
   "acceptance_limits": {
     "servo_travel_ms": 300,
     "manual_override_response_ms": 500,
