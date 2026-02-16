@@ -55,5 +55,34 @@ class TestMultiColorValidation(unittest.TestCase):
         self.assertGreater(len(errors), 0)
 
 
+    def test_missing_channel_fields_item_detected(self) -> None:
+        bad_spec = {"channel_fields": []}
+        errors = validate_channel_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_switch_fields_item_detected(self) -> None:
+        bad_spec = {"switch_fields": []}
+        errors = validate_switch_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_mapping_fields_item_detected(self) -> None:
+        bad_spec = {"mapping_fields": []}
+        errors = validate_mapping_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_stats_fields_item_detected(self) -> None:
+        bad_spec = {"stats_fields": []}
+        errors = validate_stats_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_features_item_detected(self) -> None:
+        bad_spec = {"features": []}
+        errors = validate_features(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_empty_spec_fails(self) -> None:
+        report = generate_report({})
+        self.assertFalse(report["passed"])
+
 if __name__ == "__main__":
     unittest.main()
