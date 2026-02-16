@@ -1,0 +1,55 @@
+{
+  "feature": "F9.1-wifi-manager",
+  "max_ssid_length": 32,
+  "max_password_length": 64,
+  "max_stored_networks": 8,
+  "wifi_modes": [
+    "OFF",
+    "STA",
+    "AP",
+    "STA_AP"
+  ],
+  "connection_states": [
+    "IDLE",
+    "SCANNING",
+    "CONNECTING",
+    "CONNECTED",
+    "DISCONNECTED",
+    "AP_ACTIVE",
+    "ERROR"
+  ],
+  "network_fields": [
+    "ssid",
+    "rssi",
+    "channel",
+    "encryption",
+    "connected",
+    "autoConnect"
+  ],
+  "config_fields": [
+    "hostname",
+    "apSsid",
+    "apPassword",
+    "staTimeout",
+    "maxRetries",
+    "backoffBaseMs"
+  ],
+  "stats_fields": [
+    "currentMode",
+    "connected",
+    "ipAddress",
+    "rssi",
+    "uptimeMs",
+    "reconnectCount",
+    "storedNetworks"
+  ],
+  "features": [
+    "sta_mode",
+    "ap_mode",
+    "auto_reconnect",
+    "exponential_backoff",
+    "nvs_credential_storage",
+    "network_scanning",
+    "serial_serialization"
+  ]
+}
