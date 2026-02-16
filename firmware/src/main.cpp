@@ -36,6 +36,7 @@
 #include "slicer_bambu.h"
 #include "recipe_editor.h"
 #include "gcode_preview.h"
+#include "device_connection.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -78,6 +79,7 @@ void setup() {
     setupSlicerBambu();
     setupRecipeEditor();
     setupGcodePreview();
+    setupDeviceConnection();
 
     // Initialize state machine
     stateMachine.init();
@@ -172,4 +174,7 @@ void loop() {
 
     // Update gcode preview
     updateGcodePreview();
+
+    // Update device connection
+    updateDeviceConnection();
 }
