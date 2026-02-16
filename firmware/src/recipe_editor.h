@@ -9,6 +9,9 @@
 
 #include <Arduino.h>
 
+constexpr uint8_t kMaxRecipes = 16;
+constexpr uint8_t kMaxRecipeSegments = 128;
+
 struct RecipeEditorStats {
     uint32_t totalRecipes;
     uint16_t activeRecipe;
