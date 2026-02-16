@@ -55,5 +55,34 @@ class TestWifiManagerValidation(unittest.TestCase):
         self.assertGreater(len(errors), 0)
 
 
+    def test_missing_connection_states_item_detected(self) -> None:
+        bad_spec = {"connection_states": []}
+        errors = validate_connection_states(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_network_fields_item_detected(self) -> None:
+        bad_spec = {"network_fields": []}
+        errors = validate_network_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_config_fields_item_detected(self) -> None:
+        bad_spec = {"config_fields": []}
+        errors = validate_config_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_stats_fields_item_detected(self) -> None:
+        bad_spec = {"stats_fields": []}
+        errors = validate_stats_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_features_item_detected(self) -> None:
+        bad_spec = {"features": []}
+        errors = validate_features(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_empty_spec_fails(self) -> None:
+        report = generate_report({})
+        self.assertFalse(report["passed"])
+
 if __name__ == "__main__":
     unittest.main()
