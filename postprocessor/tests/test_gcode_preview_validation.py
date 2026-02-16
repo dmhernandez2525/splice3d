@@ -50,5 +50,29 @@ class TestGcodePreviewValidation(unittest.TestCase):
         self.assertGreater(len(errors), 0)
 
 
+    def test_missing_color_zone_fields_item_detected(self) -> None:
+        bad_spec = {"color_zone_fields": []}
+        errors = validate_color_zone_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_view_modes_item_detected(self) -> None:
+        bad_spec = {"view_modes": []}
+        errors = validate_view_modes(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_stats_fields_item_detected(self) -> None:
+        bad_spec = {"stats_fields": []}
+        errors = validate_stats_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_features_item_detected(self) -> None:
+        bad_spec = {"features": []}
+        errors = validate_features(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_empty_spec_fails(self) -> None:
+        report = generate_report({})
+        self.assertFalse(report["passed"])
+
 if __name__ == "__main__":
     unittest.main()

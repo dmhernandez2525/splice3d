@@ -9,11 +9,20 @@
 
 #include <Arduino.h>
 
+constexpr uint16_t kMaxPreviewLayers = 512;
+constexpr uint8_t kMaxColorZones = 64;
+enum class GcodeViewMode : uint8_t {
+    LAYER_BY_LAYER = 0,
+    COLOR_MAP = 1,
+    SPLICE_POINTS = 2,
+    USAGE_CHART = 3,
+};
+
 struct GcodePreviewStats {
     uint32_t totalLayers;
     uint32_t totalColorZones;
     uint32_t totalSplicePoints;
-    uint16_t filamentUsedMm;
+    uint32_t filamentUsedMm;
     bool previewReady;
 };
 
