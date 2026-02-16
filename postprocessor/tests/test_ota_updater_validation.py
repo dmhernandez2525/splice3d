@@ -55,5 +55,34 @@ class TestOtaUpdaterValidation(unittest.TestCase):
         self.assertGreater(len(errors), 0)
 
 
+    def test_missing_chunk_fields_item_detected(self) -> None:
+        bad_spec = {"chunk_fields": []}
+        errors = validate_chunk_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_firmware_fields_item_detected(self) -> None:
+        bad_spec = {"firmware_fields": []}
+        errors = validate_firmware_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_progress_fields_item_detected(self) -> None:
+        bad_spec = {"progress_fields": []}
+        errors = validate_progress_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_stats_fields_item_detected(self) -> None:
+        bad_spec = {"stats_fields": []}
+        errors = validate_stats_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_features_item_detected(self) -> None:
+        bad_spec = {"features": []}
+        errors = validate_features(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_empty_spec_fails(self) -> None:
+        report = generate_report({})
+        self.assertFalse(report["passed"])
+
 if __name__ == "__main__":
     unittest.main()

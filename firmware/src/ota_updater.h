@@ -9,6 +9,18 @@
 
 #include <Arduino.h>
 
+constexpr uint16_t kMaxChunkSize = 4096;
+constexpr uint32_t kMaxFirmwareSize = 1048576;
+enum class OtaUpdateState : uint8_t {
+    IDLE = 0,
+    RECEIVING = 1,
+    VERIFYING = 2,
+    FLASHING = 3,
+    REBOOTING = 4,
+    ROLLBACK = 5,
+    ERROR = 6,
+};
+
 struct OtaUpdaterStats {
     uint32_t totalUpdates;
     uint16_t successfulUpdates;
