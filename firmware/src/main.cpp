@@ -45,6 +45,7 @@
 #include "realtime_splicer.h"
 #include "multi_color.h"
 #include "print_farm.h"
+#include "mfg_ready.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -96,6 +97,7 @@ void setup() {
     setupRealtimeSplicer();
     setupMultiColor();
     setupPrintFarm();
+    setupMfgReady();
 
     // Initialize state machine
     stateMachine.init();
@@ -217,4 +219,7 @@ void loop() {
 
     // Update print farm
     updatePrintFarm();
+
+    // Update mfg ready
+    updateMfgReady();
 }
