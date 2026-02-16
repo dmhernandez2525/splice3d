@@ -9,6 +9,9 @@
 
 #include <Arduino.h>
 
+constexpr uint8_t kAmsSlotsPerUnit = 4;
+constexpr uint8_t kMaxAmsUnits = 4;
+
 struct SlicerBambuStats {
     uint16_t parsedLines;
     bool amsUnitsDetected;
