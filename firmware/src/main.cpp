@@ -43,6 +43,7 @@
 #include "ota_updater.h"
 #include "notification_manager.h"
 #include "realtime_splicer.h"
+#include "multi_color.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -92,6 +93,7 @@ void setup() {
     setupOtaUpdater();
     setupNotificationManager();
     setupRealtimeSplicer();
+    setupMultiColor();
 
     // Initialize state machine
     stateMachine.init();
@@ -207,4 +209,7 @@ void loop() {
 
     // Update realtime splicer
     updateRealtimeSplicer();
+
+    // Update multi color
+    updateMultiColor();
 }
