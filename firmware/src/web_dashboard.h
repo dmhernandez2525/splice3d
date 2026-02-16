@@ -9,12 +9,15 @@
 
 #include <Arduino.h>
 
+constexpr uint8_t kMaxWebConnections = 4;
+constexpr uint8_t kMaxApiRoutes = 16;
+
 struct WebDashboardStats {
     uint32_t totalRequests;
     uint16_t activeConnections;
     uint16_t websocketClients;
     uint32_t uptimeMs;
-    uint16_t bytesServed;
+    uint32_t bytesServed;
     uint32_t errorCount;
 };
 
