@@ -32,6 +32,7 @@
 #include "speed_optimizer.h"
 #include "slicer_orca.h"
 #include "slicer_prusa.h"
+#include "slicer_cura.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -70,6 +71,7 @@ void setup() {
     setupSpeedOptimizer();
     setupSlicerOrca();
     setupSlicerPrusa();
+    setupSlicerCura();
 
     // Initialize state machine
     stateMachine.init();
@@ -152,4 +154,7 @@ void loop() {
 
     // Update slicer prusa
     updateSlicerPrusa();
+
+    // Update slicer cura
+    updateSlicerCura();
 }

@@ -1,0 +1,44 @@
+{
+  "feature": "F7.3-slicer-cura",
+  "extruder_modes": [
+    "SINGLE",
+    "DUAL",
+    "MULTI"
+  ],
+  "block_types": [
+    "START_GCODE",
+    "PRINT_BODY",
+    "END_GCODE",
+    "TOOL_CHANGE",
+    "PRIME_TOWER"
+  ],
+  "plugin_fields": [
+    "pluginName",
+    "version",
+    "author",
+    "description",
+    "curaVersion",
+    "marketplaceId"
+  ],
+  "gcode_patterns": [
+    "T_command",
+    "layer_comment",
+    "mesh_name",
+    "extruder_switch"
+  ],
+  "stats_fields": [
+    "parsedLines",
+    "toolChangesFound",
+    "blocksIdentified",
+    "errorsEncountered",
+    "pluginLoaded"
+  ],
+  "features": [
+    "cura_gcode_parsing",
+    "block_detection",
+    "prime_tower_handling",
+    "marketplace_metadata",
+    "recipe_generation",
+    "serial_serialization"
+  ]
+}
