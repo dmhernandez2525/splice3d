@@ -44,6 +44,7 @@
 #include "notification_manager.h"
 #include "realtime_splicer.h"
 #include "multi_color.h"
+#include "print_farm.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -94,6 +95,7 @@ void setup() {
     setupNotificationManager();
     setupRealtimeSplicer();
     setupMultiColor();
+    setupPrintFarm();
 
     // Initialize state machine
     stateMachine.init();
@@ -212,4 +214,7 @@ void loop() {
 
     // Update multi color
     updateMultiColor();
+
+    // Update print farm
+    updatePrintFarm();
 }
