@@ -31,6 +31,7 @@
 #include "waste_tracker.h"
 #include "speed_optimizer.h"
 #include "slicer_orca.h"
+#include "slicer_prusa.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -68,6 +69,7 @@ void setup() {
     setupWasteTracker();
     setupSpeedOptimizer();
     setupSlicerOrca();
+    setupSlicerPrusa();
 
     // Initialize state machine
     stateMachine.init();
@@ -147,4 +149,7 @@ void loop() {
 
     // Update OrcaSlicer plugin
     updateSlicerOrca();
+
+    // Update slicer prusa
+    updateSlicerPrusa();
 }
