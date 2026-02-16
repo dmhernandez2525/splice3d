@@ -9,6 +9,16 @@
 
 #include <Arduino.h>
 
+constexpr uint8_t kMaxTestSteps = 16;
+enum class TestCategory : uint8_t {
+    MECHANICAL = 0,
+    THERMAL = 1,
+    ELECTRICAL = 2,
+    CALIBRATION = 3,
+    COMMUNICATION = 4,
+    SAFETY = 5,
+};
+
 struct MfgReadyStats {
     uint32_t totalTestRuns;
     float passRate;
