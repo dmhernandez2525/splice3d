@@ -1,5 +1,6 @@
 {
   "feature": "F2.3-temperature-control",
+  "version": "1.0.0",
   "acceptance_limits": {
     "steady_state_tolerance_c": 2.0,
     "thermal_runaway_detection_s": 40,
