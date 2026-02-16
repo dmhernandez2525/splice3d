@@ -9,8 +9,18 @@
 
 #include <Arduino.h>
 
+constexpr uint8_t kMaxDevices = 4;
+enum class DeviceConnectionState : uint8_t {
+    DISCONNECTED = 0,
+    SCANNING = 1,
+    CONNECTING = 2,
+    CONNECTED = 3,
+    ERROR = 4,
+    RECONNECTING = 5,
+};
+
 struct DeviceConnectionStats {
-    bool connectedDevices;
+    uint8_t connectedDevices;
     uint32_t totalCommands;
     uint16_t failedCommands;
     uint32_t avgLatencyMs;

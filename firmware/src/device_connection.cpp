@@ -30,7 +30,7 @@ void serializeDeviceConnectionStats() {
     DeviceConnectionStats s = st.stats;
     Serial.print(F("DEVICE_CONNECTION_STATS"));
     Serial.print(F(" connectedDevices="));
-    Serial.print(s.connectedDevices ? F("Y") : F("N"));
+    Serial.print(s.connectedDevices);
     Serial.print(F(" totalCommands="));
     Serial.print(s.totalCommands);
     Serial.print(F(" failedCommands="));
