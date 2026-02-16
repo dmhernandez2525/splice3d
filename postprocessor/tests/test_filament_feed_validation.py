@@ -41,5 +41,24 @@ class TestFilamentFeedValidation(unittest.TestCase):
         self.assertIn("jamCount", stats)
 
 
+    def test_bad_acceptance_limits_detected(self) -> None:
+        bad_spec = {"acceptance_limits": {"feed_rate_variance_pct": 0}}
+        errors = validate_acceptance_limits(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_feed_modes_detected(self) -> None:
+        bad_spec = {"feed_modes": []}
+        errors = validate_feed_modes(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_safety_features_detected(self) -> None:
+        bad_spec = {"safety_features": []}
+        errors = validate_safety_features(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_empty_spec_fails(self) -> None:
+        report = generate_report({})
+        self.assertFalse(report["passed"])
+
 if __name__ == "__main__":
     unittest.main()
