@@ -55,5 +55,34 @@ class TestSlicerCuraValidation(unittest.TestCase):
         self.assertGreater(len(errors), 0)
 
 
+    def test_missing_block_types_item_detected(self) -> None:
+        bad_spec = {"block_types": []}
+        errors = validate_block_types(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_plugin_fields_item_detected(self) -> None:
+        bad_spec = {"plugin_fields": []}
+        errors = validate_plugin_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_gcode_patterns_item_detected(self) -> None:
+        bad_spec = {"gcode_patterns": []}
+        errors = validate_gcode_patterns(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_stats_fields_item_detected(self) -> None:
+        bad_spec = {"stats_fields": []}
+        errors = validate_stats_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_features_item_detected(self) -> None:
+        bad_spec = {"features": []}
+        errors = validate_features(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_empty_spec_fails(self) -> None:
+        report = generate_report({})
+        self.assertFalse(report["passed"])
+
 if __name__ == "__main__":
     unittest.main()
