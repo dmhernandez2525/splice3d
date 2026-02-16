@@ -9,6 +9,12 @@
 
 #include <Arduino.h>
 
+enum class PrusaParseMode : uint8_t {
+    SINGLE_EXTRUDER = 0,
+    MMU = 1,
+    MULTI_MATERIAL = 2,
+};
+
 struct SlicerPrusaStats {
     uint16_t parsedLines;
     uint16_t toolChangesFound;

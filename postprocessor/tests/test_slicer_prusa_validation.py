@@ -55,5 +55,34 @@ class TestSlicerPrusaValidation(unittest.TestCase):
         self.assertGreater(len(errors), 0)
 
 
+    def test_missing_mmu_fields_item_detected(self) -> None:
+        bad_spec = {"mmu_fields": []}
+        errors = validate_mmu_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_gcode_markers_item_detected(self) -> None:
+        bad_spec = {"gcode_markers": []}
+        errors = validate_gcode_markers(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_recipe_fields_item_detected(self) -> None:
+        bad_spec = {"recipe_fields": []}
+        errors = validate_recipe_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_stats_fields_item_detected(self) -> None:
+        bad_spec = {"stats_fields": []}
+        errors = validate_stats_fields(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_missing_features_item_detected(self) -> None:
+        bad_spec = {"features": []}
+        errors = validate_features(bad_spec)
+        self.assertGreater(len(errors), 0)
+
+    def test_empty_spec_fails(self) -> None:
+        report = generate_report({})
+        self.assertFalse(report["passed"])
+
 if __name__ == "__main__":
     unittest.main()
