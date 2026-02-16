@@ -1,4 +1,6 @@
 {
+  "feature": "F2.2-encoder-system",
+  "version": "1.0.0",
   "acceptance_limits": {
     "position_accuracy_mm": 0.1,
     "slip_detection_mm": 2.0,
