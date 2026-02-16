@@ -32,7 +32,7 @@ void serializeQueueManagerStats() {
     Serial.print(F(" totalQueued="));
     Serial.print(s.totalQueued);
     Serial.print(F(" totalCompleted="));
-    Serial.print(s.totalCompleted ? F("Y") : F("N"));
+    Serial.print(s.totalCompleted);
     Serial.print(F(" totalFailed="));
     Serial.print(s.totalFailed);
     Serial.print(F(" avgWaitMinutes="));
