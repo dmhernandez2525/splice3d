@@ -1,0 +1,46 @@
+{
+  "feature": "F8.4-queue-manager",
+  "max_queue_size": 32,
+  "priority_levels": 4,
+  "queue_item_fields": [
+    "jobId",
+    "recipeName",
+    "priority",
+    "status",
+    "estimatedMinutes",
+    "actualMinutes",
+    "position"
+  ],
+  "queue_states": [
+    "EMPTY",
+    "RUNNING",
+    "PAUSED",
+    "COMPLETED",
+    "ERROR"
+  ],
+  "operations": [
+    "enqueue",
+    "dequeue",
+    "reorder",
+    "pause",
+    "resume",
+    "cancel",
+    "clear"
+  ],
+  "stats_fields": [
+    "totalQueued",
+    "totalCompleted",
+    "totalFailed",
+    "avgWaitMinutes",
+    "currentJobId",
+    "queueState"
+  ],
+  "features": [
+    "job_enqueue",
+    "priority_ordering",
+    "drag_drop_reorder",
+    "estimated_completion",
+    "queue_state_management",
+    "serial_serialization"
+  ]
+}
