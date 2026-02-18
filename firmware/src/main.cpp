@@ -1,6 +1,6 @@
 /**
  * Splice3D Firmware - Main Entry Point
- * 
+ *
  * Controls the filament splicing machine using an Ender 3 board.
  * Receives splice recipes via USB serial and executes weld cycles.
  */
@@ -25,6 +25,8 @@
 #include "material_database.h"
 #include "cross_material.h"
 #include "custom_profile.h"
+#include "profile_validator.h"
+#include "segment_batching.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -36,10 +38,10 @@ void setup() {
     while (!Serial && millis() < 3000) {
         ; // Wait for serial port (USB) with 3s timeout
     }
-    
+
     Serial.println(F("Splice3D Firmware v" FIRMWARE_VERSION));
     Serial.println(F("Initializing..."));
-    
+
     // Initialize subsystems
     setupSteppers();
     setupTemperature();
@@ -56,10 +58,12 @@ void setup() {
     setupMaterialDatabase();
     setupCrossMaterial();
     setupCustomProfile();
+    setupProfileValidator();
+    setupSegmentBatching();
 
     // Initialize state machine
     stateMachine.init();
-    
+
     // Ready
     Serial.println(F("OK READY"));
 }
@@ -69,13 +73,13 @@ void loop() {
     if (Serial.available()) {
         serialHandler.processInput();
     }
-    
+
     // Run state machine update
     stateMachine.update();
-    
+
     // Update temperature control (PID loop)
     updateTemperature();
-    
+
     // Update stepper positions (non-blocking)
     runSteppers();
 
@@ -117,4 +121,10 @@ void loop() {
 
     // Update custom profile editor
     updateCustomProfile();
+
+    // Update profile validator
+    updateProfileValidator();
+
+    // Update segment batching
+    updateSegmentBatching();
 }
