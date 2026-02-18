@@ -1,0 +1,28 @@
+{
+  "feature": "F5.2-cross-material-splicing",
+  "max_compat_entries": 16,
+  "compat_levels": ["INCOMPATIBLE", "POOR", "FAIR", "GOOD", "EXCELLENT"],
+  "material_pairs": [
+    {"a": "PLA", "b": "PETG", "level": "FAIR"},
+    {"a": "PLA", "b": "ABS", "level": "POOR"},
+    {"a": "PLA", "b": "TPU", "level": "FAIR"},
+    {"a": "PETG", "b": "ABS", "level": "GOOD"},
+    {"a": "PETG", "b": "TPU", "level": "POOR"},
+    {"a": "ABS", "b": "TPU", "level": "INCOMPATIBLE"}
+  ],
+  "override_fields": [
+    "spliceTemp", "holdTimeMs", "compressionMm", "coolTimeMs"
+  ],
+  "score_range": {
+    "min": 0,
+    "max": 100
+  },
+  "features": [
+    "compatibility_matrix",
+    "compatibility_scoring",
+    "temperature_time_overrides",
+    "same_type_always_excellent",
+    "bidirectional_lookup",
+    "serial_serialization"
+  ]
+}
