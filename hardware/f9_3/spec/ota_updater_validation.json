@@ -1,0 +1,53 @@
+{
+  "feature": "F9.3-ota-updater",
+  "max_chunk_size": 4096,
+  "max_firmware_size": 1048576,
+  "update_states": [
+    "IDLE",
+    "RECEIVING",
+    "VERIFYING",
+    "FLASHING",
+    "REBOOTING",
+    "ROLLBACK",
+    "ERROR"
+  ],
+  "chunk_fields": [
+    "chunkIndex",
+    "totalChunks",
+    "size",
+    "checksum",
+    "received"
+  ],
+  "firmware_fields": [
+    "version",
+    "size",
+    "checksum",
+    "buildTimestamp",
+    "targetBoard",
+    "compatible"
+  ],
+  "progress_fields": [
+    "state",
+    "percentComplete",
+    "bytesReceived",
+    "bytesTotal",
+    "elapsedMs",
+    "estimatedRemainingMs"
+  ],
+  "stats_fields": [
+    "totalUpdates",
+    "successfulUpdates",
+    "failedUpdates",
+    "rollbackCount",
+    "lastUpdateMs",
+    "currentVersion"
+  ],
+  "features": [
+    "chunked_upload",
+    "checksum_verification",
+    "flash_management",
+    "rollback_support",
+    "progress_reporting",
+    "serial_serialization"
+  ]
+}
