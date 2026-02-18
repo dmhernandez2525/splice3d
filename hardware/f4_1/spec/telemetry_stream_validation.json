@@ -1,0 +1,33 @@
+{
+  "feature": "F4.1-serial-protocol",
+  "stream_modes": ["OFF", "SUMMARY", "VERBOSE"],
+  "default_interval_ms": 1000,
+  "min_interval_ms": 100,
+  "heartbeat_interval_ms": 5000,
+  "summary_fields": [
+    "type", "t", "state", "temp", "target",
+    "pos_mm", "vel", "slip", "splice_active",
+    "quality", "error"
+  ],
+  "verbose_sections": [
+    "temp", "enc", "motors", "splice", "pos", "recovery"
+  ],
+  "serial_commands": [
+    "STREAM",
+    "STREAM OFF",
+    "STREAM SUMMARY",
+    "STREAM VERBOSE",
+    "STREAM INTERVAL <ms>",
+    "STREAM HEARTBEAT",
+    "STREAM HEARTBEAT OFF",
+    "STREAM REPORT"
+  ],
+  "features": [
+    "json_telemetry",
+    "summary_mode",
+    "verbose_mode",
+    "configurable_interval",
+    "heartbeat_keepalive",
+    "one_shot_report"
+  ]
+}

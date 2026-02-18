@@ -104,6 +104,9 @@ void SerialHandler::processLine(const char* line) {
     else if (strcmp(cmd, "RECOVER") == 0) {
         handleRecover(args);
     }
+    else if (strcmp(cmd, "STREAM") == 0) {
+        handleStream(args);
+    }
     else if (strcmp(cmd, "HELP") == 0 || strcmp(cmd, "?") == 0) {
         handleHelp();
     }
@@ -248,5 +251,6 @@ void SerialHandler::handleHelp() {
     Serial.println(F("  ENCODER ...    - Encoder status/calibration"));
     Serial.println(F("  CUTTER ...     - Cutter status/control"));
     Serial.println(F("  RECOVER ...    - Error recovery commands"));
+    Serial.println(F("  STREAM ...     - Telemetry streaming control"));
     Serial.println(F("  HELP           - Show this help"));
 }
