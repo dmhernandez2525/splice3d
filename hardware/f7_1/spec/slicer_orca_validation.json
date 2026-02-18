@@ -1,0 +1,33 @@
+{
+  "feature": "F7.1-orcaslicer-plugin",
+  "max_tool_changes": 64,
+  "max_colors": 8,
+  "parse_states": ["IDLE", "HEADER", "BODY", "TOOL_CHANGE", "COMPLETE", "PARSE_ERROR"],
+  "tool_change_fields": [
+    "lineNumber", "layerNumber", "fromTool", "toTool", "positionMm", "valid"
+  ],
+  "color_fields": [
+    "toolIndex", "colorHex", "name", "active"
+  ],
+  "recipe_fields": [
+    "toolChangeCount", "colorCount", "totalLayers", "totalLengthMm", "generated"
+  ],
+  "stats_fields": [
+    "parsedLines", "toolChangesFound", "colorsExtracted",
+    "errorsEncountered", "state", "projectLoaded"
+  ],
+  "orca_patterns": [
+    "tool_change_Tn",
+    "layer_comment",
+    "color_comment",
+    "filament_metadata"
+  ],
+  "features": [
+    "gcode_line_parsing",
+    "tool_change_detection",
+    "color_extraction",
+    "recipe_generation",
+    "project_file_support",
+    "serial_serialization"
+  ]
+}

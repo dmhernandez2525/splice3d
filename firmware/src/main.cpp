@@ -30,6 +30,7 @@
 #include "thermal_optimizer.h"
 #include "waste_tracker.h"
 #include "speed_optimizer.h"
+#include "slicer_orca.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -66,6 +67,7 @@ void setup() {
     setupThermalOptimizer();
     setupWasteTracker();
     setupSpeedOptimizer();
+    setupSlicerOrca();
 
     // Initialize state machine
     stateMachine.init();
@@ -142,4 +144,7 @@ void loop() {
 
     // Update speed optimizer
     updateSpeedOptimizer();
+
+    // Update OrcaSlicer plugin
+    updateSlicerOrca();
 }
