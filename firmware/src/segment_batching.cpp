@@ -16,7 +16,7 @@ void swapSegments(uint8_t a, uint8_t b) {
     if (a >= sb.count || b >= sb.count) return;
     SegmentEntry tmp = sb.segments[a];
     sb.segments[a] = sb.segments[b];
-    sb.segments[b] = sb.segments[tmp.batchedOrder];
+    sb.segments[b] = tmp;
     sb.segments[a].batchedOrder = a;
     sb.segments[b].batchedOrder = b;
 }
