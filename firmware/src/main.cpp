@@ -41,6 +41,7 @@
 #include "wifi_manager.h"
 #include "web_dashboard.h"
 #include "ota_updater.h"
+#include "notification_manager.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -88,6 +89,7 @@ void setup() {
     setupWifiManager();
     setupWebDashboard();
     setupOtaUpdater();
+    setupNotificationManager();
 
     // Initialize state machine
     stateMachine.init();
@@ -197,4 +199,7 @@ void loop() {
 
     // Update ota updater
     updateOtaUpdater();
+
+    // Update notification manager
+    updateNotificationManager();
 }
