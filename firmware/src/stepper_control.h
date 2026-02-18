@@ -1,7 +1,8 @@
 /**
- * Splice3D Stepper Control
- * 
- * Controls extruder motors and output winder using AccelStepper.
+ * Splice3D advanced motor control.
+ *
+ * Provides high-level motion, diagnostics, and runtime tuning for
+ * feed motors A/B and output winder.
  */
 
 #ifndef STEPPER_CONTROL_H
@@ -9,65 +10,68 @@
 
 #include <Arduino.h>
 
-/**
- * Initialize all stepper motors.
- */
+enum class MotorAxis : uint8_t {
+    FEED_A = 0,
+    FEED_B = 1,
+    WINDER = 2,
+    CUTTER = 3,
+};
+
+struct MotionProfile {
+    float maxSpeedStepsPerSec;
+    float accelerationStepsPerSec2;
+    float jerkLimitStepsPerSec2;
+};
+
+struct MotorPosition {
+    int64_t absoluteSteps;
+    float absoluteMm;
+};
+
+struct MotorDiagnostics {
+    bool stallDetected;
+    bool overTempWarning;
+    bool synchronizedMoveActive;
+    int32_t missedStepEstimate;
+    int64_t commandedSteps;
+    int64_t observedSteps;
+};
+
+// Core lifecycle.
 void setupSteppers();
-
-/**
- * Run stepper updates (call every loop iteration).
- */
 void runSteppers();
+void emergencyStopAll();
 
-/**
- * Feed filament from input A or B.
- * @param input 0 for A, 1 for B
- * @param lengthMm Length in mm to feed
- */
+// Runtime motion profile and electrical tuning.
+bool configureMotionProfile(MotorAxis axis, const MotionProfile& profile);
+void setGlobalMicrostepping(uint16_t microstep);
+void setGlobalMotorCurrents(uint16_t runCurrentMa, uint16_t holdCurrentMa);
+void setBacklashCompensation(MotorAxis axis, float backlashMm);
+
+// Motion commands.
+void moveRelative(MotorAxis axis, float distanceMm);
+void moveAbsolute(MotorAxis axis, float absolutePositionMm);
+bool startSynchronizedMove(float feedAMm, float feedBMm, float winderMm);
+bool isSynchronizedMoveActive();
+bool isMotorIdle(MotorAxis axis);
+
+// Sensorless homing.
+bool performSensorlessHome(MotorAxis axis, float travelLimitMm, float seekSpeedMmS);
+
+// Position and diagnostics.
+MotorPosition getMotorPosition(MotorAxis axis);
+MotorDiagnostics getMotorDiagnostics(MotorAxis axis);
+void resetMotorPosition(MotorAxis axis);
+
+// Legacy compatibility wrappers used by the state machine.
 void feedFilament(uint8_t input, float lengthMm);
-
-/**
- * Check if a stepper has completed its move.
- * @param input 0 for A, 1 for B
- * @return true if idle
- */
 bool isStepperIdle(uint8_t input);
-
-/**
- * Wind filament onto output spool.
- * @param lengthMm Length to wind
- */
 void windOutput(float lengthMm);
-
-/**
- * Check if winder has completed.
- */
 bool isWinderIdle();
-
-/**
- * Stop all stepper motors immediately.
- */
 void stopAllSteppers();
-
-/**
- * Position filaments for welding.
- */
 void positionForWeld();
-
-/**
- * Compress filaments together for weld.
- * @param distanceMm Compression distance
- */
 void compressWeld(float distanceMm);
-
-/**
- * Activate the cutter mechanism.
- */
 void activateCutter();
-
-/**
- * Deactivate the cutter mechanism.
- */
 void deactivateCutter();
 
-#endif // STEPPER_CONTROL_H
+#endif  // STEPPER_CONTROL_H
