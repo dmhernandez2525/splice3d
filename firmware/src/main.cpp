@@ -14,6 +14,7 @@
 #include "temperature.h"
 #include "encoder_system.h"
 #include "cutting_system.h"
+#include "filament_feed.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -34,6 +35,7 @@ void setup() {
     setupTemperature();
     setupEncoderSystem();
     setupCuttingSystem();
+    setupFilamentFeed();
 
     // Initialize state machine
     stateMachine.init();
@@ -62,4 +64,7 @@ void loop() {
 
     // Update cutting system
     updateCuttingSystem();
+
+    // Update filament feed
+    updateFilamentFeed();
 }
