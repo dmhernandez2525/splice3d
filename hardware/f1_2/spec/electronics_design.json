@@ -1,0 +1,220 @@
+{
+  "feature": "F1.2-electronics-design",
+  "version": "1.0.0",
+  "controller": {
+    "model": "BTT SKR Mini E3 v2.0",
+    "mcu": "STM32F103RCT6",
+    "firmware_serial_baud": 115200,
+    "pinout": {
+      "feed_motor_a_step": "PB13",
+      "feed_motor_a_dir": "PB12",
+      "feed_motor_b_step": "PB10",
+      "feed_motor_b_dir": "PB2",
+      "winder_motor_step": "PB0",
+      "winder_motor_dir": "PC5",
+      "heater_pwm": "PC8",
+      "thermistor_adc": "PA0",
+      "servo_pwm": "PB3",
+      "encoder_a": "PC0",
+      "encoder_b": "PC1",
+      "emergency_stop": "PC2",
+      "lcd_exp1": "EXP1"
+    }
+  },
+  "subsystems": {
+    "tmc2209_uart": {
+      "enabled": true,
+      "driver_channels": ["X", "Y", "Z"],
+      "uart_lines": ["PDN_UART_X", "PDN_UART_Y", "PDN_UART_Z"],
+      "sensorless_homing": true,
+      "run_current_ma": 850,
+      "hold_current_ma": 450
+    },
+    "encoder_interface": {
+      "enabled": true,
+      "type": "quadrature",
+      "pullup_resistors_ohm": 10000,
+      "debounce_rc": {
+        "resistor_ohm": 1000,
+        "capacitor_nf": 100
+      },
+      "schmitt_trigger": "74HC14"
+    },
+    "heater_pid": {
+      "enabled": true,
+      "mosfet": "AO3400A",
+      "thermal_fuse_c": 128,
+      "thermistor": "NTC 100K 3950",
+      "heater_cartridge": "24V 40W"
+    },
+    "servo_control": {
+      "enabled": true,
+      "servo_model": "SG90",
+      "pwm_frequency_hz": 50,
+      "signal_conditioner": "SN74LVC1G17",
+      "separate_5v_bec": true
+    },
+    "display_interface": {
+      "enabled": true,
+      "display_options": ["Ender LCD 128x64", "I2C OLED 128x64"],
+      "status_fields": ["temperature", "progress", "error_code"]
+    }
+  },
+  "safety": {
+    "thermal_fuse": true,
+    "motor_overcurrent_protection": true,
+    "emergency_stop_switch": true,
+    "reverse_polarity_protection": true,
+    "usb_esd_protection": true,
+    "encoder_esd_protection": true,
+    "serial_esd_protection": true
+  },
+  "external_connectors": [
+    {
+      "id": "usb_c",
+      "interface": "USB-C",
+      "esd_device": "ESD9M5V",
+      "required": true
+    },
+    {
+      "id": "encoder_jst",
+      "interface": "JST-XH-4",
+      "esd_device": "PESD5V",
+      "required": true
+    },
+    {
+      "id": "serial_header",
+      "interface": "JST-XH-3",
+      "esd_device": "PESD5V",
+      "required": true
+    }
+  ],
+  "wire_gauge_requirements": [
+    {
+      "path": "vin_and_heater",
+      "awg": 18,
+      "max_current_a": 8.0,
+      "insulation": "silicone"
+    },
+    {
+      "path": "stepper_outputs",
+      "awg": 22,
+      "max_current_a": 2.0,
+      "insulation": "silicone"
+    },
+    {
+      "path": "signal_and_encoder",
+      "awg": 24,
+      "max_current_a": 0.5,
+      "insulation": "pvc"
+    },
+    {
+      "path": "servo_5v",
+      "awg": 22,
+      "max_current_a": 1.5,
+      "insulation": "silicone"
+    }
+  ],
+  "power_modes": [
+    {
+      "mode": "24V",
+      "rails": [
+        {"name": "VIN_24", "voltage_v": 24.0, "max_current_a": 8.0},
+        {"name": "VREG_5", "voltage_v": 5.0, "max_current_a": 2.0}
+      ]
+    },
+    {
+      "mode": "12V",
+      "rails": [
+        {"name": "VIN_12", "voltage_v": 12.0, "max_current_a": 10.0},
+        {"name": "VREG_5", "voltage_v": 5.0, "max_current_a": 2.0}
+      ]
+    }
+  ],
+  "loads": [
+    {
+      "id": "feed_motor_a",
+      "rail_by_mode": {"24V": "VIN_24", "12V": "VIN_12"},
+      "current_by_mode_a": {"24V": 1.0, "12V": 1.0}
+    },
+    {
+      "id": "feed_motor_b",
+      "rail_by_mode": {"24V": "VIN_24", "12V": "VIN_12"},
+      "current_by_mode_a": {"24V": 1.0, "12V": 1.0}
+    },
+    {
+      "id": "winder_motor",
+      "rail_by_mode": {"24V": "VIN_24", "12V": "VIN_12"},
+      "current_by_mode_a": {"24V": 0.9, "12V": 0.9}
+    },
+    {
+      "id": "heater",
+      "rail_by_mode": {"24V": "VIN_24", "12V": "VIN_12"},
+      "current_by_mode_a": {"24V": 1.67, "12V": 3.34}
+    },
+    {
+      "id": "cooling_fan",
+      "rail_by_mode": {"24V": "VIN_24", "12V": "VIN_12"},
+      "current_by_mode_a": {"24V": 0.15, "12V": 0.30}
+    },
+    {
+      "id": "servo",
+      "rail_by_mode": {"24V": "VREG_5", "12V": "VREG_5"},
+      "current_by_mode_a": {"24V": 0.65, "12V": 0.65}
+    },
+    {
+      "id": "logic",
+      "rail_by_mode": {"24V": "VREG_5", "12V": "VREG_5"},
+      "current_by_mode_a": {"24V": 0.25, "12V": 0.25}
+    }
+  ],
+  "sourcing": [
+    {
+      "component": "BTT SKR Mini E3 v2.0",
+      "critical": true,
+      "alternatives": [
+        {"vendor": "BIQU", "part": "BTT-SKR-MINI-E3-V2", "availability": "in_stock"},
+        {"vendor": "Mouser", "part": "BTT-SKR-MINI-E3-V2", "availability": "in_stock"}
+      ]
+    },
+    {
+      "component": "TMC2209",
+      "critical": true,
+      "alternatives": [
+        {"vendor": "Watterott", "part": "TMC2209", "availability": "in_stock"},
+        {"vendor": "Mouser", "part": "TMC2209-LA", "availability": "in_stock"}
+      ]
+    },
+    {
+      "component": "NTC 100K Thermistor",
+      "critical": true,
+      "alternatives": [
+        {"vendor": "E3D", "part": "THERMISTOR-100K", "availability": "in_stock"},
+        {"vendor": "Slice Engineering", "part": "THERMISTOR-100K", "availability": "in_stock"}
+      ]
+    },
+    {
+      "component": "SG90 Servo",
+      "critical": false,
+      "alternatives": [
+        {"vendor": "TowerPro", "part": "SG90", "availability": "in_stock"},
+        {"vendor": "Adafruit", "part": "169", "availability": "in_stock"}
+      ]
+    }
+  ],
+  "drc_rules": {
+    "required_safety_features": [
+      "thermal_fuse",
+      "motor_overcurrent_protection",
+      "emergency_stop_switch"
+    ],
+    "required_esd_connectors": ["usb_c", "encoder_jst", "serial_header"],
+    "required_subsystems": [
+      "tmc2209_uart",
+      "encoder_interface",
+      "heater_pid",
+      "servo_control",
+      "display_interface"
+    ]
+  }
+}
