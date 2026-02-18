@@ -1,0 +1,21 @@
+{
+  "feature": "F4.4-batch-processing",
+  "max_batch_history": 16,
+  "batch_modes": ["SINGLE", "SEQUENTIAL", "ROUND_ROBIN"],
+  "session_fields": [
+    "startTimeMs", "totalTimeMs", "totalJobs",
+    "completedJobs", "failedJobs", "avgQuality",
+    "throughputJobsPerHour", "mode", "active"
+  ],
+  "history_fields": [
+    "jobId", "materialIndex", "segmentCount",
+    "durationMs", "quality", "success"
+  ],
+  "features": [
+    "batch_session_management",
+    "job_history_ring_buffer",
+    "throughput_calculation",
+    "aggregate_quality_stats",
+    "multiple_batch_modes"
+  ]
+}
