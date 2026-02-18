@@ -74,6 +74,24 @@
 #define FILAMENT_SENSOR_OUT_PIN PC2  // Z_STOP
 
 // ============================================================
+// QUADRATURE ENCODER (F2.2)
+// ============================================================
+#define ENCODER_CHANNEL_A_PIN  PA1
+#define ENCODER_CHANNEL_B_PIN  PA2
+#define ENCODER_DEFAULT_TICKS_PER_MM 120.0f
+#define ENCODER_MIN_TICKS_PER_MM 10.0f
+#define ENCODER_MAX_TICKS_PER_MM 2000.0f
+#define ENCODER_DEBOUNCE_US    70UL
+#define ENCODER_SLIP_THRESHOLD_MM 2.0f
+#define ENCODER_CORRECTION_GAIN 0.25f
+#define ENCODER_CORRECTION_MAX_MM 0.35f
+#define ENCODER_CORRECTION_DEADBAND_MM 0.20f
+#define ENCODER_CORRECTION_INTERVAL_MS 120UL
+#define ENCODER_LOG_INTERVAL_MS 1000UL
+#define ENCODER_HEALTH_STALE_MS 1500UL
+#define ENCODER_INVALID_RATIO_WARN 0.05f
+
+// ============================================================
 // LCD DISPLAY - SKR Mini E3 uses EXP1 connector
 // Note: Stock Ender 3 LCD is directly compatible
 // ============================================================

@@ -1,0 +1,75 @@
+{
+  "feature": "F2.2-encoder-system",
+  "version": "1.0.0",
+  "acceptance_limits": {
+    "position_accuracy_mm": 0.1,
+    "slip_detection_mm": 2.0,
+    "calibration_variance_percent": 1.0,
+    "health_min_signal_quality": 0.95
+  },
+  "position_trials": [
+    {
+      "expected_mm": 1000.0,
+      "observed_mm": 999.94
+    },
+    {
+      "expected_mm": 1000.0,
+      "observed_mm": 1000.07
+    },
+    {
+      "expected_mm": 500.0,
+      "observed_mm": 500.03
+    }
+  ],
+  "slip_detection_trials": [
+    {
+      "scenario": "high_backpressure",
+      "actual_slip_mm": 1.9,
+      "detected_mm": 1.6
+    },
+    {
+      "scenario": "spool_drag",
+      "actual_slip_mm": 2.0,
+      "detected_mm": 1.8
+    },
+    {
+      "scenario": "idler_tension_drop",
+      "actual_slip_mm": 1.5,
+      "detected_mm": 1.2
+    }
+  ],
+  "calibration_trials": [
+    {
+      "run": "A",
+      "ticks_per_mm": 121.30
+    },
+    {
+      "run": "B",
+      "ticks_per_mm": 121.88
+    },
+    {
+      "run": "C",
+      "ticks_per_mm": 121.72
+    }
+  ],
+  "health_trials": [
+    {
+      "scenario": "clean_signal",
+      "valid_transitions": 50200,
+      "invalid_transitions": 210,
+      "expected_degraded": false
+    },
+    {
+      "scenario": "moderate_noise",
+      "valid_transitions": 21240,
+      "invalid_transitions": 850,
+      "expected_degraded": false
+    },
+    {
+      "scenario": "connector_damage",
+      "valid_transitions": 4900,
+      "invalid_transitions": 690,
+      "expected_degraded": true
+    }
+  ]
+}
