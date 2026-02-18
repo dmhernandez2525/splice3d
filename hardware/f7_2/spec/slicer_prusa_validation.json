@@ -1,0 +1,44 @@
+{
+  "feature": "F7.2-slicer-prusa",
+  "parse_modes": [
+    "SINGLE_EXTRUDER",
+    "MMU",
+    "MULTI_MATERIAL"
+  ],
+  "mmu_fields": [
+    "toolIndex",
+    "filamentType",
+    "nozzleDiameter",
+    "purgeVolume",
+    "loadDistance",
+    "unloadDistance"
+  ],
+  "gcode_markers": [
+    "tool_change_Tn",
+    "layer_change_comment",
+    "filament_settings",
+    "mmu_wipe_tower"
+  ],
+  "recipe_fields": [
+    "toolChangeCount",
+    "colorCount",
+    "totalLayers",
+    "purgeVolumeMl",
+    "wipeEnabled"
+  ],
+  "stats_fields": [
+    "parsedLines",
+    "toolChangesFound",
+    "mmuDetected",
+    "errorsEncountered",
+    "parseComplete"
+  ],
+  "features": [
+    "prusa_gcode_parsing",
+    "mmu_detection",
+    "multi_material_config",
+    "purge_volume_tracking",
+    "recipe_generation",
+    "serial_serialization"
+  ]
+}
