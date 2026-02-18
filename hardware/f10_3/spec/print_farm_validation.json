@@ -1,0 +1,54 @@
+{
+  "feature": "F10.3-print-farm",
+  "max_printers": 8,
+  "max_farm_jobs": 32,
+  "printer_states": [
+    "OFFLINE",
+    "IDLE",
+    "PRINTING",
+    "SPLICING",
+    "ERROR",
+    "MAINTENANCE"
+  ],
+  "printer_fields": [
+    "printerId",
+    "name",
+    "state",
+    "currentJobId",
+    "progressPercent",
+    "uptimeMs",
+    "jobsCompleted"
+  ],
+  "farm_job_fields": [
+    "jobId",
+    "recipeName",
+    "assignedPrinter",
+    "priority",
+    "status",
+    "startedMs",
+    "completedMs"
+  ],
+  "pool_fields": [
+    "materialType",
+    "colorHex",
+    "totalLengthMm",
+    "availableLengthMm",
+    "reservedLengthMm"
+  ],
+  "stats_fields": [
+    "totalPrinters",
+    "activePrinters",
+    "totalFarmJobs",
+    "completedFarmJobs",
+    "avgJobMinutes",
+    "farmUtilization"
+  ],
+  "features": [
+    "printer_registration",
+    "job_distribution",
+    "material_pool_management",
+    "farm_statistics",
+    "load_balancing",
+    "serial_serialization"
+  ]
+}
