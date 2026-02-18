@@ -16,6 +16,7 @@
 #include "cutting_system.h"
 #include "filament_feed.h"
 #include "splice_execution.h"
+#include "position_tracking.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -38,6 +39,7 @@ void setup() {
     setupCuttingSystem();
     setupFilamentFeed();
     setupSpliceExecution();
+    setupPositionTracking();
 
     // Initialize state machine
     stateMachine.init();
@@ -72,4 +74,7 @@ void loop() {
 
     // Update splice execution
     updateSpliceExecution();
+
+    // Update position tracking
+    updatePositionTracking();
 }

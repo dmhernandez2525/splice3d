@@ -1,0 +1,43 @@
+{
+  "feature": "F3.3-position-tracking",
+  "tracking_parameters": {
+    "update_interval_ms": 200,
+    "max_waypoints": 32,
+    "max_drift_events": 16
+  },
+  "drift_thresholds": {
+    "minor_mm": 0.5,
+    "moderate_mm": 1.5,
+    "severe_mm": 3.0
+  },
+  "required_snapshot_fields": [
+    "encoderMm",
+    "motorAMm",
+    "motorBMm",
+    "driftMm",
+    "cumulativeDriftMm",
+    "velocityMmPerSec",
+    "elapsedMs"
+  ],
+  "required_job_stats_fields": [
+    "startTimeMs",
+    "startPositionMm",
+    "totalDistanceMm",
+    "peakVelocityMmPerSec",
+    "maxDriftMm",
+    "cumulativeDriftMm",
+    "driftEventCount",
+    "waypointCount",
+    "correctionCount",
+    "active"
+  ],
+  "drift_severities": ["MINOR", "MODERATE", "SEVERE"],
+  "features": [
+    "job_level_tracking",
+    "waypoint_management",
+    "drift_event_logging",
+    "motor_encoder_reconciliation",
+    "cumulative_drift_tracking",
+    "peak_velocity_tracking"
+  ]
+}

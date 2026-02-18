@@ -188,6 +188,16 @@
 #define SOAK_HOLD_MS           3000UL // Hold at target before declaring READY
 
 // ============================================================
+// POSITION TRACKING (F3.3)
+// ============================================================
+#define POSITION_TRACKING_INTERVAL_MS 200UL
+#define DRIFT_MINOR_THRESHOLD_MM     0.5f
+#define DRIFT_MODERATE_THRESHOLD_MM  1.5f
+#define DRIFT_SEVERE_THRESHOLD_MM    3.0f
+#define POSITION_MAX_WAYPOINTS       32
+#define POSITION_MAX_DRIFT_EVENTS    16
+
+// ============================================================
 // FILAMENT PROPERTIES
 // ============================================================
 #define FILAMENT_DIAMETER      1.75    // mm
