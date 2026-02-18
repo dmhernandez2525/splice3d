@@ -1,0 +1,142 @@
+{
+  "feature": "F1.1-mechanical-design",
+  "version": "1.0.0",
+  "assembly": {
+    "name": "Splice3D Filament Path Assembly",
+    "target_filament_diameter_mm": 1.75,
+    "max_filament_deflection_deg": 30.0,
+    "modular_rail_pitch_mm": 20.0,
+    "printer_bed_limit_mm": [220.0, 220.0]
+  },
+  "stations": [
+    {
+      "id": "input_module_a",
+      "description": "Input spool and guide for filament A",
+      "origin_mm": [20.0, 40.0, 30.0],
+      "size_mm": [60.0, 60.0, 60.0],
+      "mount_pattern": "M3_SLOT_20x60"
+    },
+    {
+      "id": "input_module_b",
+      "description": "Input spool and guide for filament B",
+      "origin_mm": [20.0, 120.0, 30.0],
+      "size_mm": [60.0, 60.0, 60.0],
+      "mount_pattern": "M3_SLOT_20x60"
+    },
+    {
+      "id": "cutter_station",
+      "description": "SG90 cutter station with blade guide",
+      "origin_mm": [95.0, 80.0, 30.0],
+      "size_mm": [70.0, 70.0, 60.0],
+      "mount_pattern": "M3_SLOT_20x60"
+    },
+    {
+      "id": "splice_station",
+      "description": "Heated splice chamber using hotend core",
+      "origin_mm": [170.0, 80.0, 30.0],
+      "size_mm": [60.0, 70.0, 60.0],
+      "mount_pattern": "M3_SLOT_20x60"
+    },
+    {
+      "id": "cooling_station",
+      "description": "Fan duct and heat sink section",
+      "origin_mm": [235.0, 80.0, 30.0],
+      "size_mm": [50.0, 60.0, 60.0],
+      "mount_pattern": "M3_SLOT_20x60"
+    },
+    {
+      "id": "encoder_station",
+      "description": "Encoder wheel with spring loaded idler",
+      "origin_mm": [285.0, 80.0, 30.0],
+      "size_mm": [45.0, 55.0, 55.0],
+      "mount_pattern": "M3_SLOT_20x60"
+    },
+    {
+      "id": "output_winder",
+      "description": "Output spool winder and guide",
+      "origin_mm": [360.0, 80.0, 35.0],
+      "size_mm": [80.0, 80.0, 70.0],
+      "mount_pattern": "M3_SLOT_20x60"
+    }
+  ],
+  "filament_path": {
+    "max_deflection_deg": 30.0,
+    "waypoints": [
+      {"id": "input", "role": "input", "point_mm": [0.0, 80.0, 70.0]},
+      {"id": "pre_cut", "role": "pre-cut", "point_mm": [35.0, 80.0, 70.0]},
+      {"id": "cutter_in", "role": "cut", "point_mm": [70.0, 82.0, 71.0]},
+      {"id": "cutter_out", "role": "cut", "point_mm": [105.0, 84.0, 72.0]},
+      {"id": "pre_splice", "role": "pre-splice", "point_mm": [140.0, 84.0, 72.0]},
+      {"id": "splice_core", "role": "splice", "point_mm": [175.0, 83.0, 72.0]},
+      {"id": "post_splice", "role": "post-splice", "point_mm": [210.0, 82.0, 71.0]},
+      {"id": "cooling", "role": "cool", "point_mm": [245.0, 80.0, 70.0]},
+      {"id": "encoder", "role": "encode", "point_mm": [280.0, 79.0, 70.0]},
+      {"id": "pre_output", "role": "output", "point_mm": [330.0, 80.0, 70.0]},
+      {"id": "output", "role": "output", "point_mm": [370.0, 80.0, 70.0]}
+    ]
+  },
+  "guides": [
+    {"id": "guide_input", "location": "input", "fitting": "PC4-M6", "tube_id_mm": 2.0},
+    {"id": "guide_pre_cut", "location": "pre-cut", "fitting": "PC4-M6", "tube_id_mm": 2.0},
+    {"id": "guide_pre_splice", "location": "pre-splice", "fitting": "PC4-M6", "tube_id_mm": 2.0},
+    {"id": "guide_post_splice", "location": "post-splice", "fitting": "PC4-M6", "tube_id_mm": 2.0},
+    {"id": "guide_output", "location": "output", "fitting": "PC4-M6", "tube_id_mm": 2.0}
+  ],
+  "alignment_jigs": [
+    {"id": "hotend_centering_jig", "pin_diameter_mm": 3.0, "tolerance_mm": 0.1},
+    {"id": "cutter_blade_square_jig", "slot_width_mm": 0.8, "tolerance_mm": 0.05},
+    {"id": "encoder_pressure_jig", "compression_target_mm": 0.6, "tolerance_mm": 0.1}
+  ],
+  "printable_parts": [
+    {
+      "name": "cutting_station_enclosure",
+      "source_scad": "hardware/f1_1/cad/cutting_station.scad",
+      "output_stl": "hardware/f1_1/stl/cutting_station_enclosure.stl",
+      "bounding_box_mm": [120.0, 72.0, 45.0],
+      "recommended_orientation": "base-down"
+    },
+    {
+      "name": "splice_chamber_station",
+      "source_scad": "hardware/f1_1/cad/splice_chamber_station.scad",
+      "output_stl": "hardware/f1_1/stl/splice_chamber_station.stl",
+      "bounding_box_mm": [98.0, 70.0, 48.0],
+      "recommended_orientation": "base-down"
+    },
+    {
+      "name": "cooling_station",
+      "source_scad": "hardware/f1_1/cad/cooling_station.scad",
+      "output_stl": "hardware/f1_1/stl/cooling_station.stl",
+      "bounding_box_mm": [88.0, 62.0, 50.0],
+      "recommended_orientation": "duct-up"
+    },
+    {
+      "name": "encoder_station",
+      "source_scad": "hardware/f1_1/cad/encoder_station.scad",
+      "output_stl": "hardware/f1_1/stl/encoder_station.stl",
+      "bounding_box_mm": [84.0, 66.0, 52.0],
+      "recommended_orientation": "base-down"
+    },
+    {
+      "name": "filament_guides_and_jigs",
+      "source_scad": "hardware/f1_1/cad/filament_guides_jigs.scad",
+      "output_stl": "hardware/f1_1/stl/filament_guides_and_jigs.stl",
+      "bounding_box_mm": [150.0, 110.0, 25.0],
+      "recommended_orientation": "flat"
+    },
+    {
+      "name": "modular_mount_rail",
+      "source_scad": "hardware/f1_1/cad/modular_mounts.scad",
+      "output_stl": "hardware/f1_1/stl/modular_mount_rail.stl",
+      "bounding_box_mm": [210.0, 80.0, 18.0],
+      "recommended_orientation": "flat"
+    }
+  ],
+  "interfaces": [
+    {"from": "input_module_a", "to": "cutter_station", "mount_pattern": "M3_SLOT_20x60", "clearance_mm": 0.3},
+    {"from": "input_module_b", "to": "cutter_station", "mount_pattern": "M3_SLOT_20x60", "clearance_mm": 0.3},
+    {"from": "cutter_station", "to": "splice_station", "mount_pattern": "M3_SLOT_20x60", "clearance_mm": 0.25},
+    {"from": "splice_station", "to": "cooling_station", "mount_pattern": "M3_SLOT_20x60", "clearance_mm": 0.25},
+    {"from": "cooling_station", "to": "encoder_station", "mount_pattern": "M3_SLOT_20x60", "clearance_mm": 0.25},
+    {"from": "encoder_station", "to": "output_winder", "mount_pattern": "M3_SLOT_20x60", "clearance_mm": 0.35}
+  ]
+}
