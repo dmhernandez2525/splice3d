@@ -17,6 +17,7 @@
 #include "filament_feed.h"
 #include "splice_execution.h"
 #include "position_tracking.h"
+#include "error_recovery.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -40,6 +41,7 @@ void setup() {
     setupFilamentFeed();
     setupSpliceExecution();
     setupPositionTracking();
+    setupErrorRecovery();
 
     // Initialize state machine
     stateMachine.init();
@@ -77,4 +79,7 @@ void loop() {
 
     // Update position tracking
     updatePositionTracking();
+
+    // Update error recovery engine
+    updateErrorRecovery();
 }

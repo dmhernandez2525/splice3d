@@ -1,0 +1,44 @@
+{
+  "feature": "F3.4-error-recovery",
+  "recovery_phases": [
+    "IDLE", "ASSESSING", "COOLDOWN_WAIT", "RETRYING",
+    "AWAITING_USER", "RESOLVED", "UNRECOVERABLE"
+  ],
+  "recovery_actions": [
+    "NONE", "RETRY_ONCE", "RETRY_AFTER_COOL",
+    "MANUAL_REQUIRED", "ABORT", "RESET"
+  ],
+  "error_categories": {
+    "temperature": ["THERMAL_RUNAWAY", "TEMP_SENSOR_FAIL", "TEMP_TOO_HIGH"],
+    "motor": ["MOTOR_STALL_A", "MOTOR_STALL_B", "MOTOR_STALL_WINDER"],
+    "filament": ["FILAMENT_JAM", "FILAMENT_OUT_A", "FILAMENT_OUT_B"],
+    "cutter": ["CUTTER_FAIL"],
+    "recipe": ["RECIPE_INVALID", "RECIPE_TOO_LARGE"],
+    "communication": ["SERIAL_TIMEOUT"],
+    "critical": ["EMERGENCY_STOP"]
+  },
+  "config_defaults": {
+    "max_retries": 3,
+    "cooldown_timeout_ms": 60000,
+    "cooldown_target_c": 60.0,
+    "assessment_delay_ms": 500,
+    "retry_delay_ms": 1000
+  },
+  "serial_commands": [
+    "RECOVER",
+    "RECOVER BEGIN",
+    "RECOVER CONFIRM",
+    "RECOVER ABORT",
+    "RECOVER STATS",
+    "RECOVER RESET_STATS",
+    "RECOVER CONFIG"
+  ],
+  "features": [
+    "automatic_retry",
+    "cooldown_recovery",
+    "user_guided_recovery",
+    "recovery_statistics",
+    "configurable_thresholds",
+    "serial_command_interface"
+  ]
+}

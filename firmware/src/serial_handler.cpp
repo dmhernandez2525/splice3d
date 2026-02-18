@@ -101,6 +101,9 @@ void SerialHandler::processLine(const char* line) {
     else if (strcmp(cmd, "CUTTER") == 0) {
         handleCutter(args);
     }
+    else if (strcmp(cmd, "RECOVER") == 0) {
+        handleRecover(args);
+    }
     else if (strcmp(cmd, "HELP") == 0 || strcmp(cmd, "?") == 0) {
         handleHelp();
     }
@@ -244,5 +247,6 @@ void SerialHandler::handleHelp() {
     Serial.println(F("  TEMP [val|MATERIAL|PID|AUTOTUNE|FAN|HEATER]"));
     Serial.println(F("  ENCODER ...    - Encoder status/calibration"));
     Serial.println(F("  CUTTER ...     - Cutter status/control"));
+    Serial.println(F("  RECOVER ...    - Error recovery commands"));
     Serial.println(F("  HELP           - Show this help"));
 }
