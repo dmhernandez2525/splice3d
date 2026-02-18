@@ -19,6 +19,7 @@
 #include "position_tracking.h"
 #include "error_recovery.h"
 #include "telemetry_stream.h"
+#include "quality_metrics.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -44,6 +45,7 @@ void setup() {
     setupPositionTracking();
     setupErrorRecovery();
     setupTelemetryStream();
+    setupQualityMetrics();
 
     // Initialize state machine
     stateMachine.init();
@@ -87,4 +89,7 @@ void loop() {
 
     // Update telemetry stream
     updateTelemetryStream();
+
+    // Update quality metrics
+    updateQualityMetrics();
 }
