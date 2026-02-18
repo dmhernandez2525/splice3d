@@ -1,0 +1,51 @@
+{
+  "feature": "F10.2-multi-color",
+  "max_channels": 8,
+  "max_switch_queue": 16,
+  "channel_states": [
+    "EMPTY",
+    "LOADED",
+    "ACTIVE",
+    "SWITCHING",
+    "ERROR",
+    "MAINTENANCE"
+  ],
+  "channel_fields": [
+    "channelIndex",
+    "materialType",
+    "colorHex",
+    "lengthRemainingMm",
+    "usageCount",
+    "state"
+  ],
+  "switch_fields": [
+    "fromChannel",
+    "toChannel",
+    "requestedMs",
+    "completedMs",
+    "purgeUsedMm",
+    "success"
+  ],
+  "mapping_fields": [
+    "toolIndex",
+    "channelIndex",
+    "colorName",
+    "priority"
+  ],
+  "stats_fields": [
+    "activeChannels",
+    "totalSwitches",
+    "failedSwitches",
+    "avgSwitchMs",
+    "totalPurgeMm",
+    "channelUtilization"
+  ],
+  "features": [
+    "channel_management",
+    "input_selection",
+    "switch_coordination",
+    "purge_tracking",
+    "tool_mapping",
+    "serial_serialization"
+  ]
+}
