@@ -35,6 +35,7 @@
 #include "slicer_cura.h"
 #include "slicer_bambu.h"
 #include "recipe_editor.h"
+#include "gcode_preview.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -76,6 +77,7 @@ void setup() {
     setupSlicerCura();
     setupSlicerBambu();
     setupRecipeEditor();
+    setupGcodePreview();
 
     // Initialize state machine
     stateMachine.init();
@@ -167,4 +169,7 @@ void loop() {
 
     // Update recipe editor
     updateRecipeEditor();
+
+    // Update gcode preview
+    updateGcodePreview();
 }

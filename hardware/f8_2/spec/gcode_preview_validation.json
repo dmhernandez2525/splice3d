@@ -1,0 +1,41 @@
+{
+  "feature": "F8.2-gcode-preview",
+  "max_preview_layers": 512,
+  "max_color_zones": 64,
+  "layer_fields": [
+    "layerNumber",
+    "heightMm",
+    "colorIndex",
+    "lengthMm",
+    "toolChanges",
+    "zPosition"
+  ],
+  "color_zone_fields": [
+    "startLayer",
+    "endLayer",
+    "colorHex",
+    "toolIndex",
+    "lengthMm"
+  ],
+  "view_modes": [
+    "LAYER_BY_LAYER",
+    "COLOR_MAP",
+    "SPLICE_POINTS",
+    "USAGE_CHART"
+  ],
+  "stats_fields": [
+    "totalLayers",
+    "totalColorZones",
+    "totalSplicePoints",
+    "filamentUsedMm",
+    "previewReady"
+  ],
+  "features": [
+    "layer_parsing",
+    "color_zone_detection",
+    "splice_point_highlighting",
+    "usage_statistics",
+    "view_mode_switching",
+    "serial_serialization"
+  ]
+}
