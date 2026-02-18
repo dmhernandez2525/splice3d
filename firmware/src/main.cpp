@@ -38,6 +38,7 @@
 #include "gcode_preview.h"
 #include "device_connection.h"
 #include "queue_manager.h"
+#include "wifi_manager.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -82,6 +83,7 @@ void setup() {
     setupGcodePreview();
     setupDeviceConnection();
     setupQueueManager();
+    setupWifiManager();
 
     // Initialize state machine
     stateMachine.init();
@@ -182,4 +184,7 @@ void loop() {
 
     // Update queue manager
     updateQueueManager();
+
+    // Update wifi manager
+    updateWifiManager();
 }
