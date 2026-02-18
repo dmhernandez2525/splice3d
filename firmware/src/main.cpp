@@ -13,6 +13,7 @@
 #include "stepper_control.h"
 #include "temperature.h"
 #include "encoder_system.h"
+#include "cutting_system.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -32,7 +33,8 @@ void setup() {
     setupSteppers();
     setupTemperature();
     setupEncoderSystem();
-    
+    setupCuttingSystem();
+
     // Initialize state machine
     stateMachine.init();
     
@@ -57,4 +59,7 @@ void loop() {
 
     // Update encoder subsystem
     updateEncoderSystem();
+
+    // Update cutting system
+    updateCuttingSystem();
 }
