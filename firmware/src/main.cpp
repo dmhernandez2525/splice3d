@@ -37,6 +37,7 @@
 #include "recipe_editor.h"
 #include "gcode_preview.h"
 #include "device_connection.h"
+#include "queue_manager.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -80,6 +81,7 @@ void setup() {
     setupRecipeEditor();
     setupGcodePreview();
     setupDeviceConnection();
+    setupQueueManager();
 
     // Initialize state machine
     stateMachine.init();
@@ -177,4 +179,7 @@ void loop() {
 
     // Update device connection
     updateDeviceConnection();
+
+    // Update queue manager
+    updateQueueManager();
 }
