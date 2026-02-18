@@ -1,0 +1,48 @@
+{
+  "feature": "F8.3-device-connection",
+  "max_devices": 4,
+  "baud_rates": [
+    115200,
+    250000,
+    500000
+  ],
+  "connection_states": [
+    "DISCONNECTED",
+    "SCANNING",
+    "CONNECTING",
+    "CONNECTED",
+    "ERROR",
+    "RECONNECTING"
+  ],
+  "device_fields": [
+    "portName",
+    "baudRate",
+    "firmwareVersion",
+    "serialNumber",
+    "connectionState",
+    "lastSeenMs"
+  ],
+  "command_fields": [
+    "commandId",
+    "payload",
+    "sentMs",
+    "responseMs",
+    "success"
+  ],
+  "stats_fields": [
+    "connectedDevices",
+    "totalCommands",
+    "failedCommands",
+    "avgLatencyMs",
+    "reconnectCount",
+    "scanCount"
+  ],
+  "features": [
+    "auto_detection",
+    "connection_management",
+    "reconnection_handling",
+    "multi_device_support",
+    "command_tracking",
+    "serial_serialization"
+  ]
+}
