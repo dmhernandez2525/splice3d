@@ -33,6 +33,7 @@
 #include "slicer_orca.h"
 #include "slicer_prusa.h"
 #include "slicer_cura.h"
+#include "slicer_bambu.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -72,6 +73,7 @@ void setup() {
     setupSlicerOrca();
     setupSlicerPrusa();
     setupSlicerCura();
+    setupSlicerBambu();
 
     // Initialize state machine
     stateMachine.init();
@@ -157,4 +159,7 @@ void loop() {
 
     // Update slicer cura
     updateSlicerCura();
+
+    // Update slicer bambu
+    updateSlicerBambu();
 }

@@ -1,0 +1,42 @@
+{
+  "feature": "F7.4-slicer-bambu",
+  "ams_slots": 4,
+  "max_ams_units": 4,
+  "ams_fields": [
+    "slotIndex",
+    "unitIndex",
+    "filamentType",
+    "colorHex",
+    "brand",
+    "remaining"
+  ],
+  "bambu_extensions": [
+    "AMS_MAPPING",
+    "FILAMENT_CHANGE",
+    "FLUSH_START",
+    "FLUSH_END",
+    "WIPE_TOWER"
+  ],
+  "plate_fields": [
+    "plateIndex",
+    "objectCount",
+    "filamentCount",
+    "estimatedTimeMin",
+    "boundingBox"
+  ],
+  "stats_fields": [
+    "parsedLines",
+    "amsUnitsDetected",
+    "filamentChanges",
+    "flushVolumeMl",
+    "platesProcessed"
+  ],
+  "features": [
+    "bambu_gcode_parsing",
+    "ams_metadata_extraction",
+    "plate_detection",
+    "flush_volume_tracking",
+    "proprietary_extension_handling",
+    "serial_serialization"
+  ]
+}
