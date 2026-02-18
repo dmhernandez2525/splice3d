@@ -15,6 +15,7 @@
 #include "encoder_system.h"
 #include "cutting_system.h"
 #include "filament_feed.h"
+#include "splice_execution.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -36,6 +37,7 @@ void setup() {
     setupEncoderSystem();
     setupCuttingSystem();
     setupFilamentFeed();
+    setupSpliceExecution();
 
     // Initialize state machine
     stateMachine.init();
@@ -67,4 +69,7 @@ void loop() {
 
     // Update filament feed
     updateFilamentFeed();
+
+    // Update splice execution
+    updateSpliceExecution();
 }
