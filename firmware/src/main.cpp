@@ -34,6 +34,7 @@
 #include "slicer_prusa.h"
 #include "slicer_cura.h"
 #include "slicer_bambu.h"
+#include "recipe_editor.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -74,6 +75,7 @@ void setup() {
     setupSlicerPrusa();
     setupSlicerCura();
     setupSlicerBambu();
+    setupRecipeEditor();
 
     // Initialize state machine
     stateMachine.init();
@@ -162,4 +164,7 @@ void loop() {
 
     // Update slicer bambu
     updateSlicerBambu();
+
+    // Update recipe editor
+    updateRecipeEditor();
 }
