@@ -1,0 +1,55 @@
+{
+  "feature": "F2.3-temperature-control",
+  "version": "1.0.0",
+  "acceptance_limits": {
+    "steady_state_tolerance_c": 2.0,
+    "thermal_runaway_detection_s": 40,
+    "pid_autotune_max_cycles": 5,
+    "max_temperature_c": 280,
+    "min_cold_extrusion_c": 170,
+    "thermistor_disconnect_low_c": -10,
+    "thermistor_disconnect_high_c": 350,
+    "preheat_ramp_rate_c_per_s": 2.0,
+    "soak_hold_ms": 3000,
+    "log_interval_ms": 1000,
+    "pid_watchdog_ms": 2000
+  },
+  "material_profiles": {
+    "PLA": {
+      "splice_target_c": 210,
+      "min_motion_c": 180,
+      "ramp_rate_c_per_s": 2.0,
+      "soak_time_ms": 2000
+    },
+    "PETG": {
+      "splice_target_c": 235,
+      "min_motion_c": 210,
+      "ramp_rate_c_per_s": 1.5,
+      "soak_time_ms": 3000
+    },
+    "ABS": {
+      "splice_target_c": 250,
+      "min_motion_c": 220,
+      "ramp_rate_c_per_s": 1.0,
+      "soak_time_ms": 4000
+    }
+  },
+  "heating_stages": ["OFF", "PREHEAT", "SOAK", "READY", "FAULT"],
+  "safety_features": [
+    "thermal_runaway_detection",
+    "thermistor_disconnect_detection",
+    "cold_extrusion_prevention",
+    "overtemperature_shutoff",
+    "pid_watchdog_timer",
+    "cooling_fan_on_fault"
+  ],
+  "serial_commands": [
+    "TEMP",
+    "TEMP <value>",
+    "TEMP MATERIAL <PLA|PETG|ABS>",
+    "TEMP PID <Kp> <Ki> <Kd>",
+    "TEMP AUTOTUNE",
+    "TEMP FAN <0-255>",
+    "TEMP HEATER <0-255>"
+  ]
+}

@@ -167,8 +167,16 @@
 #define MAX_TEMP               280     // Emergency shutoff temp
 #define TEMP_HYSTERESIS        3       // °C
 #define HEATER_TIMEOUT_MS      120000  // 2 min max heat time
-#define THERMAL_RUNAWAY_PERIOD 40      // Seconds before thermal runaway check
-#define THERMAL_RUNAWAY_TEMP   10      // Must heat this much in period
+#define THERMAL_RUNAWAY_PERIOD_MS 40000UL // Must heat THERMAL_RUNAWAY_MIN_RISE_C in this window
+#define THERMAL_RUNAWAY_MIN_RISE_C 10.0f  // Minimum rise required in the window
+#define THERMAL_RUNAWAY_CHECK_INTERVAL_MS 5000UL
+#define THERMISTOR_DISCONNECT_LOW_C -10.0f
+#define THERMISTOR_DISCONNECT_HIGH_C 350.0f
+#define COLD_EXTRUSION_MIN_C   170.0f // Block motor motion below this temp
+#define TEMP_LOG_INTERVAL_MS   1000UL // 1Hz serial log
+#define PID_WATCHDOG_MS        2000UL // PID loop must run within this interval
+#define PREHEAT_RAMP_RATE_C_PER_SEC 2.0f
+#define SOAK_HOLD_MS           3000UL // Hold at target before declaring READY
 
 // ============================================================
 // FILAMENT PROPERTIES
