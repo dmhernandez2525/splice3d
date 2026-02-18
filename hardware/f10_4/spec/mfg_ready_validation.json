@@ -1,0 +1,53 @@
+{
+  "feature": "F10.4-mfg-ready",
+  "max_test_steps": 16,
+  "certification_version": "1.0.0",
+  "test_categories": [
+    "MECHANICAL",
+    "THERMAL",
+    "ELECTRICAL",
+    "CALIBRATION",
+    "COMMUNICATION",
+    "SAFETY"
+  ],
+  "test_fields": [
+    "testId",
+    "category",
+    "name",
+    "passed",
+    "durationMs",
+    "errorMessage"
+  ],
+  "cert_fields": [
+    "version",
+    "serialNumber",
+    "testDate",
+    "allPassed",
+    "totalTests",
+    "failedTests",
+    "operatorId"
+  ],
+  "uptime_fields": [
+    "totalUptimeMs",
+    "totalDowntimeMs",
+    "lastBootMs",
+    "bootCount",
+    "mtbfMs"
+  ],
+  "stats_fields": [
+    "totalTestRuns",
+    "passRate",
+    "avgTestDurationMs",
+    "lastCertDate",
+    "certValid",
+    "failureRate"
+  ],
+  "features": [
+    "self_test_sequence",
+    "calibration_verification",
+    "uptime_tracking",
+    "failure_monitoring",
+    "certification_generation",
+    "serial_serialization"
+  ]
+}
