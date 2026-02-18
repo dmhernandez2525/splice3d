@@ -1,0 +1,32 @@
+{
+  "feature": "F5.1-material-database",
+  "max_profiles": 24,
+  "material_types": ["PLA", "PETG", "ABS", "TPU"],
+  "profile_fields": [
+    "name", "brand", "type", "spliceTemp", "holdTimeMs",
+    "compressionMm", "coolTimeMs", "pullTestForceN", "active"
+  ],
+  "default_profiles": [
+    "PLA-Generic", "PLA-Prusament", "PLA-Hatchbox",
+    "PETG-Generic", "PETG-Prusament",
+    "ABS-Generic", "ABS-Hatchbox",
+    "TPU-Generic", "TPU-NinjaFlex"
+  ],
+  "temperature_limits": {
+    "min_celsius": 150,
+    "max_celsius": 280
+  },
+  "hold_time_limits": {
+    "min_ms": 500,
+    "max_ms": 15000
+  },
+  "features": [
+    "brand_specific_profiles",
+    "lookup_by_type_and_brand",
+    "lookup_by_name",
+    "add_update_remove",
+    "serial_serialization",
+    "default_material_loading",
+    "database_statistics"
+  ]
+}
