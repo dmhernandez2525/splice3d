@@ -1,0 +1,27 @@
+{
+  "feature": "F5.3-custom-profile-editor",
+  "max_custom_profiles": 8,
+  "eeprom_base_address": 128,
+  "profile_magic": 165,
+  "operations": ["create", "modify", "delete", "read"],
+  "persistence_fields": [
+    "magic", "index", "checksum", "profile_data"
+  ],
+  "checksum_algorithm": "xor_rotate_left",
+  "slot_fields": [
+    "header", "profile", "occupied"
+  ],
+  "stats_fields": [
+    "totalSlots", "usedSlots", "freeSlots", "corruptSlots"
+  ],
+  "features": [
+    "create_custom_profile",
+    "modify_custom_profile",
+    "delete_custom_profile",
+    "eeprom_persistence",
+    "checksum_validation",
+    "corruption_detection",
+    "slot_management",
+    "serial_serialization"
+  ]
+}

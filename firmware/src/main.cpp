@@ -24,6 +24,7 @@
 #include "batch_processor.h"
 #include "material_database.h"
 #include "cross_material.h"
+#include "custom_profile.h"
 
 // Global state machine instance
 StateMachine stateMachine;
@@ -54,6 +55,7 @@ void setup() {
     setupBatchProcessor();
     setupMaterialDatabase();
     setupCrossMaterial();
+    setupCustomProfile();
 
     // Initialize state machine
     stateMachine.init();
@@ -112,4 +114,7 @@ void loop() {
 
     // Update cross-material compatibility
     updateCrossMaterial();
+
+    // Update custom profile editor
+    updateCustomProfile();
 }
