@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- 36 new tests for CLI pipeline, recipe generator, parser, modifier, and validator edge cases
+- RIP firmware review report: `docs/RIP_FIRMWARE_REVIEW.md` (33 issues identified)
+
+### Changed
+- Updated TROUBLESHOOTING.md with known firmware limitations section
+- Updated SAFETY_CHECKLIST.md with TMC2209 verification step and emergency stop behavior notes
+- Test count: 549 -> 585 (all passing, 95% coverage)
+
+### Fixed (identified, not yet patched in firmware)
+- Serial buffer size mismatch (config says 512, actual 256)
+- millis() rollover breaks heater timeout after 49 days
+- Auto-tune division by zero when oscillation amplitude is 0
+- Static variables in state handlers cause re-entry bugs on pause/resume
+- Hardcoded PLA temperature ignores material profile for PETG/ABS
+- No motor motion timeout (jammed motors hang state machine)
+- No watchdog timer (firmware hang requires power cycle)
+
+### Previously Added
 - Initial project structure and documentation
 - G-code parser with T command and M600 support
 - Recipe generator with segment merging

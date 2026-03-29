@@ -121,13 +121,26 @@ CUT
 
 **Causes**:
 1. Wrong baud rate (should be 115200)
-2. Firmware crashed
-3. Serial buffer overflow
+2. Firmware crashed (no watchdog timer yet; see known issues below)
+3. Serial buffer overflow (actual limit is 256 bytes despite config saying 512)
+4. Recipe JSON exceeds 256-byte buffer and is silently truncated
 
 **Solutions**:
-- Reset board
-- Reduce recipe JSON size
+- Reset board (power cycle required if firmware hangs)
+- Keep recipe JSON under 256 bytes per line
 - Add delays between commands
+- Check `STATUS` command for response to confirm firmware is running
+
+### Known firmware limitations
+
+The following issues have been identified and are tracked in `docs/RIP_FIRMWARE_REVIEW.md`:
+
+1. **No watchdog timer**: If firmware hangs, only a power cycle recovers it
+2. **Buffer mismatch**: `config.h` says 512 bytes, actual buffer is 256 bytes
+3. **millis() rollover**: Heater timeout breaks after 49 days of continuous operation
+4. **PLA-only temperature**: State machine always uses 210C regardless of material
+5. **No motor timeout**: Jammed motors cause the state machine to hang indefinitely
+6. **Static variable re-entry bugs**: Pause/resume can cause double-initialization
 
 ---
 

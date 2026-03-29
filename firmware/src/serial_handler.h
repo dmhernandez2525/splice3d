@@ -22,6 +22,7 @@
 #define SERIAL_HANDLER_H
 
 #include <Arduino.h>
+#include "config.h"
 
 class SerialHandler {
 public:
@@ -34,9 +35,9 @@ public:
     void processInput();
 
 private:
-    // Input buffer
-    char _buffer[256];
-    uint8_t _bufferIndex;
+    // Input buffer - uses SERIAL_BUFFER_SIZE from config.h
+    char _buffer[SERIAL_BUFFER_SIZE];
+    uint16_t _bufferIndex;
     
     // Process a complete line
     void processLine(const char* line);

@@ -45,10 +45,10 @@ splice3d-simulate = "cli.simulator:main"
 splice3d-mqtt-bridge = "services.mqtt_bridge:main"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/splice3d"
-Documentation = "https://github.com/yourusername/splice3d#readme"
-Repository = "https://github.com/yourusername/splice3d.git"
-Issues = "https://github.com/yourusername/splice3d/issues"
+Homepage = "https://github.com/dmhernandez2525/splice3d"
+Documentation = "https://github.com/dmhernandez2525/splice3d#readme"
+Repository = "https://github.com/dmhernandez2525/splice3d.git"
+Issues = "https://github.com/dmhernandez2525/splice3d/issues"
 
 [tool.setuptools.packages.find]
 include = ["postprocessor*", "cli*", "services*"]

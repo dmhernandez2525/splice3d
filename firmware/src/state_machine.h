@@ -119,7 +119,17 @@ private:
     
     // Error tracking
     char _errorMessage[64];
-    
+
+    // State handler flags (previously static locals, now member vars for safe reset)
+    bool _feedStarted;
+    bool _cutStarted;
+    bool _positionStarted;
+    bool _heatingStarted;
+    bool _weldStarted;
+    bool _coolingStarted;
+    bool _spoolingStarted;
+    bool _completionReported;
+
     // State transition helpers
     void transitionTo(State newState);
     void handleError(const char* message);

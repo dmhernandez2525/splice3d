@@ -9,8 +9,8 @@ import sys
 # Add parent to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from gcode_parser import GCodeParser, Segment
-from recipe_generator import RecipeGenerator, SpliceRecipe, generate_recipe
+from gcode_parser import GCodeParser
+from recipe_generator import RecipeGenerator
 
 
 class TestRecipeGenerator(unittest.TestCase):

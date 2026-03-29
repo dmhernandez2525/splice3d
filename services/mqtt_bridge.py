@@ -19,7 +19,7 @@ import sys
 import time
 import threading
 from dataclasses import dataclass, field
-from datetime import datetime, date
+from datetime import date
 from pathlib import Path
 from typing import Optional
 
@@ -230,8 +230,8 @@ class Splice3DMQTTBridge:
             TOPICS["cmd_pause"]: "PAUSE",
             TOPICS["cmd_resume"]: "RESUME",
             TOPICS["cmd_abort"]: "ABORT",
-            TOPICS["cmd_preheat"]: "PREHEAT",
-            TOPICS["cmd_cooldown"]: "COOLDOWN",
+            TOPICS["cmd_preheat"]: "TEMP MATERIAL PLA",
+            TOPICS["cmd_cooldown"]: "TEMP 0",
         }
 
         if topic in topic_to_cmd:
@@ -274,34 +274,43 @@ class Splice3DMQTTBridge:
                 return []
 
     def _parse_status_line(self, line: str):
-        """Parse a status line from the machine and update state."""
-        # Status format: STATE:IDLE TEMP:200/210 PROGRESS:0 SEGMENT:0/0
+        """Parse a status line from the machine and update state.
+
+        Firmware format: STATUS IDLE PROGRESS 3/10 TEMP 200.0/210.0 ENC_MM 15.30 ENC_SLIP 0
+        Uses space-delimited key-value pairs (not colon-delimited).
+        """
         parts = line.split()
-
-        for part in parts:
-            if ':' not in part:
-                continue
-
-            key, value = part.split(':', 1)
-            key = key.upper()
-
-            if key == "STATE":
-                self.state.state = value
-            elif key == "TEMP":
-                if '/' in value:
-                    current, target = value.split('/')
-                    self.state.temperature_current = float(current)
-                    self.state.temperature_target = float(target)
-            elif key == "PROGRESS":
-                self.state.progress = int(value)
-            elif key == "SEGMENT":
-                if '/' in value:
-                    current, total = value.split('/')
-                    self.state.current_segment = int(current)
-                    self.state.total_segments = int(total)
-            elif key == "ERROR":
-                self.state.error = True
-                self.state.error_message = value
+        i = 0
+        while i < len(parts):
+            token = parts[i].upper()
+            if token == "STATUS" and i + 1 < len(parts):
+                i += 1
+                self.state.state = parts[i]
+            elif token == "PROGRESS" and i + 1 < len(parts):
+                i += 1
+                if '/' in parts[i]:
+                    try:
+                        current, total = parts[i].split('/')
+                        self.state.current_segment = int(current)
+                        self.state.total_segments = int(total)
+                        if int(total) > 0:
+                            self.state.progress = int(100 * int(current) / int(total))
+                    except ValueError:
+                        pass
+            elif token == "TEMP" and i + 1 < len(parts):
+                i += 1
+                if '/' in parts[i]:
+                    try:
+                        current, target = parts[i].split('/')
+                        self.state.temperature_current = float(current)
+                        self.state.temperature_target = float(target)
+                    except ValueError:
+                        pass
+            elif token == "ENC_MM" and i + 1 < len(parts):
+                i += 1  # Skip encoder position (consumed but not stored yet)
+            elif token == "ENC_SLIP" and i + 1 < len(parts):
+                i += 1  # Skip encoder slip flag
+            i += 1
 
         self.state.last_update = time.time()
 
@@ -309,15 +318,50 @@ class Splice3DMQTTBridge:
         """Handle a line received from serial."""
         logger.debug(f"Serial: {line}")
 
-        if line.startswith("STATUS:") or "STATE:" in line:
+        if line.startswith("STATUS ") or line.startswith("STATUS:") or "STATE:" in line:
             self._parse_status_line(line)
             self._publish_state()
 
-        elif line.startswith("PROGRESS:"):
+        elif line.startswith("PROGRESS ") or line.startswith("PROGRESS:"):
             try:
-                self.state.progress = int(line.split(':')[1])
+                # Handle both "PROGRESS 3/10" and "PROGRESS:3"
+                value = line.split(None, 1)[1] if ' ' in line else line.split(':')[1]
+                if '/' in value:
+                    current, total = value.split('/')
+                    self.state.current_segment = int(current)
+                    self.state.total_segments = int(total)
+                else:
+                    self.state.progress = int(value)
+                self._publish_state()
+            except (ValueError, IndexError):
+                pass
+
+        elif line.startswith("TEMP_LOG "):
+            # Firmware temperature log: TEMP_LOG C=200.0 T=210.0 S=200.0 PWM=128 STAGE=2
+            try:
+                for part in line.split():
+                    if part.startswith("C="):
+                        self.state.temperature_current = float(part[2:])
+                    elif part.startswith("T="):
+                        self.state.temperature_target = float(part[2:])
                 self._publish_state()
             except ValueError:
+                pass
+
+        elif line.startswith("{"):
+            # JSON telemetry from firmware telemetry_stream
+            try:
+                import json
+                data = json.loads(line)
+                if data.get("type") == "telemetry":
+                    if "state" in data:
+                        self.state.state = data["state"]
+                    if "temp" in data:
+                        self.state.temperature_current = float(data["temp"])
+                    if "target" in data:
+                        self.state.temperature_target = float(data["target"])
+                    self._publish_state()
+            except (json.JSONDecodeError, ValueError, KeyError):
                 pass
 
         elif line.startswith("DONE"):
@@ -339,14 +383,16 @@ class Splice3DMQTTBridge:
             self._publish_stats()
             logger.error(f"Machine error: {self.state.error_message}")
 
-        elif line.startswith("TEMP:"):
-            # Temperature update: TEMP:200/210
+        elif line.startswith("TEMP:") or line.startswith("TEMP "):
+            # Temperature update: "TEMP:200/210" or "TEMP 200.0/210.0"
             try:
-                temps = line[5:].split('/')
-                self.state.temperature_current = float(temps[0])
-                if len(temps) > 1:
-                    self.state.temperature_target = float(temps[1])
-                self._publish_state()
+                value = line[5:].strip()
+                if '/' in value:
+                    temps = value.split('/')
+                    self.state.temperature_current = float(temps[0])
+                    if len(temps) > 1:
+                        self.state.temperature_target = float(temps[1])
+                    self._publish_state()
             except (ValueError, IndexError):
                 pass
 
@@ -466,7 +512,7 @@ class Splice3DMQTTBridge:
                 if self.serial:
                     try:
                         self.serial.close()
-                    except:
+                    except Exception:
                         pass
                     self.serial = None
 

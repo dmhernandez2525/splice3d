@@ -9,7 +9,7 @@ import sys
 # Add parent to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from gcode_parser import GCodeParser, parse_gcode, Segment
+from gcode_parser import GCodeParser, parse_gcode
 
 
 class TestGCodeParser(unittest.TestCase):

@@ -8,7 +8,6 @@ Modifies multi-tool G-code for single-extruder printing:
 """
 
 import re
-from typing import Optional
 
 
 class GCodeModifier:
@@ -42,14 +41,20 @@ class GCodeModifier:
         Returns:
             Dictionary with statistics about modifications
         """
-        with open(input_path, 'r', encoding='utf-8', errors='replace') as f:
-            lines = f.readlines()
-        
+        try:
+            with open(input_path, 'r', encoding='utf-8', errors='replace') as f:
+                lines = f.readlines()
+        except IOError as e:
+            raise IOError(f"Failed to read input G-code: {e}") from e
+
         modified_lines, stats = self.modify_lines(lines)
-        
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.writelines(modified_lines)
-        
+
+        try:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.writelines(modified_lines)
+        except IOError as e:
+            raise IOError(f"Failed to write modified G-code: {e}") from e
+
         return stats
     
     def modify_lines(self, lines: list[str]) -> tuple[list[str], dict]:
@@ -90,9 +95,9 @@ class GCodeModifier:
                 not pause_added and 
                 found_start_gcode and
                 (stripped.startswith('G0') or stripped.startswith('G1'))):
-                modified.append(f"\n; === SPLICE3D: Load pre-spliced spool now ===\n")
+                modified.append("\n; === SPLICE3D: Load pre-spliced spool now ===\n")
                 modified.append(f"{self.pause_command} ; Pause for spool loading\n")
-                modified.append(f"; === Press continue when ready ===\n\n")
+                modified.append("; === Press continue when ready ===\n\n")
                 pause_added = True
             
             # Remove tool change commands

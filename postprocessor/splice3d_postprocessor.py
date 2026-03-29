@@ -15,13 +15,12 @@ Usage:
 """
 
 import argparse
-import os
 import sys
 from pathlib import Path
 
-from gcode_parser import GCodeParser, parse_gcode
-from recipe_generator import RecipeGenerator, generate_recipe
-from gcode_modifier import GCodeModifier, modify_gcode
+from postprocessor.gcode_parser import GCodeParser
+from postprocessor.recipe_generator import RecipeGenerator
+from postprocessor.gcode_modifier import GCodeModifier
 
 
 def main():
@@ -84,8 +83,8 @@ def main():
     recipe_path = output_dir / f"{base_name}_splice_recipe.json"
     modified_gcode_path = output_dir / f"{base_name}_modified.gcode"
     
-    print(f"Splice3D Post-Processor")
-    print(f"=" * 40)
+    print("Splice3D Post-Processor")
+    print("=" * 40)
     print(f"Input: {input_path}")
     print()
     

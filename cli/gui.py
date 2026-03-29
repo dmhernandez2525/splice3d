@@ -12,7 +12,6 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, scrolledtext
 import subprocess
 import sys
-import os
 from pathlib import Path
 
 
@@ -150,7 +149,7 @@ class Splice3DGUI:
 
 def main():
     root = tk.Tk()
-    app = Splice3DGUI(root)
+    Splice3DGUI(root)
     root.mainloop()
 
 

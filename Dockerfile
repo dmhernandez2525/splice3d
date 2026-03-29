@@ -7,16 +7,17 @@ LABEL version="0.1.0"
 # Set working directory
 WORKDIR /app
 
-# Copy post-processor files
+# Copy all Python packages and config
 COPY postprocessor/ ./postprocessor/
 COPY cli/ ./cli/
+COPY services/ ./services/
 COPY samples/ ./samples/
+COPY pyproject.toml setup.py ./
 
-# Install dependencies
-RUN pip install --no-cache-dir -r postprocessor/requirements.txt
+# Install package with dependencies (includes pyserial, paho-mqtt)
+RUN pip install --no-cache-dir -e .
 
 # Set up PATH
-ENV PATH="/app/postprocessor:${PATH}"
 ENV PYTHONPATH="/app"
 
 # Default command shows help

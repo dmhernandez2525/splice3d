@@ -6,7 +6,6 @@ Catches configuration errors before they cause hardware issues.
 """
 
 from dataclasses import dataclass
-from typing import Optional
 import json
 
 
@@ -38,7 +37,7 @@ class RecipeValidator:
     # Validation thresholds
     MIN_SEGMENT_LENGTH_MM = 3.0      # Segments shorter than this may fail
     MAX_SEGMENT_LENGTH_MM = 50000.0  # 50 meters max per segment
-    MAX_SEGMENTS = 10000             # Memory limit on firmware
+    MAX_SEGMENTS = 500               # Must match firmware MAX_SEGMENTS in state_machine.h
     MAX_COLORS = 8                   # Maximum supported colors
     MIN_TOTAL_LENGTH_MM = 50.0       # Minimum useful print
     

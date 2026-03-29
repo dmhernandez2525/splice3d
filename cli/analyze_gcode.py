@@ -144,26 +144,26 @@ def analyze_gcode(filepath: str) -> AnalysisResult:
 def print_analysis(result: AnalysisResult):
     """Print analysis results in a readable format."""
     print(f"\n{'='*60}")
-    print(f"SPLICE3D G-CODE ANALYSIS")
+    print("SPLICE3D G-CODE ANALYSIS")
     print(f"{'='*60}")
     print(f"File: {result.filename}")
     print()
     
     stats = result.segment_stats
     
-    print(f"SEGMENTS")
+    print("SEGMENTS")
     print(f"  Total count: {stats.count}")
     print(f"  Total length: {stats.total_mm:.1f}mm ({stats.total_mm/1000:.2f}m)")
     print()
     
-    print(f"SEGMENT LENGTHS")
+    print("SEGMENT LENGTHS")
     print(f"  Min: {stats.min_mm:.1f}mm")
     print(f"  Max: {stats.max_mm:.1f}mm")
     print(f"  Average: {stats.avg_mm:.1f}mm")
     print(f"  Median: {stats.median_mm:.1f}mm")
     print()
     
-    print(f"LENGTH DISTRIBUTION")
+    print("LENGTH DISTRIBUTION")
     print(f"  Very short (<5mm): {stats.very_short} ({100*stats.very_short/max(1,stats.count):.1f}%)")
     print(f"  Short (5-20mm): {stats.short} ({100*stats.short/max(1,stats.count):.1f}%)")
     print(f"  Medium (20-100mm): {stats.medium} ({100*stats.medium/max(1,stats.count):.1f}%)")
@@ -171,21 +171,21 @@ def print_analysis(result: AnalysisResult):
     print(f"  Very long (>500mm): {stats.very_long} ({100*stats.very_long/max(1,stats.count):.1f}%)")
     print()
     
-    print(f"COLORS")
+    print("COLORS")
     print(f"  Color count: {result.color_count}")
     for tool, count in result.color_distribution.items():
         pct = 100 * count / max(1, stats.count)
         print(f"    {tool}: {count} segments ({pct:.1f}%)")
     print()
     
-    print(f"ESTIMATES")
+    print("ESTIMATES")
     print(f"  Layers: {result.layer_count}")
     print(f"  Splice prep time: ~{result.estimated_splice_time_hours:.1f} hours")
     print(f"  Waste reduction vs traditional: ~{result.estimated_waste_reduction_percent:.0f}%")
     print()
     
     if result.warnings:
-        print(f"WARNINGS")
+        print("WARNINGS")
         for warning in result.warnings:
             print(f"  ⚠ {warning}")
         print()

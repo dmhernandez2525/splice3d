@@ -47,8 +47,14 @@ void updatePidAutoTune() {
         atState.lastToggleMs = millis();
         if (atState.cycleCount >= atState.targetCycles) {
             const float amplitude = (atState.peakHigh - atState.peakLow) / 2.0f;
-            const float ku = (4.0f * (atState.outputHigh - atState.outputLow)) / (3.14159f * amplitude);
             const float tu = static_cast<float>(period) / 1000.0f;
+            // Guard against division by zero
+            if (amplitude < 0.1f || tu < 0.001f) {
+                atState.active = false;
+                Serial.println(F("PID_AUTOTUNE_FAIL amplitude or period too small"));
+                return;
+            }
+            const float ku = (4.0f * (atState.outputHigh - atState.outputLow)) / (3.14159f * amplitude);
             atState.computedKp = 0.6f * ku;
             atState.computedKi = 1.2f * ku / tu;
             atState.computedKd = 0.075f * ku * tu;

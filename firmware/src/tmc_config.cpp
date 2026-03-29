@@ -31,11 +31,14 @@ void initTMCDrivers() {
     
     Serial.println("TMC2209 drivers initialized");
     
-    // Check status
+    // Check status - halt if drivers are not responding
     if (checkDriverStatus()) {
         Serial.println("All drivers OK");
     } else {
-        Serial.println("WARNING: Driver communication issue");
+        Serial.println("ERROR: TMC2209 driver communication failed");
+        Serial.println("Check UART wiring. Machine will not operate safely without driver feedback.");
+        // Continue with degraded operation but flag the error
+        REPORT_ERROR(MOTOR_STALL_A, "TMC UART init failed");
     }
 }
 
