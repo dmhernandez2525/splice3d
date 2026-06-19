@@ -122,7 +122,7 @@ class Splice3DGUI:
         ]
         
         if self.output_dir.get():
-            cmd.extend(["--output-dir", self.output_dir.get()])
+            cmd.extend(["--output", self.output_dir.get()])
         
         try:
             result = subprocess.run(
