@@ -53,14 +53,27 @@ class RecipeValidator:
         """
         errors = []
         warnings = []
-        
+
+        # The recipe itself must be a JSON object. Anything else (list,
+        # string, number) comes from a malformed or hand-edited file and must
+        # be rejected before any field access is attempted.
+        if not isinstance(recipe, dict):
+            errors.append("Recipe must be a JSON object")
+            return ValidationResult(valid=False, errors=errors, warnings=warnings)
+
         # Required fields
         if "segments" not in recipe:
             errors.append("Missing 'segments' field")
             return ValidationResult(valid=False, errors=errors, warnings=warnings)
-        
+
         segments = recipe.get("segments", [])
-        
+
+        # 'segments' must be a list. A dict or scalar here would otherwise
+        # iterate in surprising ways or raise downstream.
+        if not isinstance(segments, list):
+            errors.append("'segments' must be a list")
+            return ValidationResult(valid=False, errors=errors, warnings=warnings)
+
         # Segment count
         if len(segments) == 0:
             errors.append("No segments in recipe")
@@ -73,6 +86,11 @@ class RecipeValidator:
         very_short_count = 0
         
         for i, segment in enumerate(segments):
+            # Each segment must be a JSON object before any key lookup.
+            if not isinstance(segment, dict):
+                errors.append(f"Segment {i}: must be a JSON object")
+                continue
+
             # Required fields
             if "length_mm" not in segment:
                 errors.append(f"Segment {i}: missing 'length_mm'")
@@ -80,10 +98,17 @@ class RecipeValidator:
             if "color" not in segment:
                 errors.append(f"Segment {i}: missing 'color'")
                 continue
-            
+
             length = segment["length_mm"]
             color = segment["color"]
-            
+
+            # Length must be numeric. A string or null here would raise on the
+            # comparisons below, so reject it explicitly. bool is a subclass of
+            # int and is not a valid length.
+            if isinstance(length, bool) or not isinstance(length, (int, float)):
+                errors.append(f"Segment {i}: 'length_mm' must be a number")
+                continue
+
             # Length validation
             if length <= 0:
                 errors.append(f"Segment {i}: invalid length {length}")
