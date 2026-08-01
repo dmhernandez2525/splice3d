@@ -157,7 +157,8 @@ void StateMachine::resume() {
 
     // Restore heater if we were in a heating/welding state
     if (_state == State::HEATING || _state == State::WELDING) {
-        setTargetTemperature(WELD_TEMP_PLA);
+        const TemperatureProfile profile = getActiveTemperatureProfile();
+        setTargetTemperature(profile.spliceTargetC);
         _heatingStarted = false;  // Force re-init of heating handler
     }
 
