@@ -9,7 +9,7 @@ import sys
 # Add parent to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from gcode_parser import GCodeParser, parse_gcode, Segment
+from gcode_parser import GCodeParser, parse_gcode
 
 
 class TestGCodeParser(unittest.TestCase):
@@ -115,6 +115,42 @@ class TestGCodeParser(unittest.TestCase):
         
         self.assertEqual(result.color_count, 3)
     
+    def test_leading_zero_move_commands(self):
+        """Test that G01/G00 (leading zero) moves are parsed as extrusion."""
+        lines = [
+            "G01 X10 Y10 E1.0 F1200",
+            "G01 X20 Y10 E2.0",
+            "G00 X20 Y20 E3.0",
+        ]
+        result = self.parser.parse_lines(lines)
+
+        self.assertEqual(len(result.segments), 1)
+        self.assertEqual(result.segments[0].length_mm, 3.0)
+
+    def test_move_without_space_before_param(self):
+        """Test that moves with no space before the first parameter parse."""
+        lines = [
+            "G1X10Y10E1.0",
+            "G1X20Y10E2.5",
+        ]
+        result = self.parser.parse_lines(lines)
+
+        self.assertEqual(len(result.segments), 1)
+        self.assertEqual(result.segments[0].length_mm, 2.5)
+
+    def test_g10_g11_not_treated_as_moves(self):
+        """Test that G10/G11 firmware retract commands are not counted."""
+        lines = [
+            "G1 X10 Y10 E5.0 F1200",
+            "G10 ; firmware retract",
+            "G11 ; firmware unretract",
+            "G1 X20 Y10 E6.0 F1200",
+        ]
+        result = self.parser.parse_lines(lines)
+
+        self.assertEqual(len(result.segments), 1)
+        self.assertEqual(result.segments[0].length_mm, 6.0)
+
     def test_empty_input(self):
         """Test handling empty input."""
         result = self.parser.parse_lines([])

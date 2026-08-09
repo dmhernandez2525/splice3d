@@ -1,7 +1,6 @@
 """Tests for F2.3 temperature control acceptance validation."""
 
 import unittest
-from pathlib import Path
 
 from postprocessor.temperature_control_validation import (
     generate_report,

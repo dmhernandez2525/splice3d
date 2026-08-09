@@ -109,6 +109,10 @@ class FirmwareSimulator:
     def _step(self):
         """Execute one state machine step."""
         if self.state == State.READY:
+            if not self.segments:
+                print("[DONE] No segments to process")
+                self.state = State.COMPLETE
+                return
             print("[START] Beginning splice sequence")
             self._transition_to_feeding()
         
@@ -146,7 +150,7 @@ class FirmwareSimulator:
         
         elif self.state == State.HEATING:
             temp_diff = self.config.weld_temp_c - self.current_temp
-            heat_time = temp_diff / self.config.heat_rate_c_s
+            heat_time = temp_diff / max(self.config.heat_rate_c_s, 0.1)
             
             print(f"[HEAT] Heating to {self.config.weld_temp_c}°C ({heat_time:.1f}s)")
             self._simulate_time(heat_time)
@@ -163,7 +167,7 @@ class FirmwareSimulator:
         
         elif self.state == State.COOLING:
             temp_diff = self.current_temp - self.config.cool_target_c
-            cool_time = temp_diff / self.config.cool_rate_c_s
+            cool_time = temp_diff / max(self.config.cool_rate_c_s, 0.1)
             
             print(f"[COOL] Cooling to {self.config.cool_target_c}°C ({cool_time:.1f}s)")
             self._simulate_time(cool_time)
@@ -185,7 +189,7 @@ class FirmwareSimulator:
             self.current_segment += 1
             
             if self.current_segment >= len(self.segments):
-                print(f"[DONE] All segments complete!")
+                print("[DONE] All segments complete!")
                 self.state = State.COMPLETE
             else:
                 print(f"\n--- Segment {self.current_segment + 1}/{len(self.segments)} ---")

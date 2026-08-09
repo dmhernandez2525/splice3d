@@ -17,6 +17,14 @@ StateMachine::StateMachine()
     , _heaterTimeout(0) {
     memset(_segments, 0, sizeof(_segments));
     memset(_errorMessage, 0, sizeof(_errorMessage));
+    _feedStarted = false;
+    _cutStarted = false;
+    _positionStarted = false;
+    _heatingStarted = false;
+    _weldStarted = false;
+    _coolingStarted = false;
+    _spoolingStarted = false;
+    _completionReported = false;
 }
 
 void StateMachine::init() {
@@ -143,10 +151,17 @@ void StateMachine::resume() {
     if (!_isPaused) {
         return;
     }
-    
+
     _isPaused = false;
     _state = _pausedState;
-    
+
+    // Restore heater if we were in a heating/welding state
+    if (_state == State::HEATING || _state == State::WELDING) {
+        const TemperatureProfile profile = getActiveTemperatureProfile();
+        setTargetTemperature(profile.spliceTargetC);
+        _heatingStarted = false;  // Force re-init of heating handler
+    }
+
     Serial.println(F("OK RESUMED"));
 }
 
@@ -178,10 +193,20 @@ void StateMachine::transitionTo(State newState) {
     DEBUG_PRINT(F("State: "));
     DEBUG_PRINT(getStateString());
     DEBUG_PRINT(F(" -> "));
-    
+
+    // Reset all handler flags on every state transition
+    _feedStarted = false;
+    _cutStarted = false;
+    _positionStarted = false;
+    _heatingStarted = false;
+    _weldStarted = false;
+    _coolingStarted = false;
+    _spoolingStarted = false;
+    _completionReported = false;
+
     _state = newState;
     _stateStartTime = millis();
-    
+
     DEBUG_PRINTLN(getStateString());
 }
 
@@ -214,125 +239,127 @@ void StateMachine::handleReady() {
 }
 
 void StateMachine::handleFeedingA() {
-    static bool feedStarted = false;
-    
-    if (!feedStarted) {
-        // Start feeding filament A
+    if (!_feedStarted) {
         SpliceSegment& seg = _segments[_currentSegment];
         feedFilament(0, seg.lengthMm);
-        feedStarted = true;
+        _feedStarted = true;
         DEBUG_PRINT(F("Feeding A: "));
         DEBUG_PRINT(seg.lengthMm);
         DEBUG_PRINTLN(F(" mm"));
     }
-    
-    // Check if feed complete
+
+    // Check for motor timeout
+    if (millis() - _stateStartTime > 30000UL) {
+        handleError("FEED_A_TIMEOUT");
+        return;
+    }
+
     if (isStepperIdle(0)) {
-        feedStarted = false;
         transitionTo(State::CUTTING);
     }
 }
 
 void StateMachine::handleFeedingB() {
-    static bool feedStarted = false;
-    
-    if (!feedStarted) {
+    if (!_feedStarted) {
         SpliceSegment& seg = _segments[_currentSegment];
         feedFilament(1, seg.lengthMm);
-        feedStarted = true;
+        _feedStarted = true;
         DEBUG_PRINT(F("Feeding B: "));
         DEBUG_PRINT(seg.lengthMm);
         DEBUG_PRINTLN(F(" mm"));
     }
-    
+
+    // Check for motor timeout
+    if (millis() - _stateStartTime > 30000UL) {
+        handleError("FEED_B_TIMEOUT");
+        return;
+    }
+
     if (isStepperIdle(1)) {
-        feedStarted = false;
+        _feedStarted = false;
         transitionTo(State::CUTTING);
     }
 }
 
 void StateMachine::handleCutting() {
-    static bool cutStarted = false;
+    // _cutStarted is now _cutStarted member
     
-    if (!cutStarted) {
+    if (!_cutStarted) {
         activateCutter();
-        cutStarted = true;
+        _cutStarted = true;
     }
     
     // Wait for cut to complete (servo movement time)
     if (millis() - _stateStartTime > 500) {
         deactivateCutter();
-        cutStarted = false;
+        _cutStarted = false;
         transitionTo(State::POSITIONING);
     }
 }
 
 void StateMachine::handlePositioning() {
-    static bool positionStarted = false;
+    // _positionStarted is now _positionStarted member
     
-    if (!positionStarted) {
+    if (!_positionStarted) {
         // Move cut end into weld position
         // This might involve a small retract then advance
         positionForWeld();
-        positionStarted = true;
+        _positionStarted = true;
     }
     
     // Wait for positioning complete
     if (millis() - _stateStartTime > 1000) {
-        positionStarted = false;
+        _positionStarted = false;
         transitionTo(State::HEATING);
     }
 }
 
 void StateMachine::handleHeating() {
-    static bool heatingStarted = false;
+    // _heatingStarted is now _heatingStarted member
     
-    if (!heatingStarted) {
-        // Set target temperature based on material (default PLA)
-        setTargetTemperature(WELD_TEMP_PLA);
-        _heaterTimeout = millis() + HEATER_TIMEOUT_MS;
-        heatingStarted = true;
+    if (!_heatingStarted) {
+        // Set target temperature using active material profile
+        const TemperatureProfile profile = getActiveTemperatureProfile();
+        setTargetTemperature(profile.spliceTargetC);
+        _heatingStarted = true;
     }
-    
-    // Check for timeout
-    if (millis() > _heaterTimeout) {
-        heatingStarted = false;
+
+    // Check for timeout (rollover-safe elapsed time pattern)
+    if (millis() - _stateStartTime > HEATER_TIMEOUT_MS) {
         handleError("HEATER_TIMEOUT");
         return;
     }
-    
+
     // Check if temperature reached
-    float currentTemp = getCurrentTemperature();
-    if (currentTemp >= WELD_TEMP_PLA - TEMP_HYSTERESIS) {
-        heatingStarted = false;
+    if (isTemperatureReached()) {
         transitionTo(State::WELDING);
     }
 }
 
 void StateMachine::handleWelding() {
-    static bool weldStarted = false;
+    // _weldStarted is now _weldStarted member
     
-    if (!weldStarted) {
+    if (!_weldStarted) {
         // Compress filaments together
         compressWeld(WELD_COMPRESSION_MM);
-        weldStarted = true;
+        _weldStarted = true;
     }
     
     // Hold at temperature for weld time
     if (millis() - _stateStartTime >= WELD_HOLD_TIME_MS) {
-        weldStarted = false;
+        _weldStarted = false;
         transitionTo(State::COOLING);
     }
 }
 
 void StateMachine::handleCooling() {
-    static bool coolingStarted = false;
+    // _coolingStarted is now _coolingStarted member
     
-    if (!coolingStarted) {
+    if (!_coolingStarted) {
         // Turn off heater, turn on fan
         setHeaterPower(0);
         setCoolingFan(true);
-        coolingStarted = true;
+        _coolingStarted = true;
     }
     
     // Wait for cooling (either time-based or temp-based)
@@ -342,24 +369,24 @@ void StateMachine::handleCooling() {
     
     if (tempReached || timeElapsed) {
         setCoolingFan(false);
-        coolingStarted = false;
+        _coolingStarted = false;
         transitionTo(State::SPOOLING);
     }
 }
 
 void StateMachine::handleSpooling() {
-    static bool spoolingStarted = false;
+    // _spoolingStarted is now _spoolingStarted member
     
-    if (!spoolingStarted) {
+    if (!_spoolingStarted) {
         // Wind the welded segment onto output spool
         SpliceSegment& seg = _segments[_currentSegment];
         windOutput(seg.lengthMm);
-        spoolingStarted = true;
+        _spoolingStarted = true;
     }
     
     // Check if spooling complete
     if (isWinderIdle()) {
-        spoolingStarted = false;
+        _spoolingStarted = false;
         transitionTo(State::NEXT_SEGMENT);
     }
 }
@@ -389,11 +416,11 @@ void StateMachine::handleNextSegment() {
 }
 
 void StateMachine::handleComplete() {
-    static bool completionReported = false;
+    // _completionReported is now _completionReported member
     
-    if (!completionReported) {
+    if (!_completionReported) {
         Serial.println(F("DONE"));
-        completionReported = true;
+        _completionReported = true;
     }
     
     // Reset for next recipe

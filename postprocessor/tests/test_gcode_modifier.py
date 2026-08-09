@@ -197,7 +197,7 @@ class TestModifyFile(unittest.TestCase):
             f.write("; Comment with unicode: °C\n")
             f.write("G28\n")
 
-        stats = self.modifier.modify_file(input_path, output_path)
+        self.modifier.modify_file(input_path, output_path)
         self.assertTrue(os.path.exists(output_path))
 
 

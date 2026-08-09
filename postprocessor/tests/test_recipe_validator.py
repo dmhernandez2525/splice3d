@@ -219,6 +219,55 @@ class TestRecipeValidator(unittest.TestCase):
         result = self.validator.validate(recipe)
         self.assertTrue(any("Missing 'version'" in w for w in result.warnings))
 
+    def test_recipe_not_a_dict(self):
+        """Test that a non-object recipe is rejected without crashing."""
+        result = self.validator.validate([{"length_mm": 100.0, "color": 0}])
+        self.assertFalse(result.valid)
+        self.assertTrue(any("must be a JSON object" in e for e in result.errors))
+
+    def test_segments_not_a_list(self):
+        """Test that a non-list 'segments' value is rejected."""
+        recipe = {"segments": {"length_mm": 100.0, "color": 0}}
+        result = self.validator.validate(recipe)
+        self.assertFalse(result.valid)
+        self.assertTrue(any("must be a list" in e for e in result.errors))
+
+    def test_segment_not_an_object(self):
+        """Test that a non-object segment is rejected without crashing."""
+        recipe = {
+            "segments": [
+                100.0,
+                {"length_mm": 200.0, "color": 1},
+            ]
+        }
+        result = self.validator.validate(recipe)
+        self.assertFalse(result.valid)
+        self.assertTrue(any("must be a JSON object" in e for e in result.errors))
+
+    def test_non_numeric_length(self):
+        """Test that a non-numeric length_mm is rejected without crashing."""
+        recipe = {
+            "segments": [
+                {"length_mm": "lots", "color": 0},
+                {"length_mm": 200.0, "color": 1},
+            ]
+        }
+        result = self.validator.validate(recipe)
+        self.assertFalse(result.valid)
+        self.assertTrue(any("must be a number" in e for e in result.errors))
+
+    def test_boolean_length_rejected(self):
+        """Test that a boolean length_mm is treated as non-numeric."""
+        recipe = {
+            "segments": [
+                {"length_mm": True, "color": 0},
+                {"length_mm": 200.0, "color": 1},
+            ]
+        }
+        result = self.validator.validate(recipe)
+        self.assertFalse(result.valid)
+        self.assertTrue(any("must be a number" in e for e in result.errors))
+
     def test_long_splice_time_warning(self):
         """Test warning for very long estimated splice time."""
         # Need enough segments to exceed 24 hours (24 * 3600 / 45 = 1920 segments)

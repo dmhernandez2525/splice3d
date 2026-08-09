@@ -8,7 +8,7 @@ import json
 from dataclasses import dataclass, asdict
 from typing import Optional
 
-from gcode_parser import ParseResult, Segment
+from postprocessor.gcode_parser import ParseResult, Segment
 
 
 @dataclass
@@ -215,8 +215,11 @@ class RecipeGenerator:
             recipe: SpliceRecipe to save
             filepath: Output file path
         """
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(self.to_json(recipe))
+        try:
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(self.to_json(recipe))
+        except IOError as e:
+            raise IOError(f"Failed to save recipe: {e}") from e
 
 
 def generate_recipe(parse_result: ParseResult, 

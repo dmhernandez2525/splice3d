@@ -102,6 +102,12 @@ void setup() {
     // Initialize state machine
     stateMachine.init();
 
+    // Enable hardware watchdog (4-second timeout)
+    // If loop() takes >4s without feeding, MCU resets automatically
+#if defined(IWDG)
+    IWatchdog.begin(4000000);  // STM32 IWDG: 4 seconds in microseconds
+#endif
+
     // Ready
     Serial.println(F("OK READY"));
 }
@@ -222,4 +228,9 @@ void loop() {
 
     // Update mfg ready
     updateMfgReady();
+
+    // Feed hardware watchdog (must be called every loop iteration)
+#if defined(IWDG)
+    IWatchdog.reload();
+#endif
 }

@@ -46,7 +46,9 @@ class GCodeParser:
     M600_PATTERN = re.compile(r'^M600', re.IGNORECASE)  # Color change command
     EXTRUSION_PATTERN = re.compile(r'E([-+]?\d*\.?\d+)', re.IGNORECASE)
     LAYER_PATTERN = re.compile(r';LAYER:(\d+)|;LAYER_CHANGE', re.IGNORECASE)
-    MOVE_PATTERN = re.compile(r'^G[01]\s', re.IGNORECASE)
+    # Match G0/G1 moves, tolerating a leading zero (G00/G01) and a parameter
+    # that immediately follows the command with no separating space (G1X10).
+    MOVE_PATTERN = re.compile(r'^G0*[01](?=\s|$|[A-Z])', re.IGNORECASE)
     
     def __init__(self, filament_diameter: float = 1.75):
         """

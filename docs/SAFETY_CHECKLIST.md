@@ -43,6 +43,8 @@ Complete ALL items before applying power.
 - [ ] **Correct board selected** - platformio.ini matches your board
 - [ ] **Pin mappings verified** - config.h matches your wiring
 - [ ] **Safety limits set** - MAX_TEMP appropriate for material
+- [ ] **TMC2209 communication verified** - Check serial output for TMC init success
+- [ ] **Watchdog timer** - Not yet implemented; do not leave unattended for extended periods
 
 ---
 
@@ -118,9 +120,14 @@ CUT
 
 If anything goes wrong:
 
-1. **Turn off PSU** (main power switch)
-2. Or send: `ABORT`
+1. **Turn off PSU** (main power switch) - preferred, immediate
+2. Or send: `ABORT` - stops motors and heater, turns on cooling fan
 3. Or unplug USB (triggers emergency stop in firmware)
+
+**Note**: After emergency shutdown, the firmware locks outputs permanently.
+A full power cycle (not just USB reconnect) is required to resume operation.
+Motor current may remain at run level (800mA) after emergency stop until
+power cycle, which can cause motor heating.
 
 ### After Power-Off
 
